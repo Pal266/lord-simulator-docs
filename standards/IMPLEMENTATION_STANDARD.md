@@ -136,7 +136,42 @@ The implementation agent MUST NOT implement the proposed log entry
 unless the specification is subsequently updated to explicitly require
 it.
 
-## 5. Project Build Documentation
+## 5. Settings
+
+Every setting in the Lord Simulator settings object MUST have a default
+value.
+
+The default value for every setting MUST be explicitly defined by the
+specification that introduces that setting.
+
+Every setting represented in the persistent settings file is required.
+
+When loading settings, if a required setting cannot be read or contains
+an invalid value, the settings system MUST use that setting's defined
+default value.
+
+Settings MUST be loaded and reloaded from persistent storage as a
+complete settings state. Individual settings MUST NOT be independently
+reloaded from persistent storage.
+
+Reading settings from persistent storage MUST always load all settings
+as one complete state.
+
+Runtime changes to individual settings MUST modify the in-memory
+settings object and MUST NOT cause an individual setting to be
+independently reloaded from persistent storage.
+
+The persistent settings file MUST represent the complete persistent
+settings object.
+
+Whenever the persistent settings file is created or saved, all settings
+MUST be written, including settings whose current values equal their
+defined default values.
+
+Adding a new setting to the settings object or persistent settings file
+MUST be explicitly required by a specification.
+
+## 6. Project Build Documentation
 
 The implementation agent is responsible for maintaining `README.md` in
 the project root.
@@ -150,7 +185,7 @@ prerequisites, tooling, or any other step required to produce the
 installation file, the implementation agent MUST update `README.md` as
 part of the same work.
 
-## 6. Git Branches
+## 7. Git Branches
 
 The implementation agent MUST NOT work directly on the `development` or
 `master` branches.

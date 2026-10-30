@@ -87,17 +87,13 @@ derived unambiguously from the specification or existing project, the
 implementation agent MUST NOT invent it. The specification is blocked
 until the missing input is provided or clarified.
 
-The implementation agent MAY create derived technical assets when they
-are required by the implementation and do not introduce a design or
+The implementation agent MAY create derived technical assets when
+required by implementation and when doing so introduces no design or
 creative decision.
 
-Examples of derived technical assets MAY include:
-
--   generated collision data;
--   engine metadata;
--   generated serialization data;
--   internal lookup data;
--   engine-specific derived resources.
+Examples include generated collision data, engine metadata, generated
+serialization data, internal lookup data, and engine-specific derived
+resources.
 
 ## Specification Structure
 
@@ -164,29 +160,27 @@ Examples:
 -   `Settings.Language`
 -   `Building.Farm.Description`
 
-Localization keys MUST describe the semantic purpose or context of the
-text. They MUST NOT be based on a widget class name, source file, UI
-position, row number, or another incidental implementation detail.
+Localization keys MUST describe semantic purpose/context and MUST NOT be
+based on widget class, source file, UI position, row number, or another
+incidental implementation detail.
 
 A localization key MAY contain any number of semantic hierarchy levels
 required to identify its purpose.
 
 The native Lord Simulator culture is `en`. A specification MUST NOT
-remove or replace the native `en` culture unless it explicitly changes
-the project's localization architecture and all affected localization
-requirements.
+remove or replace native `en` unless it explicitly changes the project's
+localization architecture and all affected localization requirements.
 
 Adding or removing a supported culture MUST be explicitly required by a
-specification. A specification that adds a supported culture MUST define
-the exact culture identifier and MUST provide or identify all
-localization inputs and resources required to implement that culture,
-including the expected native display name and required translations or
-translation assets.
+specification. A specification adding a supported culture MUST define
+the exact culture identifier and provide or identify all localization
+inputs/resources required to implement it, including expected native
+display name and required translations or translation assets.
 
-A specification that introduces user-facing textual content such as
-visible UI text, tooltips, accessibility text, messages, descriptions,
-or other player-facing textual metadata MUST identify which text is
-localizable and provide the required localization inputs.
+A specification introducing user-facing textual content such as visible
+UI text, tooltips, accessibility text, messages, descriptions, or other
+player-facing textual metadata MUST identify which text is localizable
+and provide the required localization inputs.
 
 A specification MUST NOT require the implementation agent to create
 additional user-facing localization entries, translations, tooltips,
@@ -238,10 +232,10 @@ Specifications MUST be ordered so they can be implemented from top to
 bottom without being blocked by a specification appearing later in the
 list.
 
-If one specification introduces functionality required by another
-specification, the specification introducing that functionality MUST
-appear earlier in the list.
+If one specification introduces functionality required by another, the
+specification introducing that functionality MUST appear earlier in the
+list.
 
-A later specification MAY assume that functionality introduced earlier
-in the Epic already exists in the codebase, but it MUST NOT reference or
-link to the earlier specification.
+A later specification MAY assume functionality introduced earlier in the
+Epic already exists in the codebase, but it MUST NOT reference or link
+to the earlier specification.

@@ -17,8 +17,10 @@ responsible for localized text resolution through `FText`, String
 Tables, culture handling, and compiled localization resources.
 
 The project uses a canonical Unreal Localization Target named
-`LordSimulator` and a canonical Unreal String Table asset with the
-identity `LordSimulator`.
+`LordSimulator` and a canonical Unreal String Table with String Table ID
+`LordSimulator`. These are distinct Unreal localization concepts that
+intentionally share the same canonical project identifier. The canonical
+String Table asset is located at `/Game/Localization/ST_LordSimulator`.
 
 English (`en`) is the native/source culture, authoritative fallback
 culture, and default configured language. Initially, `en` is the only
@@ -27,13 +29,14 @@ supported culture.
 The persistent `Language` setting determines both the Unreal language
 and locale. The framework distinguishes the configured language stored
 in settings from the language successfully active during the current
-runtime session.
+runtime session. Active language may be unavailable when no culture has
+been successfully applied during the session.
 
-This specification establishes localization infrastructure only. It does
-not introduce placeholder user-facing localization entries, additional
-supported cultures, a language-selection UI, custom translation lookup,
-Blueprint localization APIs, runtime localization-resource reloading, or
-automated localization tests.
+This specification establishes localization infrastructure and automated
+localization tests. It does not introduce placeholder user-facing
+localization entries, additional production-supported cultures, a
+language-selection UI, custom translation lookup, Blueprint localization
+APIs, or runtime localization-resource reloading.
 
 # Requirements
 
@@ -43,7 +46,7 @@ automated localization tests.
     custom translation parser, custom localization file format, custom
     translation lookup system, or parallel translation engine.
 
-2.  Configure one canonical Unreal Localization Target named
+2.  Configure one canonical Unreal Localization Target named exactly
     `LordSimulator`.
 
 3.  Configure the `LordSimulator` Localization Target with:
@@ -54,402 +57,508 @@ automated localization tests.
     -   standard Unreal localization configuration and generated
         localization resources.
 
-4.  Create one canonical Unreal String Table asset with the identity
+4.  Create one canonical Unreal String Table asset at
+    `/Game/Localization/ST_LordSimulator` with String Table ID exactly
     `LordSimulator`.
 
-5.  The canonical String Table is the default location for future Lord
+5.  The canonical Localization Target named `LordSimulator` and
+    canonical String Table ID `LordSimulator` are distinct Unreal
+    localization concepts that intentionally use the same canonical
+    project identifier.
+
+6.  The canonical String Table is the default location for future Lord
     Simulator localizable text unless a future specification explicitly
     requires another table.
 
-6.  Do not add placeholder localization entries merely to populate or
+7.  Do not add placeholder localization entries merely to populate or
     test the String Table.
 
-7.  Localization resources must use Unreal Engine's standard
+8.  Localization resources must use Unreal Engine's standard
     localization target/resource structure and compiled localization
     resources. Do not introduce a separate Lord Simulator
     translation-resource format.
 
-8.  `en` is a required localization invariant. Successful localization
+9.  `en` is a required localization invariant. Successful localization
     initialization requires the native culture to be `en` and `en` to be
     a Lord Simulator-supported culture.
 
 ## Supported cultures and metadata
 
-9.  The Lord Simulator Localization Target/configuration is the
-    authoritative source of supported cultures. Do not maintain a second
-    hard-coded supported-culture registry.
+10. The cultures explicitly configured for the canonical `LordSimulator`
+    Unreal Localization Target are the authoritative source of Lord
+    Simulator-supported cultures. The implementation must derive
+    supported cultures from the Unreal localization target/configuration
+    and must not maintain a separate hard-coded or project-owned
+    supported-culture registry.
 
-10. Supported cultures are read-only runtime configuration.
+11. A culture having localization resources discoverable by Unreal does
+    not by itself make that culture Lord Simulator-supported. Only
+    cultures explicitly configured for the `LordSimulator` Localization
+    Target are supported.
 
-11. Supported-culture identifiers are exact and case-sensitive. Do not
-    normalize, truncate, case-convert, or automatically map requested
-    identifiers.
+12. Supported cultures are read-only runtime configuration.
 
-12. Regional or otherwise specific Unreal culture identifiers are
-    permitted when explicitly configured by a future specification. For
-    example, `pt-BR` and `pt` are distinct supported-culture values
-    unless both are explicitly configured.
+13. Supported-culture identifiers and `Language` values are validated by
+    Lord Simulator using exact, case-sensitive matching against cultures
+    explicitly configured as supported. Lord Simulator must not
+    normalize, truncate, case-convert, automatically map, or use
+    parent-culture matching to convert an unsupported requested
+    identifier into a supported `Language` value.
 
-13. Expose supported cultures through the Lord Simulator localization
-    framework in deterministic project-configuration order. Do not sort
-    them independently by culture identifier or display name.
+14. Regional or otherwise specific Unreal culture identifiers are
+    permitted when explicitly configured. For Lord Simulator
+    supported-language validation, `pt-BR` and `pt` are distinct values;
+    supporting one does not make the other a supported `Language` value.
 
-14. Obtain each supported culture's native display name from Unreal
+15. The exact-match policy applies to Lord Simulator supported-culture
+    validation and configured language state. It must not disable,
+    replace, or interfere with Unreal Engine's normal
+    localization-resource resolution and fallback behavior after a
+    supported culture has been selected.
+
+16. Expose all Lord Simulator-supported cultures without duplicates.
+
+17. Obtain each supported culture's native display name from Unreal
     Engine internationalization/culture facilities. Do not maintain a
     separate project-owned culture-display-name translation table.
 
-15. Initially the supported-language metadata is:
+18. Initially the supported-language metadata is:
 
 -   culture identifier: `en`;
 -   native display name expected from Unreal: `English`.
 
-16. If required supported-culture information cannot be reliably
+19. If required supported-culture information cannot be reliably
     discovered during initialization, supported-culture discovery is
     considered failed. Do not substitute a hard-coded supported-culture
     list.
 
 ## Application-wide localization state
 
-17. Maintain one authoritative application-wide Lord Simulator
+20. Maintain one authoritative application-wide Lord Simulator
     localization state.
 
-18. The localization framework must expose, without requiring exact C++
+21. The localization framework must expose, without requiring exact C++
     class or function names:
 
 -   supported languages and their native display names;
 -   configured language;
--   active language;
+-   active language, including an unambiguous indication when no
+    language is successfully active;
 -   validation of whether a culture is supported;
 -   an application-wide language-change operation;
 -   unambiguous success/failure from a language-change request.
 
-19. Supported-language entries contain stable culture metadata only.
+22. Supported-language entries contain stable culture metadata only.
     Configured/active flags must not be stored as duplicate mutable
     state inside each supported-language entry.
 
-20. Configured language means the value in the complete in-memory
-    settings object.
+23. Configured language means the `Language` value in the complete
+    in-memory settings object.
 
-21. Active language means the culture successfully applied by the Lord
-    Simulator localization framework for the current runtime session.
+24. Active language represents the culture successfully applied by the
+    Lord Simulator localization framework for the current runtime
+    session. Active language may be unavailable when no culture has been
+    successfully applied by the framework during the current session.
 
-22. Active language is runtime-only state and must not be persisted.
+25. When no language is successfully active, the framework must
+    represent active language as unavailable state rather than using a
+    synthetic culture identifier such as `none`, `unknown`, `invalid`,
+    or `unavailable`.
 
-23. The localization framework manages language policy and culture state
+26. Active language is runtime-only state and must not be persisted.
+
+27. The localization framework manages language policy and culture state
     only. Actual localized text lookup/resolution must use Unreal Engine
     `FText` and the canonical String Table/localization resources
     directly. Do not add a Lord Simulator translation-lookup API.
 
-24. Do not require Blueprint-callable localization APIs in this
+28. Do not require Blueprint-callable localization APIs in this
     specification.
 
-## Language setting
+## Language setting and settings integration
 
-25. Add a persistent setting named exactly `Language`.
+29. Add a persistent setting named exactly `Language`.
 
-26. `Language` is case-sensitive.
+30. `Language` is case-sensitive.
 
-27. The default `Language` value is exactly `en`.
+31. The default `Language` value is exactly `en`.
 
-28. `Language` is the only localization-related player setting
+32. `Language` is the only localization-related player setting
     introduced by this specification. Do not add separate
     native-language, fallback-language, or locale settings.
 
-29. A `Language` value is valid when:
+33. A `Language` value is valid when:
 
 -   it is exactly `en`; or
 -   supported-culture discovery succeeded and the value exactly matches
     a culture explicitly configured as supported by Lord Simulator.
 
-30. If supported-culture discovery fails, `en` remains valid because it
+34. If supported-culture discovery fails, `en` remains valid because it
     is the fixed native/default invariant. Any other `Language` value
     cannot be verified as supported and is invalid.
 
-31. If localization initialization fails after supported-culture
+35. If localization initialization fails after supported-culture
     discovery succeeded, discovered supported cultures remain valid
     configuration values even though they cannot be applied during that
     session.
 
-32. If `Language` is missing while loading settings:
+36. If `Language` is missing while loading settings:
 
 -   use `en` in the complete in-memory settings object;
 -   log in Default mode exactly:
     `Setting 'Language' is missing. Default value 'en' will be used.`
 
-33. If `Language` has an invalid value while loading settings:
+37. If `Language` has an invalid value while loading settings:
 
 -   use `en` in the complete in-memory settings object;
 -   log in Default mode exactly:
     `Setting 'Language' has an invalid value. Default value 'en' will be used.`
 
-34. Existing settings-framework parsing, duplicate-setting,
-    complete-state loading, comparison, and persistence behavior applies
-    to `Language`.
+38. `Language` must participate in the existing complete settings state
+    in the same manner as other persistent settings. The required
+    integration contract is:
 
-35. When a complete settings file is created or saved, it must include
-    `Language` together with all other persistent settings, even when
-    `Language=en`.
+-   persistent settings are loaded as one complete settings state rather
+    than loading `Language` independently;
+-   duplicate `Language` entries are handled by the existing settings
+    framework's duplicate-setting behavior;
+-   a missing or invalid `Language` value is replaced in the complete
+    in-memory settings state with its defined default `en`;
+-   runtime changes to `Language` modify the complete in-memory settings
+    state and do not independently reload settings from persistent
+    storage;
+-   saving settings writes the complete persistent settings state,
+    including `Language` even when its value is `en`;
+-   settings are compared using the existing complete-state comparison
+    behavior used to determine whether persistence is required;
+-   do not introduce a separate localization settings file, independent
+    `Language` persistence mechanism, or special immediate-save path.
 
-36. Missing or invalid persisted `Language` state is repaired by the
+39. The localization framework must not independently read `Language`
+    from `settings.ini`. Startup language application must consume the
+    validated/defaulted `Language` value from the complete in-memory
+    settings object.
+
+40. The localization framework must not independently persist
+    `Language`. A successful runtime language change updates `Language`
+    through the complete in-memory settings state, and the existing
+    settings persistence lifecycle is responsible for writing it.
+
+41. Missing or invalid persisted `Language` state is repaired by the
     normal complete-settings shutdown comparison/save behavior. Do not
-    introduce a special immediate write for this setting.
+    introduce a special immediate write.
 
-37. Do not automatically select the operating-system language. On a
+42. Do not automatically select the operating-system language. On a
     fresh installation the configured language is `en` regardless of
     Windows language.
 
 ## Startup lifecycle
 
-38. Localization initialization is a single-attempt, idempotent
+43. Localization initialization is a single-attempt, idempotent
     application-session lifecycle.
 
-39. The first initialization request performs initialization. After
+44. The first initialization request performs initialization. After
     successful initialization, later initialization requests are
     successful no-ops and must not recreate state, reset language state,
     or emit another initialization lifecycle log sequence.
 
-40. If the first initialization attempt fails, the framework remains in
+45. If the first initialization attempt fails, the framework remains in
     the failed state for the rest of that application session. Do not
     automatically retry initialization.
 
-41. Startup ordering must be:
+46. Startup ordering must be:
 
-42. initialize project logging in Default mode;
+47. initialize project logging in Default mode;
 
-43. initialize the Lord Simulator localization framework;
+48. initialize the Lord Simulator localization framework;
 
-44. start settings loading;
+49. start settings loading;
 
-45. load the complete settings object;
+50. load and validate the complete settings object, including
+    `Language`;
 
-46. apply `LogMode`;
+51. apply `LogMode`;
 
-47. if localization initialization succeeded, apply configured
-    `Language` as both Unreal language and locale;
+52. if localization initialization succeeded, process configured
+    `Language` as both Unreal language and locale, including the
+    required native fallback behavior;
 
-48. complete settings loading;
+53. complete settings loading;
 
-49. mark the localization startup phase complete;
+54. establish the resulting runtime localization state;
 
-50. continue application startup.
+55. mark the localization startup phase complete;
 
-51. Systems that create, cache, format, or display localizable
-    user-facing text must not perform that work before the localization
-    startup phase is complete.
+56. continue application startup.
 
-52. Localization failure is non-fatal. Once settings loading and the
-    applicable localization startup steps are complete, the rest of the
-    application may continue.
+57. The localization startup phase completes after localization
+    initialization has reached its session result, the complete settings
+    state has been loaded and validated, configured `Language` has been
+    processed when the localization framework is available, and the
+    resulting runtime localization state---including fallback or
+    unavailable active-language state---has been established.
 
-53. On localization initialization start, log in Default mode exactly:
+58. Localization startup completion does not require localization
+    initialization or language application to have succeeded. Failure
+    states are valid completed startup states.
+
+59. Systems that create, cache, format, or display localizable
+    user-facing text must not perform localization-dependent
+    initialization before the localization startup phase is complete.
+
+60. Localization initialization or language-application failure must not
+    prevent the localization startup phase from completing or
+    permanently block unrelated application initialization.
+
+61. On localization initialization start, log in Default mode exactly:
     `Localization initialization started.`
 
-54. Successful localization initialization requires, at minimum:
+62. Successful localization initialization requires, at minimum:
 
 -   the canonical Lord Simulator localization runtime resources required
     by the framework are available;
--   the canonical `LordSimulator` String Table is available;
+-   the canonical String Table asset
+    `/Game/Localization/ST_LordSimulator`, registered with String Table
+    ID `LordSimulator`, is available;
 -   the native culture invariant is `en`;
 -   `en` is supported;
 -   the supported-culture information required by the framework can be
     obtained.
 
-46. On successful localization initialization, log in Default mode
+53. On successful localization initialization, log in Default mode
     exactly: `Localization initialization completed.`
 
-47. On localization initialization failure, log in Default mode exactly:
+54. On localization initialization failure, log in Default mode exactly:
     `Localization initialization failed. Native language 'en' will be used where available.`
 
-48. Do not log `Localization initialization completed.` when
+55. Do not log `Localization initialization completed.` when
     initialization failed.
 
-49. If localization initialization fails:
+56. If localization initialization fails:
 
--   continue startup;
--   continue normal settings loading;
--   retain any supported-culture metadata that was successfully
-    discovered before the later failure;
--   do not attempt the startup language-application operation through
-    the Lord Simulator localization framework;
+-   continue startup and normal settings loading;
+-   retain supported-culture metadata successfully discovered before the
+    later failure;
+-   do not attempt startup language application through the failed Lord
+    Simulator localization framework;
 -   do not change a valid configured `Language` solely because
-    initialization failed.
+    initialization failed;
+-   establish the resulting runtime localization state and complete the
+    localization startup phase.
 
-50. Do not initialize or cycle through every supported culture during
-    normal startup. Only the configured language is applied.
+57. Do not initialize or cycle through every supported culture during
+    normal startup. Only the configured language and, if required by
+    failure, the native `en` fallback are applied.
 
 ## Startup language application
 
-51. Applying `Language` must set both Unreal Engine language and locale
+58. Applying `Language` must set both Unreal Engine language and locale
     together using Unreal Engine's standard facilities.
 
-52. When the configured language is successfully applied during startup:
+59. When the configured language is successfully applied during startup:
 
 -   set active language to that culture;
 -   retain the same configured language;
 -   log in Default mode exactly: `Language '<culture>' was applied.`
-    where `<culture>` is the exact applied culture identifier.
 
-53. If a configured language is valid but Unreal cannot apply it during
-    startup:
+60. If a valid configured language other than `en` cannot be applied
+    during startup:
 
--   retain the configured `Language` in the in-memory settings object;
--   use native `en` for the current runtime session;
--   active language becomes `en` where Unreal/native localization
-    remains available;
--   do not replace the configured value with `en`;
--   do not persist `en` merely because application failed;
+-   retain configured `Language`;
+-   explicitly attempt to apply native `en` as both Unreal language and
+    locale;
+-   do not replace or persist configured `Language` as `en`.
+
+61. If the `en` fallback in requirement 60 succeeds:
+
+-   active language becomes `en`;
 -   log in Default mode exactly:
     `Language '<culture>' could not be applied. Native language 'en' will be used for the current session.`
+-   do not emit an additional fallback-success Lord Simulator log.
 
-54. A valid startup language-application failure is a runtime/resource
+62. If the configured language is `en` and cannot be applied, do not
+    attempt `en` a second time as fallback.
+
+63. If configured `en` cannot be applied, or a non-native configured
+    language fails and the subsequent `en` fallback also fails:
+
+-   retain configured `Language`;
+-   active language is unavailable;
+-   continue startup;
+-   log in Default mode exactly:
+    `Language '<culture>' could not be applied and native language 'en' could not be activated. Localization is unavailable for the current session.`
+
+64. Only one startup language-application failure message from
+    requirements 61 or 63 is emitted for a failed configured-language
+    application.
+
+65. A valid startup language-application failure is a runtime/resource
     failure, not an invalid-setting condition.
 
 ## Runtime language changes
 
-55. Normal runtime feature code, including C++ and Blueprints, must not
+66. Normal runtime feature code, including C++ and Blueprints, must not
     directly modify the in-memory `Language` setting or Unreal Engine's
     active language/locale independently. Runtime application-wide
     language changes must go through the Lord Simulator localization
     framework.
 
-56. A runtime language-change request must validate the requested
+67. A runtime language-change request must validate the requested
     culture against Lord Simulator-supported cultures before attempting
     to apply it.
 
-57. If a runtime request uses an unsupported culture:
+68. If localization framework initialization failed, any runtime
+    language-change request:
+
+-   is rejected;
+-   does not attempt an Unreal culture change through the Lord Simulator
+    framework;
+-   leaves configured and active state unchanged;
+-   returns failure;
+-   uses the applicable runtime application-failure log from
+    requirements 73 or 74.
+
+69. Successful framework initialization followed by failure to establish
+    an active language does not disable later runtime language-change
+    requests. A later supported request may attempt application
+    normally.
+
+70. If a runtime request uses an unsupported culture:
 
 -   do not call Unreal to apply it;
--   do not change configured language;
--   do not change active language;
+-   do not change configured or active language;
 -   return failure;
--   log in Default mode exactly:
+-   if an active language exists, log exactly:
     `Language '<requested>' is not supported. Language '<active>' will remain active.`
-    where `<requested>` is the exact requested identifier and `<active>`
-    is the language actually remaining active.
+-   if active language is unavailable, log exactly:
+    `Language '<requested>' is not supported. No language is currently active.`
 
-58. If the requested runtime language is already both configured and
+71. If the requested runtime language is already both configured and
     active:
 
 -   treat the request as a successful no-op;
 -   return success;
 -   do not call Unreal unnecessarily;
--   do not refresh UI unnecessarily;
--   do not emit `Language '<culture>' was applied.` or another
-    localization log.
+-   do not perform a custom UI refresh;
+-   do not emit a localization log.
 
-59. For a supported runtime language change that differs from current
-    configured/active state:
+72. For a supported runtime language change that is not the no-op case:
 
 -   attempt to apply the requested culture as both Unreal language and
     locale;
--   only after successful application update configured `Language`;
+-   only after successful application update configured `Language`
+    through the complete in-memory settings state;
 -   set active language to the successfully applied culture;
--   allow Unreal's normal localization-aware `FText` behavior to update
-    existing properly implemented localized UI;
+-   rely on Unreal Engine's standard localization-aware `FText`
+    behavior;
 -   return success;
 -   log in Default mode exactly: `Language '<culture>' was applied.`
 
-60. A successful runtime language change modifies the complete in-memory
-    settings object but does not immediately write `settings.ini`.
-    Normal shutdown comparison/save behavior persists the change.
+73. If a supported runtime language change cannot be applied while an
+    active language exists:
 
-61. If a supported runtime language change cannot be applied:
-
--   reject the requested change;
--   retain the previous configured language;
--   retain the previous successfully active language;
+-   retain previous configured and active language;
 -   do not persist the failed requested language;
 -   return failure;
 -   log in Default mode exactly:
     `Language '<requested>' could not be applied. Language '<active>' will remain active.`
 
-62. If a runtime language change is requested after localization
-    initialization failed:
+74. If a supported runtime language change cannot be applied while
+    active language is unavailable:
 
--   reject the request;
--   do not attempt an Unreal culture change through the Lord Simulator
-    framework;
--   retain configured language;
--   retain the language actually active;
+-   retain previous configured language;
+-   keep active language unavailable;
+-   do not persist the failed requested language;
 -   return failure;
--   use the runtime application-failure log:
-    `Language '<requested>' could not be applied. Language '<active>' will remain active.`
+-   log in Default mode exactly:
+    `Language '<requested>' could not be applied. No language is currently active.`
 
-63. Runtime language changes require no application restart, mandatory
+75. A successful runtime language change from an
+    unavailable-active-language state sets the requested culture as both
+    configured and active language and follows the normal persistence
+    lifecycle.
+
+76. A successful runtime language change modifies the complete in-memory
+    settings object but does not immediately write `settings.ini`.
+    Normal shutdown comparison/save behavior persists the change.
+
+77. Runtime language changes require no application restart, mandatory
     confirmation dialog, pending-language state, or
     localization-framework-level Apply operation.
 
-64. Do not introduce a custom Lord Simulator localization refresh/event
-    system. Properly implemented localized UI must use Unreal
-    localization-aware `FText` behavior.
+78. A successful runtime language change must rely on Unreal Engine's
+    standard localization-aware `FText` behavior. The localization
+    framework must not introduce a custom Lord Simulator UI-refresh or
+    localization-change event system to compensate for UI that does not
+    preserve localization-aware text behavior.
 
 ## Localization fallback and content behavior
 
-65. Native English (`en`) is the authoritative source/fallback culture.
+79. Native English (`en`) is the authoritative source/fallback culture.
 
-66. A supported non-native culture is not required to have 100%
+80. A supported non-native culture is not required to have 100%
     translation coverage unless a future specification explicitly
     requires a coverage level or particular translations.
 
-67. Missing translations in a supported non-native culture must rely on
+81. Missing translations in a supported non-native culture must rely on
     Unreal Engine's native/source fallback behavior.
 
-68. Every future Lord Simulator localization entry must have native
+82. Every future Lord Simulator localization entry must have native
     English source text as required by the project standards.
 
-69. Do not manufacture runtime text when the underlying localization
+83. Do not manufacture runtime text when the underlying localization
     entry/source/reference is missing.
 
-70. Do not substitute localization keys themselves as player-facing
+84. Do not substitute localization keys themselves as player-facing
     fallback text.
 
-71. Do not add project logging for every localization lookup or normal
+85. Do not add project logging for every localization lookup or normal
     missing-translation fallback.
 
-72. Project logs and developer diagnostics remain non-localized and must
+86. Project logs and developer diagnostics remain non-localized and must
     not change with the active game language.
 
 ## Localization content and key policy
 
-73. Future localizable Lord Simulator text uses the canonical
-    `LordSimulator` String Table unless explicitly required otherwise.
+87. Future localizable Lord Simulator text uses the canonical String
+    Table ID `LordSimulator` unless explicitly required otherwise.
 
-74. Localization keys are semantic, hierarchical, case-sensitive
+88. Localization keys are semantic, hierarchical, case-sensitive
     PascalCase segments separated by periods, for example:
 
 -   `MainMenu.NewGame`
 -   `Settings.Language`
 -   `Building.Farm.Description`
 
-75. Localization keys identify semantic purpose/context rather than
+89. Localization keys identify semantic purpose/context rather than
     current English wording, widget classes, source files, or UI
     positions.
 
-76. Localization keys must be unique within the canonical Lord Simulator
+90. Localization keys must be unique within the canonical Lord Simulator
     localization resources.
 
-77. An existing key may be reused only for the same semantic
+91. An existing key may be reused only for the same semantic
     text/meaning.
 
-78. Existing localization keys must not be renamed, removed, or
+92. Existing localization keys must not be renamed, removed, or
     repurposed unless explicitly required by a future specification.
 
-79. Changing native English wording while preserving semantic meaning
+93. Changing native English wording while preserving semantic meaning
     does not by itself require a new key.
 
-80. Feature implementations must not invent localization keys, native
+94. Feature implementations must not invent localization keys, native
     English source text, translations, tooltips, accessibility text, or
     other user-facing localization content omitted from the implementing
     specification.
 
-81. Dynamic localized user-facing text and culture-sensitive values must
+95. Dynamic localized user-facing text and culture-sensitive values must
     use Unreal Engine localization-aware `FText` formatting facilities
     rather than runtime-generated keys or English-specific string
     concatenation/formatting.
 
 ## Resource and packaging workflow
 
-82. Establish the standard Unreal Engine 5.8 localization workflow for
+96. Establish the standard Unreal Engine 5.8 localization workflow for
     the `LordSimulator` Localization Target:
 
 -   manage the target through Unreal's standard localization
@@ -459,238 +568,365 @@ automated localization tests.
 -   compile localization resources;
 -   cook/package required resources for Windows Shipping.
 
-83. Do not add custom localization build scripts, a custom translation
+97. Do not add custom localization build scripts, a custom translation
     compiler, or custom command-line localization automation in this
     specification.
 
-84. Localization data/resources must remain editable through the Unreal
+98. Localization data/resources must remain editable through the Unreal
     localization workflow without requiring C++ source changes merely to
     change translation wording.
 
-85. Windows Shipping builds must include the Lord Simulator localization
-    resources and internationalization data required by:
+99. Windows Shipping builds must include Lord Simulator localization
+    resources and internationalization data required by native `en` and
+    every culture explicitly configured as supported.
 
+100. Do not intentionally package Lord Simulator localization resources
+     for cultures not configured as supported. Unreal Engine shared
+     internationalization data required internally is not prohibited.
+
+101. Localization behavior must work in Editor/PIE and in a packaged
+     Windows Shipping build where applicable.
+
+102. The development/package validation workflow must verify every
+     configured supported culture can be recognized as supported,
+     provide its native display name, be activated as both Unreal
+     language and locale, access required packaged localization
+     resources, use native English fallback for untranslated entries,
+     and return to `en` successfully.
+
+103. Localization validation must detect
+     structural/resource/configuration failures supported by Unreal's
+     standard localization tooling. Incomplete translation coverage for
+     a supported non-native culture is permitted unless explicitly
+     prohibited by a future specification.
+
+## Automated localization tests
+
+104. Implement automated C++ tests for the Lord Simulator localization
+     framework using Unreal Engine's built-in automation testing
+     facilities. Do not introduce an external test framework or testing
+     dependency.
+
+105. Automated tests must deterministically cover, where applicable:
+
+-   supported-culture discovery from the canonical target/configuration
+    and absence of duplicate cultures;
+-   exact, case-sensitive Lord Simulator culture validation;
+-   default, missing, and invalid `Language` behavior;
+-   configured, active, and unavailable-active-language state;
+-   successful startup language application;
+-   configured non-native language failure followed by successful `en`
+    fallback;
+-   configured non-native language failure followed by failed `en`
+    fallback;
+-   failed configured `en` without a second `en` attempt;
+-   initialization single-attempt/idempotent behavior;
+-   successful runtime language change;
+-   already-configured-and-active no-op;
+-   unsupported runtime request;
+-   runtime application failure with an active language and with active
+    language unavailable;
+-   recovery from unavailable active language through a later successful
+    runtime request;
+-   rejection of runtime requests after localization initialization
+    failure;
+-   successful runtime changes update in-memory settings without
+    immediate persistence;
+-   localization does not independently load or save `Language`;
+-   localization startup phase completes on both success and
+    localization failure;
+-   exact required Lord Simulator log messages for tested paths.
+
+106. Environment-dependent localization operations, including Unreal
+     culture application, must have an internal test seam sufficient for
+     automated tests to deterministically simulate required success and
+     failure outcomes. The testability mechanism must not create a
+     second production localization implementation, supported-culture
+     registry, or fallback system. This requirement does not prescribe a
+     particular C++ interface, class, mocking library, or implementation
+     pattern.
+
+107. Automated tests must not add fake production-supported cultures,
+     placeholder production localization entries, or production-only
+     test localization resources merely to create test scenarios.
+
+108. Automated configuration/resource tests must verify the actual
+     project configuration where technically testable, including:
+
+-   canonical Localization Target `LordSimulator`;
 -   native culture `en`;
--   every culture explicitly configured as supported.
+-   production supported cultures initially containing only `en`;
+-   canonical String Table asset `/Game/Localization/ST_LordSimulator`;
+-   String Table ID `LordSimulator`;
+-   no placeholder entries introduced by this specification.
 
-86. Do not intentionally package Lord Simulator localization resources
-    for cultures that are not configured as supported. Unreal Engine
-    shared internationalization data required internally is not
-    prohibited by this requirement.
+109. Runtime language-change validation must use existing localization
+     content when such content is available. This specification must not
+     introduce placeholder user-facing localization entries solely for
+     validation.
 
-87. Localization behavior must work in Editor/PIE and in a packaged
-    Windows Shipping build where applicable.
+110. Automated tests do not replace Windows Shipping packaging
+     verification. Cooked/package resource inclusion and actual packaged
+     behavior must still be verified through the development/package
+     validation workflow.
 
-88. The development/package validation workflow must verify every
-    configured supported culture can:
+## Documentation and lifecycle constraints
 
--   be recognized as supported;
--   provide its native display name;
--   be activated as both Unreal language and locale;
--   access its required packaged localization resources;
--   use native English fallback for untranslated entries;
--   return to `en` successfully.
+111. Update the project root `README.md` with the actual Unreal Engine
+     5.8 localization workflow established by the implementation.
 
-89. Localization validation must detect
-    structural/resource/configuration failures supported by Unreal's
-    standard localization tooling. Incomplete translation coverage for a
-    supported non-native culture is permitted unless explicitly
-    prohibited by a future specification.
-
-90. Do not create a custom automated localization test suite in this
-    specification. The required behavior must still be
-    manually/verifiably tested against the Acceptance Criteria.
-
-## Documentation
-
-91. Update the project root `README.md` with the actual Unreal Engine
-    5.8 localization workflow established by the implementation.
-
-92. The README localization documentation must be sufficient for a
-    developer to:
+112. README localization documentation must be sufficient for a
+     developer to:
 
 -   locate/manage the `LordSimulator` Localization Target;
+-   locate the canonical String Table;
 -   gather localization data;
 -   compile localization resources;
 -   add/manage a supported culture through the established Unreal
     workflow;
 -   verify native culture `en`;
+-   run the automated localization tests;
 -   package required localization resources in the Windows Shipping
     build;
 -   verify a supported culture in the packaged build.
 
-93. The README is documentation only. Unreal project localization
-    configuration/assets remain authoritative.
+113. The README is documentation only. Unreal project localization
+     configuration/assets remain authoritative.
 
-94. Do not add localization-specific shutdown lifecycle or shutdown
-    logs. Unreal Engine owns the localization subsystem lifetime unless
-    a future specification introduces a concrete Lord Simulator-owned
-    resource requiring explicit cleanup.
+114. Do not add localization-specific shutdown lifecycle or shutdown
+     logs. Unreal Engine owns the localization subsystem lifetime unless
+     a future specification introduces a concrete Lord Simulator-owned
+     resource requiring explicit cleanup.
 
-95. Do not add Development-mode localization logs in this specification.
+115. Do not add Development-mode localization logs in this
+     specification.
 
 # Acceptance Criteria
 
-1.  The project contains a canonical Unreal Localization Target named
+1.  The project contains the canonical Unreal Localization Target
     `LordSimulator` with native culture `en`, Game loading policy, and
     only `en` initially configured as supported.
 
-2.  The project contains a canonical Unreal String Table asset with
-    identity `LordSimulator` and no placeholder localization entries
-    introduced solely by this specification.
+2.  The project contains `/Game/Localization/ST_LordSimulator` with
+    String Table ID exactly `LordSimulator`, and no placeholder
+    localization entries are introduced solely by this specification.
 
 3.  The implementation uses Unreal Engine localization facilities and
     contains no custom translation parser, custom localization file
     format, parallel translation lookup system, or language-specific
     translation branches.
 
-4.  Localization initialization occurs after project logging
-    initialization and before settings loading starts.
+4.  A culture is Lord Simulator-supported only when explicitly
+    configured as supported for the canonical `LordSimulator`
+    Localization Target; merely discoverable Unreal localization
+    resources do not make a culture supported.
 
-5.  A successful initialization produces exactly the required Default
-    lifecycle logs:
+5.  Supported cultures are exposed without duplicates, cannot be mutated
+    by normal runtime code, and native display names are obtained
+    through Unreal culture facilities.
 
-    -   `Localization initialization started.`
-    -   `Localization initialization completed.`
+6.  Supported-culture validation uses exact, case-sensitive Lord
+    Simulator identifiers. Differently cased, parent, child, or
+    otherwise non-identical identifiers are not accepted unless
+    explicitly configured as supported.
 
-6.  A failed initialization produces:
+7.  Exact Lord Simulator supported-culture validation does not introduce
+    a custom resource fallback mechanism or interfere with Unreal's
+    standard localization-resource fallback after a supported culture is
+    active.
 
-    -   `Localization initialization started.`
-    -   `Localization initialization failed. Native language 'en' will be used where available.`
-        and does not produce `Localization initialization completed.`
+8.  `Language` exists as a persistent, case-sensitive setting with
+    default `en`; no separate persistent locale/native/fallback language
+    setting is introduced.
 
-7.  Localization initialization failure is non-fatal, settings still
-    load, and no startup language-application attempt is made through
-    the failed localization framework.
-
-8.  Re-requesting initialization after successful initialization is a
-    successful no-op without duplicate initialization lifecycle logs or
-    state reset.
-
-9.  Re-requesting initialization after failed initialization does not
-    retry initialization during the same application session.
-
-10. Supported cultures are obtained from the Lord Simulator Unreal
-    localization configuration rather than a duplicate hard-coded
-    registry.
-
-11. Initially the supported-language collection contains only exact
-    culture identifier `en`, and its native display name is obtained
-    through Unreal culture facilities as `English`.
-
-12. Supported cultures are exposed in deterministic
-    project-configuration order and cannot be mutated by normal runtime
-    code.
-
-13. `Language` exists as a persistent setting, is case-sensitive,
-    defaults to `en`, and no separate persistent Locale/native/fallback
-    language setting is introduced.
-
-14. A fresh settings state results in configured `Language=en`
+9.  A fresh settings state results in configured `Language=en`
     regardless of Windows language.
 
-15. Missing `Language` produces configured `en` and exactly:
+10. Missing `Language` produces configured `en` and exactly:
     `Setting 'Language' is missing. Default value 'en' will be used.`
 
-16. Invalid `Language` produces configured `en` and exactly:
+11. Invalid `Language` produces configured `en` and exactly:
     `Setting 'Language' has an invalid value. Default value 'en' will be used.`
 
-17. If supported-culture discovery fails, `en` remains valid and any
-    non-`en` Language value is treated as invalid because support cannot
-    be verified.
+12. If supported-culture discovery fails, `en` remains valid and any
+    non-`en` value is invalid because support cannot be verified.
 
-18. If localization initialization fails after supported cultures were
-    successfully discovered, those discovered cultures remain valid
-    configuration values and are not rewritten merely because runtime
-    localization initialization failed.
+13. If localization initialization fails after supported cultures were
+    discovered, those cultures remain valid configuration values and are
+    not rewritten solely because initialization failed.
 
-19. Complete settings creation/saving includes `Language`, including
-    when its value is the default `en`.
-
-20. Startup applies the configured valid `Language` as both Unreal
-    language and locale only after the complete settings object is
-    loaded and `LogMode` has been applied.
-
-21. Successful startup language application sets configured and active
-    language to the requested culture and logs exactly:
-    `Language '<culture>' was applied.`
-
-22. A valid configured language that cannot be applied at startup
-    remains the configured language, active runtime localization falls
-    back to native `en` where available, the configured value is not
-    replaced/persisted as `en`, and the exact startup failure log is
-    emitted.
-
-23. Configured language and active language are independently queryable
-    concepts and active language is not persisted.
-
-24. An unsupported runtime language request is rejected before Unreal
-    culture application, leaves configured and active language
-    unchanged, returns failure, and emits exactly:
-    `Language '<requested>' is not supported. Language '<active>' will remain active.`
-
-25. Requesting the already configured and active language returns
-    success as a no-op, performs no unnecessary culture application, and
-    emits no language-application log.
-
-26. A successful supported runtime language change sets both Unreal
-    language and locale, updates configured and active language, returns
-    success, and logs exactly: `Language '<culture>' was applied.`
-
-27. A successful runtime language change does not immediately write
-    `settings.ini`; normal shutdown settings persistence writes the
-    changed configured language.
-
-28. A supported runtime language change that fails leaves the previous
-    configured and active languages unchanged, returns failure, does not
-    persist the failed request, and emits exactly:
-    `Language '<requested>' could not be applied. Language '<active>' will remain active.`
-
-29. A runtime language-change request made while localization
-    initialization is failed is rejected, leaves configured and active
-    state unchanged, returns failure, and uses the defined runtime
-    application-failure log.
-
-30. Properly localization-aware existing `FText` UI can reflect a
-    successful runtime culture change without application restart or a
-    custom Lord Simulator UI-refresh/localization-event system.
-
-31. Systems that create/cache/format/display localizable user-facing
-    text do not perform that work until the localization startup phase
-    is complete.
-
-32. Project logs remain English/non-localized when the active game
-    language changes.
-
-33. Missing non-native translations use Unreal's native/source fallback
-    behavior; no custom fallback dictionary, hard-coded UI fallback
-    text, or key-as-player-facing-text substitution is introduced.
-
-34. Localization keys and localized content introduced in future work
-    can use the canonical `LordSimulator` String Table and follow the
-    project localization standards without requiring changes to the
+14. `Language` participates in the complete settings state and is not
+    independently loaded from or persisted to `settings.ini` by the
     localization framework.
 
-35. The Unreal localization gather and compile workflow succeeds for the
+15. Complete settings creation/saving includes `Language`, including
+    when its value is default `en`.
+
+16. Startup language application consumes the validated/defaulted
+    `Language` from the already-loaded complete in-memory settings
+    object after `LogMode` is applied.
+
+17. Localization initialization occurs after project logging
+    initialization and before settings loading starts.
+
+18. Successful initialization emits exactly
+    `Localization initialization started.` and
+    `Localization initialization completed.` in Default mode.
+
+19. Failed initialization emits `Localization initialization started.`
+    and
+    `Localization initialization failed. Native language 'en' will be used where available.`,
+    does not emit the completed log, remains failed for the session, and
+    is non-fatal.
+
+20. Re-requesting initialization after success is a successful no-op
+    without duplicate lifecycle logs or state reset; re-requesting after
+    failure does not retry initialization.
+
+21. Successful startup language application sets both Unreal language
+    and locale, retains configured language, sets active language to the
+    requested culture, and logs exactly
+    `Language '<culture>' was applied.`
+
+22. If a valid configured non-native language cannot be applied, the
+    framework explicitly attempts `en` as both language and locale.
+
+23. If that `en` fallback succeeds, configured language remains
+    unchanged, active language becomes `en`, startup continues, and
+    exactly
+    `Language '<culture>' could not be applied. Native language 'en' will be used for the current session.`
+    is emitted without an additional fallback-success log.
+
+24. If the configured non-native language and subsequent `en` fallback
+    both fail, configured language remains unchanged, active language is
+    unavailable, startup continues, and exactly
+    `Language '<culture>' could not be applied and native language 'en' could not be activated. Localization is unavailable for the current session.`
+    is emitted.
+
+25. If configured `Language=en` cannot be applied, `en` is not attempted
+    a second time, configured language remains `en`, active language is
+    unavailable, startup continues, and the localization-unavailable
+    startup log is emitted.
+
+26. When no culture has been successfully applied during the session,
+    active language is exposed as unavailable and no synthetic culture
+    identifier represents that state.
+
+27. Configured language and active language are independently queryable
+    and active language is never persisted.
+
+28. Localization startup reaches completion after the resulting runtime
+    localization state is established on successful startup,
+    language-application failure, and localization-initialization
+    failure. Failure does not permanently block unrelated application
+    initialization.
+
+29. Localization-dependent user-facing initialization does not occur
+    before the localization startup phase is complete.
+
+30. An unsupported runtime request is rejected before Unreal culture
+    application and leaves state unchanged. With an active language it
+    logs
+    `Language '<requested>' is not supported. Language '<active>' will remain active.`;
+    with unavailable active language it logs
+    `Language '<requested>' is not supported. No language is currently active.`
+
+31. Requesting the already configured and active language returns
+    success as a no-op, performs no unnecessary culture application or
+    custom UI refresh, and emits no localization log.
+
+32. A successful supported runtime language change sets both Unreal
+    language and locale, updates configured and active language, returns
+    success, and logs exactly `Language '<culture>' was applied.`
+
+33. A successful runtime language change updates the complete in-memory
+    settings state without immediately writing `settings.ini`; normal
+    persistence later writes the changed value.
+
+34. A failed supported runtime change with an active language preserves
+    prior state, returns failure, does not persist the failed request,
+    and logs exactly
+    `Language '<requested>' could not be applied. Language '<active>' will remain active.`
+
+35. A failed supported runtime change with active language unavailable
+    preserves configured state and unavailable active state, returns
+    failure, does not persist the failed request, and logs exactly
+    `Language '<requested>' could not be applied. No language is currently active.`
+
+36. After successful framework initialization but failure to establish
+    an active language, a subsequent supported runtime request may
+    attempt application normally; on success the requested culture
+    becomes both configured and active.
+
+37. A runtime request made after localization framework initialization
+    failed is rejected without attempting culture application and leaves
+    state unchanged.
+
+38. A localization-aware validation path using `FText` can reflect a
+    successful runtime language change without application restart and
+    without a custom Lord Simulator UI-refresh or localization-change
+    event system.
+
+39. Runtime language-change validation does not introduce placeholder
+    production localization content solely for validation.
+
+40. Project logs remain English/non-localized when active game language
+    changes.
+
+41. Missing non-native translations use Unreal's native/source fallback;
+    no custom fallback dictionary, duplicated hard-coded UI fallback, or
+    key-as-player-facing-text substitution is introduced.
+
+42. Future localized content can use the canonical String Table and key
+    policy without localization-framework changes.
+
+43. The Unreal localization gather and compile workflow succeeds for the
     `LordSimulator` target with native `en`.
 
-36. A packaged Windows Shipping build contains the required `en` Lord
-    Simulator localization resources and can initialize and apply `en`
+44. A packaged Windows Shipping build contains required `en`
+    localization resources and can initialize and apply `en`
     successfully.
 
-37. Editor/PIE and packaged Windows Shipping behavior satisfy the
-    applicable localization initialization, supported-culture, settings,
-    and language-application requirements.
+45. Editor/PIE and packaged Windows Shipping behavior satisfy applicable
+    localization initialization, supported-culture, settings, and
+    language-application requirements.
 
-38. The implementation introduces no custom localization build scripts,
+46. Unreal-native C++ automated localization tests exist and pass
+    without an external testing dependency.
+
+47. Automated tests deterministically cover the required startup
+    success/failure/fallback states, unavailable active-language state,
+    runtime success/failure/recovery, unsupported requests,
+    initialization failure/idempotence, settings integration, startup
+    completion, and exact required log messages without requiring
+    additional production-supported cultures.
+
+48. Automated tests use a deterministic internal test seam for
+    environment-dependent localization outcomes without creating a
+    second production localization implementation, supported-culture
+    registry, or fallback system.
+
+49. Automated tests add no fake production-supported cultures,
+    placeholder production localization entries, or production-only test
+    localization resources.
+
+50. Automated configuration/resource tests verify the canonical target,
+    native `en`, initial supported-culture set, canonical String Table
+    asset and ID, and absence of placeholder entries where technically
+    testable.
+
+51. Windows Shipping packaging/resource inclusion and packaged behavior
+    are verified separately from automated framework tests.
+
+52. The implementation introduces no custom localization build scripts,
     runtime localization hot reload, external translation loading,
-    localization file watching, language-selection UI, Blueprint
-    localization API, or custom automated localization test suite.
+    localization file watching, language-selection UI, or Blueprint
+    localization API.
 
-39. `README.md` documents the actual Unreal Engine 5.8 localization
-    target, gather, compile, supported-culture management, packaging,
-    and packaged-build verification workflow established by the
-    implementation.
+53. `README.md` documents the actual localization target, canonical
+    String Table, gather/compile workflow, supported-culture management,
+    automated-test execution, packaging, and packaged-build verification
+    workflow.
 
-40. No localization-specific shutdown lifecycle/logs and no
+54. No localization-specific shutdown lifecycle/logs and no
     Development-mode localization logs are added.

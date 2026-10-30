@@ -139,6 +139,26 @@ Acceptance Criteria MUST only validate requirements defined in the
 `Requirements` section and MUST NOT introduce additional requirements or
 functionality.
 
+## Logging Requirements
+
+When a specification requires a Lord Simulator project log entry, it
+MUST define:
+
+-   the exact condition or event that triggers the log;
+-   the required logging mode;
+-   the exact English log message.
+
+`Default` mode is for concise operational information that is useful in
+normal builds and normal application operation.
+
+`Development` mode is for additional diagnostic or development
+information that is useful while developing or investigating the
+application but is not required as normal operational output.
+
+A specification MUST NOT leave the implementation agent to choose the
+logging mode or invent the wording of a required Lord Simulator log
+message.
+
 ## Localization
 
 A specification that introduces user-facing localizable text MUST

@@ -116,8 +116,9 @@ The canonical Lord Simulator Localization Target is `LordSimulator`. The
 implementation agent MUST NOT create additional localization targets or
 parallel localization resource structures unless explicitly required.
 
-The canonical Lord Simulator String Table ID is `LordSimulator`. The
-implementation agent MUST NOT rename, replace, or create an alternative
+The canonical Lord Simulator String Table is the asset-based table
+established by the project specification. The implementation agent MUST
+NOT replace it with a C++-registered table, redirect, or alternative
 canonical String Table unless explicitly required by a specification.
 
 User-facing localizable text MUST use Unreal Engine localization-aware
@@ -177,6 +178,17 @@ messages.
 Lord Simulator-supported cultures are read-only project configuration at
 runtime. Runtime code MUST NOT add, remove, rename, or otherwise modify
 supported cultures unless explicitly required.
+
+The authoritative Lord Simulator supported-culture set MUST come from the
+project's explicit runtime-readable Unreal localization configuration. It MUST
+NOT be inferred from `.locmeta`, `.locres`, compiled localization-resource
+discovery, operating-system cultures, String Table contents, or a hard-coded C++
+culture registry.
+
+The canonical `LordSimulator` Localization Target/resources MUST remain
+consistent with the authoritative supported-culture configuration. A
+specification MAY define stricter validation and failure behavior for
+inconsistency.
 
 The native Lord Simulator culture is `en`. Runtime feature code MUST NOT
 remove or replace this invariant.

@@ -99,57 +99,6 @@ Examples of derived technical assets MAY include:
 -   internal lookup data;
 -   engine-specific derived resources.
 
-## Dependency Management
-
-Any new third-party library, framework, package, plugin, SDK, or other
-external dependency required to implement a specification MUST be
-explicitly required by that specification.
-
-A specification that requires a new external dependency MUST identify
-the dependency clearly enough for the implementation agent to determine
-exactly which dependency is authorized.
-
-Libraries, modules, APIs, tools, and functionality that are already part
-of the project's established engine, language standard library,
-toolchain, or existing dependency set are not considered new external
-dependencies.
-
-A specification MUST NOT implicitly require the implementation agent to
-select a new external dependency.
-
-If implementation cannot be completed without introducing a new external
-dependency that is not explicitly required by the specification, the
-specification is blocked until the dependency requirement is provided or
-the specification is clarified.
-
-## Logging Requirements
-
-A specification MUST explicitly define every Lord Simulator log entry
-required by that specification.
-
-For every required log entry, the specification MUST define:
-
--   the event or condition that causes the log entry to be written;
--   the logging mode: `Default` or `Development`;
--   the exact English log message to be written.
-
-A specification MUST NOT leave the implementation agent responsible for
-deciding what events should be logged, which logging mode should be
-used, or what log message should be written.
-
-If a specification does not define any log entries, implementation of
-that specification MUST NOT introduce new log entries.
-
-`Default` MUST be used for log entries intended for normal game
-execution and general diagnostics.
-
-`Development` MUST be used for additional development or debugging
-information that is not required during normal game execution and MAY
-include performance-heavy diagnostics.
-
-Entries designated `Default` are also produced when the logging
-framework operates in `Development` mode.
-
 ## Specification Structure
 
 Every specification MUST contain the following sections in this order:
@@ -193,6 +142,56 @@ successfully completed.
 Acceptance Criteria MUST only validate requirements defined in the
 `Requirements` section and MUST NOT introduce additional requirements or
 functionality.
+
+## Localization
+
+A specification that introduces user-facing localizable text MUST
+explicitly define, for every new localization entry:
+
+-   the exact localization key;
+-   the exact native English source text.
+
+The implementation agent MUST NOT be required to invent localization
+keys, native English source text, translations, or other localization
+content.
+
+Localization keys MUST use case-sensitive semantic hierarchical names
+composed of PascalCase segments separated by periods.
+
+Examples:
+
+-   `MainMenu.NewGame`
+-   `Settings.Language`
+-   `Building.Farm.Description`
+
+Localization keys MUST describe the semantic purpose or context of the
+text. They MUST NOT be based on a widget class name, source file, UI
+position, row number, or another incidental implementation detail.
+
+A localization key MAY contain any number of semantic hierarchy levels
+required to identify its purpose.
+
+The native Lord Simulator culture is `en`. A specification MUST NOT
+remove or replace the native `en` culture unless it explicitly changes
+the project's localization architecture and all affected localization
+requirements.
+
+Adding or removing a supported culture MUST be explicitly required by a
+specification. A specification that adds a supported culture MUST define
+the exact culture identifier and MUST provide or identify all
+localization inputs and resources required to implement that culture,
+including the expected native display name and required translations or
+translation assets.
+
+A specification that introduces user-facing textual content such as
+visible UI text, tooltips, accessibility text, messages, descriptions,
+or other player-facing textual metadata MUST identify which text is
+localizable and provide the required localization inputs.
+
+A specification MUST NOT require the implementation agent to create
+additional user-facing localization entries, translations, tooltips,
+accessibility text, or other textual content that the specification does
+not explicitly define.
 
 # Epic Standard
 

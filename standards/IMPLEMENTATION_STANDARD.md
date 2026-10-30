@@ -171,7 +171,142 @@ defined default values.
 Adding a new setting to the settings object or persistent settings file
 MUST be explicitly required by a specification.
 
-## 6. Project Build Documentation
+## 6. Localization
+
+Lord Simulator localization MUST use Unreal Engine localization
+facilities. The implementation agent MUST NOT introduce a parallel
+translation system, custom translation lookup system, or
+language-specific translation branches unless explicitly required by a
+specification.
+
+The canonical Lord Simulator localization target is `LordSimulator`. The
+implementation agent MUST NOT create additional localization targets or
+parallel localization resource structures unless explicitly required by
+a specification.
+
+User-facing localizable text MUST use Unreal Engine localization-aware
+text facilities, including `FText`, in a way that preserves Unreal
+Engine's normal localization behavior.
+
+Localizable text MUST remain localization-aware throughout its UI
+lifetime. The implementation agent MUST NOT convert or cache localized
+text as `FString` or other static non-localized text in a way that
+prevents existing UI from reflecting a successful runtime language
+change.
+
+A custom Lord Simulator localization refresh or language-change event
+system MUST NOT be introduced unless explicitly required by a
+specification.
+
+Dynamic user-facing localized text MUST use Unreal Engine
+localization-aware `FText` formatting facilities. Localization keys MUST
+NOT be generated from runtime values, and localizable text MUST NOT be
+assembled through `FString` concatenation or equivalent logic in a way
+that bypasses localization.
+
+User-facing text involving numbers, pluralization, dates, times,
+currencies, percentages, or other culture-sensitive values MUST use
+Unreal Engine localization-aware formatting facilities where applicable.
+The implementation agent MUST NOT introduce English-specific formatting
+or grammatical rules unless explicitly required by a specification.
+
+Localized text and translations MUST be stored and managed through
+Unreal Engine localization resources. Language-specific translations
+MUST NOT be embedded in C++, Blueprints, widgets, or other feature logic
+unless explicitly required by a specification.
+
+The implementation agent MUST use localization keys exactly as defined
+by the specification. The implementation agent MUST NOT invent
+localization keys, native English source text, or translations.
+
+Existing localization keys MUST NOT be renamed, removed, or repurposed
+unless explicitly required by a specification. An existing key MAY be
+reused only when the new usage represents the same semantic text and
+meaning. Identical English wording alone does not establish identical
+semantic meaning.
+
+Changing native English source text MUST NOT by itself cause an existing
+localization key to be changed when the semantic meaning remains the
+same.
+
+The implementation agent MUST NOT invent, automatically rewrite, or
+automatically replace translations when native English source text
+changes. Existing translations and translation status MUST be handled
+through Unreal Engine's localization workflow unless a specification
+explicitly supplies replacement translations.
+
+Native English fallback text for localizable user-facing content MUST be
+provided through the project's Unreal Engine localization resources. The
+implementation agent MUST NOT add duplicated hard-coded English fallback
+text in C++, Blueprints, widgets, or other UI logic.
+
+Missing localization entries or invalid localization references MUST NOT
+be compensated for with custom fallback text, key-as-player-facing-text
+substitution, a parallel fallback dictionary, or a custom translation
+lookup system. The implementation MUST rely on Unreal Engine's
+localization behavior unless a specification explicitly requires
+different behavior.
+
+Project logs, developer diagnostics, internal identifiers, technical
+error information, and other non-user-facing development text MUST NOT
+use localization resources unless explicitly required by a
+specification. Changing the active game language MUST NOT change Lord
+Simulator project log messages.
+
+The set of Lord Simulator-supported cultures is project configuration
+and MUST be treated as read-only runtime data. Runtime code MUST NOT
+add, remove, rename, or otherwise modify supported cultures unless
+explicitly required by a specification.
+
+The native Lord Simulator culture is `en`. Runtime feature code MUST NOT
+remove or replace this native-culture invariant.
+
+Culture identifiers are technical configuration values. Player-facing
+language-selection UI MUST display the corresponding native culture
+display name obtained through the Lord Simulator localization framework
+rather than exposing the culture identifier, unless explicitly required
+by a specification.
+
+Lord Simulator feature code, including C++ and Blueprints, MUST NOT
+directly modify Unreal Engine's active language or locale.
+Application-wide language and locale changes MUST go through the Lord
+Simulator localization framework unless explicitly required by a
+specification. Individual features, screens, widgets, and gameplay
+systems MUST NOT temporarily override or independently maintain a
+competing active culture.
+
+The localization framework MUST remain independent of specific UI
+screens, widgets, and gameplay features. UI and gameplay systems MAY
+depend on localization functionality, but localization functionality
+MUST NOT depend on those systems unless explicitly required by a
+specification.
+
+The application MUST maintain one authoritative application-wide
+localization state. Individual features MUST NOT create competing
+localization managers or independent active-language state.
+
+Runtime localization MUST use resources provided through the project's
+Unreal Engine localization and build pipeline. Runtime
+localization-resource hot reloading, external translation loading,
+localization file watching, or localization-pack importing MUST NOT be
+introduced unless explicitly required by a specification.
+
+Systems that create, cache, format, or display localizable user-facing
+text MUST NOT perform that work until the application's localization
+startup phase has completed. A localization failure MUST NOT by itself
+permanently block unrelated application initialization unless a
+specification explicitly requires that behavior.
+
+The implementation agent MUST NOT add Blueprint-accessible localization
+APIs merely because they may be useful. Blueprint exposure MUST be
+explicitly required by a specification.
+
+When localization work changes the gather, compile, cook, packaging,
+verification, or other developer workflow required to produce a valid
+packaged build, the implementation agent MUST update `README.md` in
+accordance with the Project Build Documentation requirements.
+
+## 7. Project Build Documentation
 
 The implementation agent is responsible for maintaining `README.md` in
 the project root.
@@ -185,7 +320,7 @@ prerequisites, tooling, or any other step required to produce the
 installation file, the implementation agent MUST update `README.md` as
 part of the same work.
 
-## 7. Git Branches
+## 8. Git Branches
 
 The implementation agent MUST NOT work directly on the `development` or
 `master` branches.

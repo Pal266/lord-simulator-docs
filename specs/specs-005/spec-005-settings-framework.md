@@ -29,60 +29,66 @@ during application startup.
 4.  The persistent settings file MUST contain a `[Settings]` section.
     Persistent Lord Simulator settings MUST be stored in this section.
 
-5.  If `settings.ini` does not exist during startup:
+5.  The `[Settings]` section name MUST be matched case-sensitively.
+    Leading and trailing whitespace surrounding the complete
+    section-header line MUST be ignored. Whitespace inside the section
+    header MUST NOT be ignored. Only the exact section name `[Settings]`
+    identifies the Lord Simulator settings section.
+
+6.  If `settings.ini` does not exist during startup:
 
     -   create it;
     -   write the complete settings object using defined default values;
     -   continue startup using those values.
 
-6.  When the settings file is created or saved, it MUST contain every
+7.  When the settings file is created or saved, it MUST contain every
     persistent setting, including settings whose current values equal
     their defaults.
 
-7.  Settings MUST be loaded from persistent storage as one complete
+8.  Settings MUST be loaded from persistent storage as one complete
     state. Individual settings MUST NOT be independently loaded or
     reloaded from the settings file.
 
-8.  Reading settings from disk MUST construct a complete settings state
+9.  Reading settings from disk MUST construct a complete settings state
     before replacing the current in-memory settings state.
 
-9.  Introduce the persistent setting `LogMode`.
+10. Introduce the persistent setting `LogMode`.
 
-10. `LogMode` MUST be stored in the `[Settings]` section.
+11. `LogMode` MUST be stored in the `[Settings]` section.
 
-11. `LogMode` MUST support exactly these case-sensitive values:
+12. `LogMode` MUST support exactly these case-sensitive values:
 
 -   `Default`
 -   `Development`
 
-12. The default value of `LogMode` MUST be:
+13. The default value of `LogMode` MUST be:
 
     `Default`
 
-13. Setting keys and defined setting values MUST be matched
+14. Setting keys and defined setting values MUST be matched
     case-sensitively. Leading and trailing whitespace surrounding keys
     and values MUST be ignored when reading them.
 
-14. Blank lines and lines beginning with `;` or `#` MAY be ignored when
+15. Blank lines and lines beginning with `;` or `#` MAY be ignored when
     reading the settings file.
 
-15. A setting appearing more than once in the `[Settings]` section MUST
+16. A setting appearing more than once in the `[Settings]` section MUST
     be treated as invalid. For `LogMode`, the defined invalid-value
     fallback and log behavior MUST apply.
 
-16. A setting outside the `[Settings]` section MUST NOT satisfy the
+17. A setting outside the `[Settings]` section MUST NOT satisfy the
     requirement for that setting in the `[Settings]` section.
 
-17. If `LogMode` is missing from the `[Settings]` section of an existing
+18. If `LogMode` is missing from the `[Settings]` section of an existing
     settings file, use its default value.
 
-18. If `LogMode` contains any value other than the exact case-sensitive
+19. If `LogMode` contains any value other than the exact case-sensitive
     values `Default` or `Development`, use its default value.
 
-19. If the settings file cannot be read, load the complete settings
+20. If the settings file cannot be read, load the complete settings
     object using defined default values.
 
-20. Application startup MUST occur in this order:
+21. Application startup MUST occur in this order:
 
     1.  initialize the Lord Simulator logging framework in `Default`
         mode;
@@ -92,15 +98,15 @@ during application startup.
     5.  log that settings loading has completed;
     6.  continue application startup.
 
-21. The logging framework MUST support applying the `LogMode` stored in
+22. The logging framework MUST support applying the `LogMode` stored in
     the settings object at runtime.
 
-22. Reading or reloading settings from persistent storage MUST always
+23. Reading or reloading settings from persistent storage MUST always
     reload the complete settings state. Runtime modification of a
     setting MUST modify the in-memory settings object without
     independently reloading that setting from persistent storage.
 
-23. During normal application shutdown, after the existing
+24. During normal application shutdown, after the existing
     application-shutdown log entry and before the logging framework is
     shut down:
 
@@ -113,21 +119,22 @@ during application startup.
     5.  keep the logging framework active until settings persistence and
         settings-system shutdown are complete.
 
-24. Anything that prevents the persistent settings file from producing a
+25. Anything that prevents the persistent settings file from producing a
     complete state equivalent to the in-memory settings object during
     shutdown comparison MUST be treated as a difference. This includes
-    the file being missing, unreadable, or containing a missing,
-    duplicate, or invalid required setting.
+    the file being missing, unreadable, lacking the exact `[Settings]`
+    section, or containing a missing, duplicate, or invalid required
+    setting.
 
-25. When a shutdown save is required, the complete in-memory settings
+26. When a shutdown save is required, the complete in-memory settings
     state MUST overwrite the persistent settings file. External changes
     made to `settings.ini` while the application is running do not
     override the current in-memory settings state.
 
-26. Failure to save settings during shutdown MUST NOT intentionally
+27. Failure to save settings during shutdown MUST NOT intentionally
     crash the application or prevent shutdown from continuing.
 
-27. Use the following Lord Simulator log entries. All entries MUST use
+28. Use the following Lord Simulator log entries. All entries MUST use
     `Default` logging mode and the exact messages shown:
 
     -   When settings loading begins:
@@ -155,8 +162,8 @@ during application startup.
 
         `Settings file could not be read. Default settings will be used.`
 
-    -   When `LogMode` is missing from the `[Settings]` section during
-        settings loading:
+    -   When `LogMode` is missing from the exact `[Settings]` section
+        during settings loading:
 
         `Setting 'LogMode' is missing. Default value 'Default' will be used.`
 
@@ -175,12 +182,12 @@ during application startup.
 
         `Settings could not be saved.`
 
-28. Shutdown comparison MUST NOT load the persistent file into the
+29. Shutdown comparison MUST NOT load the persistent file into the
     active in-memory settings object. Its purpose is only to determine
     whether the persistent state is equivalent to the current in-memory
     state.
 
-29. No new third-party dependency is required for this specification.
+30. No new third-party dependency is required for this specification.
 
 # Acceptance Criteria
 
@@ -196,57 +203,65 @@ during application startup.
     LogMode=Default
     ```
 
-3.  A valid `LogMode=Default` in the `[Settings]` section is loaded and
+3.  `[Settings]` and a section-header line with leading or trailing
+    whitespace such as `[Settings]` are recognized as the Lord Simulator
+    settings section.
+
+4.  `[settings]`, `[SETTINGS]`, and `[ Settings ]` are not recognized as
+    the Lord Simulator settings section.
+
+5.  A valid `LogMode=Default` in the `[Settings]` section is loaded and
     the logging framework operates in `Default` mode.
 
-4.  A valid `LogMode=Development` in the `[Settings]` section is loaded
+6.  A valid `LogMode=Development` in the `[Settings]` section is loaded
     and the logging framework operates in `Development` mode.
 
-5.  Setting keys and values are case-sensitive, while leading and
+7.  Setting keys and values are case-sensitive, while leading and
     trailing whitespace surrounding keys and values is ignored.
 
-6.  Blank lines and lines beginning with `;` or `#` do not prevent valid
+8.  Blank lines and lines beginning with `;` or `#` do not prevent valid
     settings from being read.
 
-7.  `LogMode` outside the `[Settings]` section does not satisfy the
-    required `LogMode` setting.
+9.  `LogMode` outside the exact `[Settings]` section does not satisfy
+    the required `LogMode` setting.
 
-8.  A missing `LogMode` in the `[Settings]` section results in `Default`
-    being used and the required missing-setting log entry being written.
+10. A missing `LogMode` in the exact `[Settings]` section results in
+    `Default` being used and the required missing-setting log entry
+    being written.
 
-9.  An invalid `LogMode` results in `Default` being used and the
+11. An invalid `LogMode` results in `Default` being used and the
     required invalid-setting log entry being written.
 
-10. Multiple `LogMode` entries in the `[Settings]` section are treated
+12. Multiple `LogMode` entries in the `[Settings]` section are treated
     as invalid, result in `Default` being used, and produce the required
     invalid-setting log entry.
 
-11. An unreadable settings file results in the complete settings state
+13. An unreadable settings file results in the complete settings state
     using defined defaults and the required read-failure log entry being
     written.
 
-12. Settings loading writes `Settings loading started.` before reading
+14. Settings loading writes `Settings loading started.` before reading
     the settings and writes `Settings loading completed.` after the
     loaded `LogMode` has been applied.
 
-13. During normal shutdown, an unchanged persistent settings state is
+15. During normal shutdown, an unchanged persistent settings state is
     not rewritten.
 
-14. During normal shutdown, a persistent settings state that differs
+16. During normal shutdown, a persistent settings state that differs
     from the in-memory settings state is overwritten with the complete
     in-memory settings state and `Settings were saved.` is logged.
 
-15. A missing, unreadable, incomplete, duplicate, or invalid persistent
-    settings state during shutdown is treated as different and causes
-    the system to attempt to write the complete in-memory settings
-    state.
+17. A missing, unreadable, incomplete, duplicate, invalid, or
+    incorrectly cased/formed settings section during shutdown is treated
+    as different and causes the system to attempt to write the complete
+    in-memory settings state.
 
-16. If a required shutdown save fails, `Settings could not be saved.` is
+18. If a required shutdown save fails, `Settings could not be saved.` is
     logged and application shutdown continues.
 
-17. Settings persistence completes before the Lord Simulator logging
+19. Settings persistence completes before the Lord Simulator logging
     framework is shut down.
 
-18. All settings-related log entries required by this specification use
+20. All settings-related log entries required by this specification use
     `Default` mode and exactly match the messages defined in the
     Requirements.

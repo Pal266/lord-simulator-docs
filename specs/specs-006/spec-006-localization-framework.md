@@ -266,54 +266,45 @@ APIs, or runtime localization-resource reloading.
     the failed state for the rest of that application session. Do not
     automatically retry initialization.
 
-46. Startup ordering must be:
+46. Startup ordering must be performed in this exact sequence:
 
-47. initialize project logging in Default mode;
-
-48. initialize the Lord Simulator localization framework;
-
-49. start settings loading;
-
-50. load and validate the complete settings object, including
+-   initialize project logging in Default mode;
+-   initialize the Lord Simulator localization framework;
+-   start settings loading;
+-   load and validate the complete settings object, including
     `Language`;
-
-51. apply `LogMode`;
-
-52. if localization initialization succeeded, process configured
+-   apply `LogMode`;
+-   if localization initialization succeeded, process configured
     `Language` as both Unreal language and locale, including the
     required native fallback behavior;
+-   complete settings loading;
+-   establish the resulting runtime localization state;
+-   mark the localization startup phase complete;
+-   continue application startup.
 
-53. complete settings loading;
-
-54. establish the resulting runtime localization state;
-
-55. mark the localization startup phase complete;
-
-56. continue application startup.
-
-57. The localization startup phase completes after localization
+47. The localization startup phase completes after localization
     initialization has reached its session result, the complete settings
     state has been loaded and validated, configured `Language` has been
     processed when the localization framework is available, and the
     resulting runtime localization state---including fallback or
     unavailable active-language state---has been established.
 
-58. Localization startup completion does not require localization
+48. Localization startup completion does not require localization
     initialization or language application to have succeeded. Failure
     states are valid completed startup states.
 
-59. Systems that create, cache, format, or display localizable
+49. Systems that create, cache, format, or display localizable
     user-facing text must not perform localization-dependent
     initialization before the localization startup phase is complete.
 
-60. Localization initialization or language-application failure must not
+50. Localization initialization or language-application failure must not
     prevent the localization startup phase from completing or
     permanently block unrelated application initialization.
 
-61. On localization initialization start, log in Default mode exactly:
+51. On localization initialization start, log in Default mode exactly:
     `Localization initialization started.`
 
-62. Successful localization initialization requires, at minimum:
+52. Successful localization initialization requires, at minimum:
 
 -   the canonical Lord Simulator localization runtime resources required
     by the framework are available;

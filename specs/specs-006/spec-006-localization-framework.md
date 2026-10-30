@@ -63,10 +63,9 @@ APIs, or runtime localization-resource reloading.
     introduce a second C++-registered table or redirect merely to force a
     custom Table ID.
 
-5.  The canonical Localization Target named `LordSimulator` and
-    canonical String Table ID `LordSimulator` are distinct Unreal
-    localization concepts that intentionally use the same canonical
-    project identifier.
+5.  The canonical Localization Target named `LordSimulator` and the
+    canonical String Table asset `/Game/Localization/ST_LordSimulator`
+    are distinct Unreal localization concepts.
 
 6.  The canonical String Table is the default location for future Lord
     Simulator localizable text unless a future specification explicitly
@@ -325,9 +324,7 @@ APIs, or runtime localization-resource reloading.
 
 -   the canonical Lord Simulator localization runtime resources required
     by the framework are available;
--   the canonical String Table asset
-    `/Game/Localization/ST_LordSimulator`, registered with String Table
-    ID `LordSimulator`, is available;
+-   the canonical asset-based String Table `/Game/Localization/ST_LordSimulator` is available to the application;
 -   the native culture invariant is `en`;
 -   `en` is supported;
 -   the supported-culture project configuration can be read and contains
@@ -427,7 +424,7 @@ APIs, or runtime localization-resource reloading.
 -   leaves configured and active state unchanged;
 -   returns failure;
 -   uses the applicable runtime application-failure log from
-    requirements 74 or None.
+    requirements 74 or 75.
 
 70. Successful framework initialization followed by failure to establish
     an active language does not disable later runtime language-change
@@ -531,8 +528,7 @@ APIs, or runtime localization-resource reloading.
 
 ## Localization content and key policy
 
-88. Future localizable Lord Simulator text uses the canonical String
-    Table ID `LordSimulator` unless explicitly required otherwise.
+88. Future localizable Lord Simulator text uses the canonical asset-based String Table `/Game/Localization/ST_LordSimulator` unless explicitly required otherwise.
 
 89. Localization keys are semantic, hierarchical, case-sensitive
     PascalCase segments separated by periods, for example:
@@ -744,7 +740,9 @@ APIs, or runtime localization-resource reloading.
      resource requiring explicit cleanup.
 
 119. Do not add Development-mode localization logs in this
-     specification.# Acceptance Criteria
+     specification.
+
+# Acceptance Criteria
 
 1. The project contains the canonical Unreal Localization Target
      `LordSimulator` with native culture `en`, Game loading policy, and
@@ -761,10 +759,10 @@ APIs, or runtime localization-resource reloading.
      format, parallel translation lookup system, or language-specific
      translation branches.
 
-4. A culture is Lord Simulator-supported only when explicitly
-     configured as supported for the canonical `LordSimulator`
-     Localization Target; merely discoverable Unreal localization
-     resources do not make a culture supported.
+4. A culture is Lord Simulator-supported only when present in the
+     authoritative runtime-readable Unreal project localization
+     configuration; merely discoverable Unreal localization resources do
+     not make a culture supported.
 
 5. Supported cultures are exposed without duplicates, cannot be
      mutated by normal runtime code, and native display names are

@@ -1,283 +1,267 @@
 # Implementation Standard
 
-## 1. Specification Scope
+## 1. Purpose and Applicable Standards
 
-The implementation agent MUST implement only the functionality
-explicitly described in the `Requirements` section of the specification.
+This standard defines how an implementation agent MUST perform Lord Simulator implementation work.
 
-The implementation agent MUST NOT implement functionality, features,
-improvements, or other behavioral changes that are not required by the
-specification.
+For every specification, the implementation agent MUST comply with:
 
-If the specification contains an inconsistency, contradiction, missing
-information required for implementation, or another issue that prevents
-unambiguous implementation, the implementation agent MUST stop
-implementation and report the problem.
+- the specification being implemented;
+- `SPEC_STANDARD.md`;
+- `IMPLEMENTATION_STANDARD.md`;
+- `PROJECT_STANDARD.md`.
 
-The implementation agent MUST NOT resolve specification inconsistencies
-by inventing requirements or making product, game design, visual design,
-or other unspecified decisions.
+The current project standards are authoritative for established project-wide behavior.
 
-## 2. Behavior Preservation and Refactoring
+If the specification and the current standards are inconsistent, contradictory, or incomplete in a way that prevents unambiguous implementation, the implementation agent MUST stop implementation and report the problem.
 
-The implementation agent MUST NOT change existing project behavior
-unless that behavior change is explicitly required by the specification.
+The implementation agent MUST NOT silently choose one conflicting requirement over another.
 
-Functionality and behavior outside the scope of the specification MUST
-remain unchanged.
+## 2. Specification Scope
 
-The implementation agent MAY perform refactoring without explicit
-authorization when the refactoring is useful for implementing the
-specification or maintaining the affected code.
+The implementation agent MUST implement only the functionality explicitly described in the `Requirements` section of the specification together with behavior already required by the project standards.
 
-Refactoring performed without an explicit refactoring requirement MUST
-preserve existing externally observable behavior and MUST NOT introduce
-new functionality.
+The implementation agent MUST NOT implement functionality, features, improvements, or behavioral changes that are not required by the specification or the standards.
 
-The implementation agent MUST NOT use refactoring as justification for
-making product, game design, visual design, architectural behavior, or
-other functional changes that are not required by the specification.
+If the specification contains an inconsistency, contradiction, missing information required for implementation, or another issue that prevents unambiguous implementation, the implementation agent MUST stop implementation and report the problem.
 
-If a proposed refactoring would require changing existing behavior, the
-implementation agent MUST NOT perform that behavioral change unless it
-is explicitly required by the specification.
+The implementation agent MUST NOT resolve specification inconsistencies by inventing requirements or making product, game design, visual design, architecture, content, or other unspecified decisions.
+
+## 3. Behavior Preservation and Refactoring
+
+The implementation agent MUST NOT change existing project behavior unless that behavior change is explicitly required by the specification or by an updated project standard.
+
+Functionality and behavior outside the scope of the specification MUST remain unchanged.
+
+The implementation agent MAY perform refactoring without explicit authorization when the refactoring is useful for implementing the specification or maintaining the affected code.
+
+Refactoring performed without an explicit refactoring requirement MUST preserve existing externally observable behavior and MUST NOT introduce new functionality.
+
+The implementation agent MUST NOT use refactoring as justification for making product, game design, visual design, architectural behavior, or other functional changes that are not required by the specification.
+
+If a proposed refactoring would require changing existing behavior, the implementation agent MUST NOT perform that behavioral change unless it is explicitly required.
 
 Unrelated refactoring SHOULD NOT be performed.
 
-## 3. Dependency Management
+## 4. Dependency Management
 
-The implementation agent MUST NOT introduce a new third-party library,
-framework, package, plugin, SDK, or other external dependency unless
-that dependency is explicitly required by the specification.
+The implementation agent MUST NOT introduce a new third-party library, framework, package, plugin, SDK, or other external dependency unless that dependency is explicitly required by the specification.
 
-Libraries, modules, APIs, tools, and functionality already part of the
-project's established engine, language standard library, toolchain, or
-existing dependency set are not new external dependencies.
+Libraries, modules, APIs, tools, and functionality already part of the project's established Unreal Engine, C++ standard library, Windows platform facilities, toolchain, or existing dependency set are not new external dependencies.
 
-If a new external dependency is necessary but not explicitly required,
-the implementation agent MUST stop and report it. If it is optional but
-materially useful, the agent MAY stop and propose it, including its
-purpose, benefits, risks, maintenance/licensing costs, dependency-free
-alternative, and implementation differences. It MUST NOT be introduced
-until explicitly authorized by the specification.
+If a new external dependency is necessary but not explicitly required, the implementation agent MUST stop and report it.
 
-## 4. Logging
+If a new external dependency is optional but materially useful, the implementation agent MAY stop and propose it, including:
 
-The implementation agent MUST use the Lord Simulator project logging
-framework for specification-required game logging.
+- its purpose;
+- benefits;
+- risks;
+- maintenance cost;
+- licensing implications;
+- dependency-free alternative;
+- implementation differences.
 
-Only Lord Simulator game logs use that framework. General Unreal Engine
-logs remain separate and MUST NOT be substituted, duplicated,
-redirected, or captured as Lord Simulator game logging.
+The dependency MUST NOT be introduced until it is explicitly authorized.
 
-The implementation agent MUST NOT add Lord Simulator log entries not
-explicitly defined by the specification. Required entries MUST use the
-exact logging mode and exact English message defined by the
-specification.
+## 5. Portability and Project Paths
 
-If a log is necessary but unspecified, the implementation agent MUST
-stop and report it. The agent MAY propose an additional log, including
-exact condition, usefulness, recommended `Default` or `Development`
-mode, and exact English message, but MUST NOT implement it until the
-specification explicitly requires it.
+Implementation MUST NOT depend on machine-specific or developer-specific absolute filesystem paths unless a specification explicitly requires such a path for a valid product reason.
 
-## 5. Settings
+Unreal module includes and source/header organization MUST use structures and include paths valid for the project and the Unreal Build Tool.
 
-Every setting in the Lord Simulator settings object MUST have a default
-value explicitly defined by the specification introducing it.
+Local developer directory layout MUST NOT be required for the project to compile, package, test, or run.
 
-Every setting represented in the persistent settings file is required.
-If a required setting cannot be read or is invalid, the settings system
-MUST use its defined default.
+User-data filesystem locations MUST use the canonical project paths and platform mechanisms defined by `PROJECT_STANDARD.md`.
 
-Settings MUST be loaded and reloaded from persistent storage as one
-complete settings state. Individual settings MUST NOT be independently
-reloaded.
+## 6. Logging
 
-Runtime changes to individual settings MUST modify the in-memory
-settings object and MUST NOT independently reload the setting from
-persistent storage.
+The implementation agent MUST use the Lord Simulator project logging framework for specification-required Lord Simulator game logging.
 
-The persistent settings file MUST represent the complete persistent
-settings object. Whenever it is created or saved, all settings MUST be
-written, including settings equal to their defaults.
+Only Lord Simulator game logs use that framework. General Unreal Engine logs remain separate and MUST NOT be substituted, duplicated, redirected, or captured as Lord Simulator game logging.
 
-Adding a setting to the settings object or persistent file MUST be
-explicitly required by a specification.
+The implementation agent MUST NOT add Lord Simulator log entries not explicitly defined by the specification or already required by `PROJECT_STANDARD.md`.
 
-## 6. Localization
+New required entries MUST use the exact logging mode and exact English message defined by the specification.
 
-Lord Simulator localization MUST use Unreal Engine localization
-facilities. The implementation agent MUST NOT introduce a parallel
-translation system, custom translation lookup system, or
-language-specific translation branches unless explicitly required.
+If a new log is necessary for correct implementation but is unspecified, the implementation agent MUST stop and report it.
 
-The canonical Lord Simulator Localization Target is `LordSimulator`. The
-implementation agent MUST NOT create additional localization targets or
-parallel localization resource structures unless explicitly required.
+The implementation agent MAY propose an additional log, including:
 
-The canonical Lord Simulator String Table is the asset-based table
-established by the project specification. The implementation agent MUST
-NOT replace it with a C++-registered table, redirect, or alternative
-canonical String Table unless explicitly required by a specification.
+- the exact condition;
+- its usefulness;
+- recommended `Default` or `Development` mode;
+- the exact English message.
 
-User-facing localizable text MUST use Unreal Engine localization-aware
-text facilities, including `FText`, preserving Unreal's normal
-localization behavior.
+The proposed log MUST NOT be implemented until explicitly required.
 
-Localizable text MUST remain localization-aware throughout its UI
-lifetime. It MUST NOT be converted or cached as `FString` or other
-static non-localized text in a way that prevents properly implemented UI
-from reflecting a successful runtime language change.
+The implementation agent MUST preserve the logging modes, file behavior, formatting, lifecycle, and failure behavior defined by `PROJECT_STANDARD.md`.
 
-A custom Lord Simulator localization refresh or language-change event
-system MUST NOT be introduced unless explicitly required.
+## 7. Settings
 
-Dynamic localized user-facing text MUST use localization-aware `FText`
-formatting. Localization keys MUST NOT be generated from runtime values,
-and localizable text MUST NOT be assembled through English-specific
-string concatenation or equivalent localization-bypassing logic.
+The implementation agent MUST use the canonical Lord Simulator settings framework defined by `PROJECT_STANDARD.md`.
 
-Numbers, pluralization, dates, times, currencies, percentages, and other
-culture-sensitive user-facing values MUST use Unreal localization-aware
-formatting where applicable. English-specific formatting or grammatical
-rules MUST NOT be introduced unless explicitly required.
+Every setting in the Lord Simulator settings object MUST have a default value explicitly defined by the specification introducing it or by the project standard if the setting already exists.
 
-Localized text and translations MUST be stored and managed through
-Unreal localization resources and MUST NOT be embedded in C++,
-Blueprints, widgets, or feature logic unless explicitly required.
+Adding a setting to the settings object or persistent settings file MUST be explicitly required by a specification.
 
-The implementation agent MUST use localization keys exactly as specified
-and MUST NOT invent keys, native English source text, or translations.
+A new setting MUST participate in the complete in-memory and persistent settings state unless the specification explicitly changes the architecture and the project standard has been updated accordingly.
 
-Existing keys MUST NOT be renamed, removed, or repurposed unless
-explicitly required. A key MAY be reused only for the same semantic
-meaning. Identical English wording alone does not establish identical
-semantics.
+The implementation agent MUST NOT create a setting-specific persistence file, independent disk reload, independent save lifecycle, or immediate-save path unless explicitly required.
 
-Changing native English source wording while preserving semantic meaning
-MUST NOT by itself change the localization key. The implementation agent
-MUST NOT invent or automatically rewrite translations when English
-source text changes.
+The implementation agent MUST preserve the complete-state load, validation, comparison, and persistence behavior defined by `PROJECT_STANDARD.md`.
 
-Native English fallback text MUST be provided through Unreal
-localization resources, not duplicated as hard-coded English fallback in
-feature/UI logic.
+## 8. Localization
 
-Missing localization entries or invalid references MUST NOT be
-compensated for with custom fallback text, key-as-player-facing-text
-substitution, a parallel fallback dictionary, or custom lookup system.
-Rely on Unreal behavior unless a specification explicitly requires
-otherwise.
+The implementation agent MUST use the Lord Simulator localization architecture defined by `PROJECT_STANDARD.md`.
 
-Project logs, developer diagnostics, internal identifiers, and technical
-error information remain non-localized unless explicitly required.
-Changing active game language MUST NOT change Lord Simulator project log
-messages.
+Lord Simulator localization MUST use Unreal Engine localization facilities.
 
-Lord Simulator-supported cultures are read-only project configuration at
-runtime. Runtime code MUST NOT add, remove, rename, or otherwise modify
-supported cultures unless explicitly required.
+The implementation agent MUST NOT introduce:
 
-The authoritative Lord Simulator supported-culture set MUST come from the
-project's explicit runtime-readable Unreal localization configuration. It MUST
-NOT be inferred from `.locmeta`, `.locres`, compiled localization-resource
-discovery, operating-system cultures, String Table contents, or a hard-coded C++
-culture registry.
+- a parallel translation engine;
+- a custom translation parser;
+- a custom translation file format;
+- a custom feature-level translation lookup system;
+- an independent active-language state;
+- a feature-specific localization manager;
+- a custom Lord Simulator localization refresh event system;
+- runtime localization hot reload;
+- external translation loading;
+- localization file watching;
+- a new localization target;
+- a new canonical String Table;
+- Blueprint-accessible localization APIs;
 
-The canonical `LordSimulator` Localization Target/resources MUST remain
-consistent with the authoritative supported-culture configuration. A
-specification MAY define stricter validation and failure behavior for
-inconsistency.
+unless explicitly required by a specification and reflected in the project standard where the change is project-wide.
 
-The native Lord Simulator culture is `en`. Runtime feature code MUST NOT
-remove or replace this invariant.
+User-facing localizable text MUST use Unreal Engine localization-aware text facilities, including `FText`, preserving Unreal's normal localization behavior.
 
-Player-facing language-selection UI MUST display native culture display
-names obtained through the Lord Simulator localization framework rather
-than culture identifiers unless explicitly required.
+Localizable text MUST remain localization-aware throughout its UI lifetime. It MUST NOT be converted or cached as `FString` or other static non-localized text in a way that prevents properly implemented UI from reflecting a successful runtime language change.
 
-Feature code, including C++ and Blueprints, MUST NOT directly modify
-Unreal's active language or locale. Application-wide language/locale
-changes go through the Lord Simulator localization framework unless
-explicitly required. Features MUST NOT maintain competing active
-cultures.
+Dynamic localized user-facing text MUST use localization-aware `FText` formatting.
 
-The localization framework MUST remain independent of specific UI
-screens, widgets, and gameplay features unless explicitly required.
+Localization keys MUST NOT be generated from runtime values.
 
-The application MUST maintain one authoritative application-wide
-localization state. Individual features MUST NOT create competing
-localization managers or independent active-language state.
+Localizable text MUST NOT be assembled through English-specific string concatenation or equivalent localization-bypassing logic.
 
-Runtime localization MUST use resources provided through the project's
-Unreal localization/build pipeline. Hot reloading, external translation
-loading, file watching, or localization-pack importing MUST NOT be
-introduced unless explicitly required.
+Numbers, pluralization, dates, times, currencies, percentages, and other culture-sensitive user-facing values MUST use Unreal localization-aware formatting where applicable.
 
-### Localization startup phase
+Localized text and translations MUST be stored and managed through Unreal localization resources and MUST NOT be embedded in C++, Blueprints, widgets, or feature logic unless explicitly required.
 
-The application has one localization startup phase. It begins when
-localization infrastructure initialization starts and completes only
-after: 1. localization infrastructure initialization has reached its
-session result; 2. the complete settings state has been loaded and
-validated; 3. configured `Language` has been processed according to the
-localization framework's startup behavior when localization
-infrastructure is available; and 4. the localization framework has
-established its resulting runtime localization state for the session,
-including any active-language fallback or unavailable-active-language
-state.
+The implementation agent MUST use localization keys exactly as specified and MUST NOT invent keys, native English source text, translations, tooltips, accessibility text, or other player-facing content.
 
-Localization startup completion does not require localization
-initialization or language application to succeed. Failure states are
-valid completed startup states.
+Existing localization keys MUST NOT be renamed, removed, or repurposed unless explicitly required.
 
-Systems that create, cache, format, or display localizable user-facing
-text MUST NOT perform localization-dependent initialization before the
-localization startup phase is complete.
+A key MAY be reused only for the same semantic meaning. Identical English wording alone does not establish identical semantics.
 
-Localization initialization or language-application failure MUST NOT
-prevent the localization startup phase from completing or permanently
-block unrelated application initialization unless a specification
-explicitly requires otherwise.
+Changing native English source wording while preserving semantic meaning MUST NOT by itself change the localization key.
 
-The implementation agent MUST NOT add Blueprint-accessible localization
-APIs merely because they may be useful. Blueprint exposure MUST be
-explicitly required.
+The implementation agent MUST NOT invent or automatically rewrite translations when English source text changes.
 
-When localization work changes gather, compile, cook, packaging,
-verification, automated-test execution, or another developer workflow
-required to produce or verify a valid build, `README.md` MUST be updated
-in accordance with Project Build Documentation.
+Project logs, developer diagnostics, internal identifiers, and technical error information remain non-localized unless explicitly required.
 
-## 7. Project Build Documentation
+Systems that create, cache, format, or display localizable user-facing text MUST respect the localization startup phase defined by `PROJECT_STANDARD.md`.
 
-The implementation agent is responsible for maintaining `README.md` in
-the project root.
+Feature code, including C++ and Blueprints, MUST NOT directly modify Unreal's active game language or locale. Application-wide language/locale changes go through the Lord Simulator localization framework unless explicitly required otherwise.
 
-`README.md` MUST contain complete instructions for building the project
-from the repository and producing an installation file that can be
-installed.
+## 9. Testing
 
-Whenever implementation changes build, packaging, dependencies,
-prerequisites, tooling, testing commands required by a specification, or
-another step required to produce or verify the installation file, the
-implementation agent MUST update `README.md` as part of the same work.
+When a specification requires automated testing, the implementation agent MUST use Unreal Engine's built-in automation testing facilities unless an external testing dependency is explicitly required.
 
-## 8. Git Branches
+The implementation agent MUST NOT introduce an external test framework merely for convenience.
 
-The implementation agent MUST NOT work directly on `development` or
-`master`.
+Automated tests MUST be deterministic where technically practical.
 
-Before starting implementation, the implementation agent MUST create and
-work on a dedicated branch for the specification.
+Environment-dependent behavior SHOULD use an internal test seam when deterministic testing requires control over success/failure outcomes.
 
-The branch name MUST follow `type/name`, where `type` is taken from the
-specification's Type section and `name` is taken from the specification
-filename without the `spec-###-` prefix.
+A test seam MUST NOT:
+
+- create a second production implementation;
+- create a second production registry or source of truth;
+- alter normal production behavior;
+- require a new external mocking dependency unless explicitly required.
+
+Tests MAY use isolated test-only fixtures or in-memory data when required.
+
+Test-only fixtures MUST NOT:
+
+- become production-supported content;
+- modify authoritative production configuration;
+- modify canonical production assets;
+- be packaged as production resources unless explicitly required.
+
+Automated tests do not replace platform, packaging, installer, cooked-resource, or other environment-specific verification that cannot be reliably validated inside the automation test environment.
+
+When a specification affects an existing subsystem with established automated tests, the implementation agent MUST keep those tests passing unless the specification explicitly changes the tested behavior.
+
+## 10. Build and Verification
+
+Implementation MUST preserve the project's ability to build the standard targets defined by `PROJECT_STANDARD.md` unless the specification explicitly changes the supported build baseline.
+
+When a specification affects build configuration, packaging, cooking, localization resources, installer behavior, platform-dependent code, or another build-sensitive area, the implementation agent MUST perform or provide the required verification defined by the specification and project standard.
+
+Build fixes MUST NOT rely on machine-specific absolute include paths, local-only environment assumptions, or developer-specific directory structures.
+
+## 11. Project Build Documentation
+
+The implementation agent is responsible for maintaining `README.md` in the game project root.
+
+`README.md` MUST contain complete instructions for building the project from the repository and producing an installation file that can be installed.
+
+Whenever implementation changes:
+
+- build steps;
+- packaging steps;
+- dependencies;
+- prerequisites;
+- tooling;
+- localization gather/compile steps;
+- automated-test commands required by a specification;
+- verification commands required to produce a valid installation;
+- installer creation;
+- another step required to produce or verify the installation file;
+
+the implementation agent MUST update `README.md` as part of the same work.
+
+Documentation MUST describe the actual implemented workflow rather than an intended or obsolete workflow.
+
+## 12. Project Lifecycle Integration
+
+The implementation agent MUST preserve the canonical startup and shutdown lifecycle defined by `PROJECT_STANDARD.md`.
+
+A subsystem MUST NOT initialize earlier or shut down later than permitted by the project lifecycle merely for implementation convenience.
+
+If a specification introduces a subsystem that requires a new global startup or shutdown ordering relationship, that relationship MUST be explicitly defined by the specification and the project standard MUST be updated before implementation proceeds.
+
+A failure state MUST NOT permanently block unrelated application initialization or shutdown unless the specification explicitly requires that behavior.
+
+## 13. Git Branches
+
+The implementation agent MUST NOT work directly on `development` or `master`.
+
+Before starting implementation, the implementation agent MUST create and work on a dedicated branch for the specification.
+
+The branch name MUST follow:
+
+`type/name`
+
+where:
+
+- `type` is taken from the specification's Type section;
+- `name` is taken from the specification filename without the `spec-###-` prefix and without the `.md` extension.
 
 Example:
 
--   Specification: `spec-001-basic-window.md`
--   Type: `feature`
--   Branch: `feature/basic-window`
+- Specification: `spec-001-basic-window.md`
+- Type: `feature`
+- Branch: `feature/basic-window`
+
+The specification SHOULD NOT hard-code the derived branch name.
+
+If the specification filename does not conform to `SPEC_STANDARD.md` and therefore prevents deterministic branch derivation, implementation MUST stop and report the inconsistency.
+
+## 14. No Unrequested Repository or Standards Changes
+
+The implementation agent MUST NOT modify specifications, standards, unrelated documentation, or repository policy merely to make implementation easier unless the task explicitly requires those changes.
+
+If successful implementation requires changing a project standard, that requirement MUST be resolved explicitly before implementation proceeds.

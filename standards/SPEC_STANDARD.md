@@ -47,9 +47,15 @@ An implementation agent is expected to implement a specification together with:
 
 A specification SHOULD NOT restate established project-wide rules merely to make itself self-contained.
 
-If a specification intentionally changes an established rule in `PROJECT_STANDARD.md`, the project standard MUST be updated so that the specification and the project standard are not contradictory before implementation begins.
+If a specification establishes a new project-wide invariant or intentionally changes an established rule in `PROJECT_STANDARD.md`, the specification MUST explicitly require the corresponding project-standard update.
 
-If a specification conflicts with a current project standard without explicitly and validly changing that standard, the specification is inconsistent and implementation MUST stop under `IMPLEMENTATION_STANDARD.md`.
+The required `PROJECT_STANDARD.md` update MAY be completed before implementation when the intended project-wide architecture or behavior is already fully determined. It MAY instead be completed during implementation or after the implementation work when the final authoritative wording depends on technical details established or verified while implementing the specification.
+
+A specification that requires a project-standard update MUST NOT be considered complete until `PROJECT_STANDARD.md` reflects the resulting implemented architecture or behavior and no contradiction remains between the specification, implementation, and project standard.
+
+Until the required project-standard update is completed, the existing `PROJECT_STANDARD.md` remains authoritative for all project-wide behavior that the current specification does not explicitly change. The current specification is authoritative for the project-wide changes it explicitly requires. A temporary mismatch caused only by such an explicit, pending project-standard change is not by itself an inconsistency.
+
+If the intended project-wide change is not defined clearly enough to determine what existing rule is being added, changed, or superseded, or if another unresolved contradiction remains outside the explicitly required change, the specification is inconsistent and implementation MUST stop under `IMPLEMENTATION_STANDARD.md`.
 
 ## 5. Specification Isolation
 
@@ -164,7 +170,7 @@ Requirements MUST NOT require functionality that contradicts the current project
 
 Requirements MAY rely on current standards without repeating them.
 
-A requirement that changes global startup order, shutdown order, a canonical project identifier, a canonical path, a persistent setting contract, a localization invariant, or another project-wide architectural invariant MUST explicitly define the intended new behavior and require the corresponding project-standard update.
+A requirement that changes global startup order, shutdown order, a canonical project identifier, a canonical path, a persistent setting contract, a localization invariant, or another project-wide architectural invariant MUST explicitly define the intended new behavior and require the corresponding project-standard update as part of completing the specification.
 
 ### 7.5 Acceptance Criteria
 
@@ -175,6 +181,8 @@ Acceptance Criteria MUST only validate requirements defined in the Requirements 
 Acceptance Criteria SHOULD be objectively verifiable where practical.
 
 Acceptance Criteria MAY validate project-standard behavior when that behavior is directly affected by the specification, but they SHOULD NOT redundantly retest unrelated project-wide invariants.
+
+When a specification requires a `PROJECT_STANDARD.md` update, its Acceptance Criteria MUST include verification that the project standard reflects the resulting project-wide architecture or behavior before the specification is considered complete.
 
 ## 8. Derived Workflow Information
 

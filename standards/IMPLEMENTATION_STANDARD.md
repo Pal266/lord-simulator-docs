@@ -11,9 +11,13 @@ For every specification, the implementation agent MUST comply with:
 - `IMPLEMENTATION_STANDARD.md`;
 - `PROJECT_STANDARD.md`.
 
-The current project standards are authoritative for established project-wide behavior.
+The current project standards are authoritative for established project-wide behavior except where the current specification explicitly establishes or changes a project-wide invariant and explicitly requires the corresponding `PROJECT_STANDARD.md` update.
 
-If the specification and the current standards are inconsistent, contradictory, or incomplete in a way that prevents unambiguous implementation, the implementation agent MUST stop implementation and report the problem.
+An explicit and sufficiently defined project-standard change required by the current specification is not by itself an inconsistency merely because the corresponding `PROJECT_STANDARD.md` update is scheduled before, during, or after the implementation work.
+
+Until the required project-standard update is completed, the existing `PROJECT_STANDARD.md` remains authoritative for all project-wide behavior that the current specification does not explicitly change. The current specification is authoritative only for the project-wide changes it explicitly requires.
+
+If the specification and the current standards contain any other inconsistency, contradiction, or missing information that prevents unambiguous implementation, the implementation agent MUST stop implementation and report the problem.
 
 The implementation agent MUST NOT silently choose one conflicting requirement over another.
 
@@ -104,7 +108,7 @@ Every setting in the Lord Simulator settings object MUST have a default value ex
 
 Adding a setting to the settings object or persistent settings file MUST be explicitly required by a specification.
 
-A new setting MUST participate in the complete in-memory and persistent settings state unless the specification explicitly changes the architecture and the project standard has been updated accordingly.
+A new setting MUST participate in the complete in-memory and persistent settings state unless the specification explicitly changes the architecture and requires the corresponding project-standard update.
 
 The implementation agent MUST NOT create a setting-specific persistence file, independent disk reload, independent save lifecycle, or immediate-save path unless explicitly required.
 
@@ -231,7 +235,7 @@ The implementation agent MUST preserve the canonical startup and shutdown lifecy
 
 A subsystem MUST NOT initialize earlier or shut down later than permitted by the project lifecycle merely for implementation convenience.
 
-If a specification introduces a subsystem that requires a new global startup or shutdown ordering relationship, that relationship MUST be explicitly defined by the specification and the project standard MUST be updated before implementation proceeds.
+If a specification introduces a subsystem that requires a new global startup or shutdown ordering relationship, that relationship MUST be explicitly defined by the specification and the corresponding project-standard update MUST be completed as part of completing the specification. The project-standard update MAY occur before, during, or after the implementation work in accordance with this standard.
 
 A failure state MUST NOT permanently block unrelated application initialization or shutdown unless the specification explicitly requires that behavior.
 
@@ -264,4 +268,14 @@ If the specification filename does not conform to `SPEC_STANDARD.md` and therefo
 
 The implementation agent MUST NOT modify specifications, standards, unrelated documentation, or repository policy merely to make implementation easier unless the task explicitly requires those changes.
 
-If successful implementation requires changing a project standard, that requirement MUST be resolved explicitly before implementation proceeds.
+When the specification explicitly requires a `PROJECT_STANDARD.md` update, the implementation agent is authorized to make the required project-standard change as part of completing that specification.
+
+The required project-standard update MAY be performed:
+
+- before implementation when the resulting project-wide architecture or behavior is already fully determined;
+- during implementation when authoritative details can be established while the feature is being implemented;
+- after the implementation work when final standard wording depends on technical details that must first be implemented or verified.
+
+The project-standard update MAY be delivered separately from the implementation work, but the specification MUST NOT be considered complete until both the required implementation and the required project-standard update are complete and mutually consistent.
+
+If implementation discovers that correct completion would require a project-standard change that the specification did not explicitly require, the implementation agent MUST stop and report the issue. The agent MAY propose the required standards change, but MUST NOT modify the project standard until that change is explicitly authorized.

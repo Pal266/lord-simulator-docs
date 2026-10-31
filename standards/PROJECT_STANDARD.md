@@ -1067,15 +1067,9 @@ Documentation MUST include, where applicable:
 
 When project behavior changes a required build, packaging, testing, localization, tooling, prerequisite, or installer step, the README MUST be updated to describe the actual resulting workflow.
 
-## 10. Change Control
+## 10. UI Framework
 
-Canonical identifiers, paths, runtime contracts, startup/shutdown ordering, persistent state behavior, localization architecture, and build baseline in this file remain authoritative until intentionally changed.
-
-A future specification MAY change them only when the change is explicit and `PROJECT_STANDARD.md` is updated so the resulting project has one non-contradictory authoritative standard.
-
-## 11. UI Framework
-
-### 11.1 Technology and Scope
+### 10.1 Technology and Scope
 
 Unreal Motion Graphics (UMG) is the primary Lord Simulator screen-space UI authoring system.
 
@@ -1085,7 +1079,7 @@ The game viewport uses `UCommonGameViewportClient`, or a Lord Simulator subclass
 
 The UI architecture does not establish ModelViewViewModel, Experimental UIFramework, CommonUI Enhanced Input integration, UI Input Actions, UI Input Mapping Contexts, a general input-binding framework, gamepad navigation, controller glyphs, or production visual design.
 
-### 11.2 Ownership and Widget Bases
+### 10.2 Ownership and Widget Bases
 
 `ULordSimulatorUISubsystem`, a `ULocalPlayerSubsystem`, is the authoritative owner and access point for Lord Simulator production screen-space UI for its local player.
 
@@ -1107,7 +1101,7 @@ Production screen-space UI MUST enter through the primary root and its layers. F
 
 Engine-owned debug UI, Unreal Editor UI, and development tools are outside this ownership rule. World-space UI, including `UWidgetComponent` UI, is outside the screen-space framework and MUST NOT be forced through CommonUI screen-space layer/input behavior merely for reuse.
 
-### 11.3 Canonical Layers and Input
+### 10.3 Canonical Layers and Input
 
 The root exposes exactly four canonical layers through one project-owned strongly typed C++ identifier mechanism. Their visual order is:
 
@@ -1128,7 +1122,7 @@ Layer operations return usable widget references on success and fail safely and 
 
 Tooltips MUST NOT use activatable semantics solely to display temporary hover information.
 
-### 11.4 Initialization
+### 10.4 Initialization
 
 UI initialization capable of creating, caching, formatting, or displaying player-facing localizable content MUST occur only after the localization startup phase completes.
 
@@ -1136,7 +1130,7 @@ Initialization may additionally wait for the owning local player and game viewpo
 
 Root creation failure MUST be exposed unambiguously and MUST NOT intentionally crash the application. The UI framework introduces no Lord Simulator project log entry for UI initialization; Unreal technical diagnostics may be used.
 
-### 11.5 Data Flow and Performance
+### 10.5 Data Flow and Performance
 
 Gameplay and simulation systems remain authoritative for gameplay state. Widgets may own ephemeral presentation state, such as scroll position or selected visual tabs, but MUST NOT become independent authoritative copies of gameplay state.
 
@@ -1148,7 +1142,7 @@ Large scrolling collections MUST use suitable Unreal virtualized controls such a
 
 Invalidation, retainer, and volatility optimizations MUST NOT be applied mechanically to all UI. Such optimizations require appropriate behavior and a profiling or specification-based need. UI remains compatible with standard Unreal UI profiling/debugging tools.
 
-### 11.6 Visual Separation and Content
+### 10.6 Visual Separation and Content
 
 C++ framework code owns technical behavior, lifecycle, routing, interfaces, and reusable non-visual logic. Widget Blueprints and supplied UI assets own feature-specific layout, art, animations, and presentation.
 
@@ -1159,3 +1153,9 @@ The canonical screen-space UI content root is `/Game/UI`. Framework assets use `
 Future production UI specifications must supply or identify required visual and localization inputs. Missing production assets MUST NOT be replaced with invented substitute art or runtime-generated visual designs.
 
 The technical UI framework establishes no production main menu, HUD, feature panels, player-facing localization entries, placeholder player-facing UI, or final visual/audio design.
+
+## 11. Change Control
+
+The project-wide architecture, canonical identifiers, paths, runtime contracts, and invariants defined in this file remain authoritative until intentionally changed.
+
+A future specification MAY change them only when the change is explicit and `PROJECT_STANDARD.md` is updated so the resulting project has one non-contradictory authoritative standard.

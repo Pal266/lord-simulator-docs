@@ -1072,3 +1072,90 @@ When project behavior changes a required build, packaging, testing, localization
 Canonical identifiers, paths, runtime contracts, startup/shutdown ordering, persistent state behavior, localization architecture, and build baseline in this file remain authoritative until intentionally changed.
 
 A future specification MAY change them only when the change is explicit and `PROJECT_STANDARD.md` is updated so the resulting project has one non-contradictory authoritative standard.
+
+## 11. UI Framework
+
+### 11.1 Technology and Scope
+
+Unreal Motion Graphics (UMG) is the primary Lord Simulator screen-space UI authoring system.
+
+CommonUI is used selectively for activatable lifecycle, focus restoration, layered menu/modal presentation, and input routing. Ordinary gameplay HUD widgets, context panels, and passive informational widgets MUST NOT be forced to use activatable semantics when they do not require them.
+
+The game viewport uses `UCommonGameViewportClient`, or a Lord Simulator subclass only when technically required.
+
+The UI architecture does not establish ModelViewViewModel, Experimental UIFramework, CommonUI Enhanced Input integration, UI Input Actions, UI Input Mapping Contexts, a general input-binding framework, gamepad navigation, controller glyphs, or production visual design.
+
+### 11.2 Ownership and Widget Bases
+
+`ULordSimulatorUISubsystem`, a `ULocalPlayerSubsystem`, is the authoritative owner and access point for Lord Simulator production screen-space UI for its local player.
+
+Each local player has at most one valid primary Lord Simulator UI root. Repeated initialization while that root exists is idempotent. The subsystem exposes root availability and safe layer operations without requiring feature code to manipulate root internals.
+
+The canonical widget bases are:
+
+- `ULordSimulatorUserWidget`, derived from `UCommonUserWidget`, for widgets that do not require activatable semantics;
+- `ULordSimulatorActivatableWidget`, derived from `UCommonActivatableWidget`, for screens and widgets requiring activation, focus, back-navigation, or input-routing behavior;
+- `ULordSimulatorPrimaryUILayout`, derived from `ULordSimulatorActivatableWidget`, for the primary root.
+
+The technical root Widget Blueprint is:
+
+`/Game/UI/Framework/WBP_LordSimulatorPrimaryUILayout`
+
+It fills the local-player viewport, supports normal Unreal DPI scaling and responsive UMG layout, and contains no player-facing text, placeholder production art, or production visual/audio design.
+
+Production screen-space UI MUST enter through the primary root and its layers. Features MUST NOT establish independent viewport roots or competing screen-space UI managers.
+
+Engine-owned debug UI, Unreal Editor UI, and development tools are outside this ownership rule. World-space UI, including `UWidgetComponent` UI, is outside the screen-space framework and MUST NOT be forced through CommonUI screen-space layer/input behavior merely for reuse.
+
+### 11.3 Canonical Layers and Input
+
+The root exposes exactly four canonical layers through one project-owned strongly typed C++ identifier mechanism. Their visual order is:
+
+`Game < Menu < Modal < PassiveOverlay`
+
+- `Game` supports multiple simultaneously visible gameplay widgets. Adding a widget does not globally block gameplay/world input. Widgets may handle input directed to them; unhandled input remains available to gameplay according to the game's input system.
+- `Menu` uses a CommonUI activatable stack. Only the top menu is displayed/active, and the active routed menu establishes UI-oriented input behavior that blocks normal gameplay/world commands.
+- `Modal` uses a CommonUI activatable stack above Game and Menu. Only the top modal is displayed/active. An active modal takes input priority, prevents interaction with lower Lord Simulator UI, and blocks normal gameplay/world commands.
+- `PassiveOverlay` supports multiple simultaneous non-interactive widgets above the other layers. Both the layer and its children are hit-test/input transparent. Interactive UI MUST use an appropriate interactive layer.
+
+The root's baseline CommonUI input configuration permits combined gameplay and UI interaction. Menu and Modal activation can override that baseline.
+
+CommonUI owns activatable hierarchy input routing and focus restoration. The project MUST NOT introduce a parallel custom focus stack. Closing a menu/modal restores valid underlying interaction without reconstructing unrelated UI.
+
+Opening or closing framework layers MUST NOT automatically change simulation time. A future feature specification may explicitly couple particular UI to simulation time.
+
+Layer operations return usable widget references on success and fail safely and unambiguously when prerequisites or class compatibility are not satisfied. Removing widgets cleans up framework ownership and references.
+
+Tooltips MUST NOT use activatable semantics solely to display temporary hover information.
+
+### 11.4 Initialization
+
+UI initialization capable of creating, caching, formatting, or displaying player-facing localizable content MUST occur only after the localization startup phase completes.
+
+Initialization may additionally wait for the owning local player and game viewport. Localization failure is a valid completed startup state and MUST NOT permanently block unrelated UI initialization.
+
+Root creation failure MUST be exposed unambiguously and MUST NOT intentionally crash the application. The UI framework introduces no Lord Simulator project log entry for UI initialization; Unreal technical diagnostics may be used.
+
+### 11.5 Data Flow and Performance
+
+Gameplay and simulation systems remain authoritative for gameplay state. Widgets may own ephemeral presentation state, such as scroll position or selected visual tabs, but MUST NOT become independent authoritative copies of gameplay state.
+
+Production UI updates are event-driven where practical, using explicit events, delegates, notifications, or direct updates when state changes. UI commands call explicit gameplay/system interfaces.
+
+Production widgets MUST NOT use raw UMG property/function bindings, Tick, NativeTick, OnPaint, or equivalent per-frame work merely to poll gameplay data. The framework MUST NOT introduce a custom MVVM system, reflection-based binding layer, or competing project-wide event bus.
+
+Large scrolling collections MUST use suitable Unreal virtualized controls such as UListView, UTileView, UTreeView, or CommonUI equivalents unless a specification explicitly requires otherwise. Features MUST NOT create large numbers of live off-screen widgets when a suitable virtualized control can represent their content.
+
+Invalidation, retainer, and volatility optimizations MUST NOT be applied mechanically to all UI. Such optimizations require appropriate behavior and a profiling or specification-based need. UI remains compatible with standard Unreal UI profiling/debugging tools.
+
+### 11.6 Visual Separation and Content
+
+C++ framework code owns technical behavior, lifecycle, routing, interfaces, and reusable non-visual logic. Widget Blueprints and supplied UI assets own feature-specific layout, art, animations, and presentation.
+
+Shared production presentation values SHOULD be centralized in explicit CommonUI style assets or Lord Simulator style/data assets.
+
+The canonical screen-space UI content root is `/Game/UI`. Framework assets use `/Game/UI/Framework`. Future content SHOULD use Screens, Widgets, Styles, Icons, Textures, Fonts, and Materials subdirectories according to purpose. Empty directories need not be committed.
+
+Future production UI specifications must supply or identify required visual and localization inputs. Missing production assets MUST NOT be replaced with invented substitute art or runtime-generated visual designs.
+
+The technical UI framework establishes no production main menu, HUD, feature panels, player-facing localization entries, placeholder player-facing UI, or final visual/audio design.

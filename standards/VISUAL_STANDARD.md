@@ -64,6 +64,16 @@ Implementation specifications MAY reference style material as authoritative visu
 
 A concrete visual file that must be imported into or directly used by the game MUST still come from `visuals/approved/`.
 
+Approved style material is authoritative and protected by default.
+
+An AI agent or other contributor MUST NOT delete, overwrite, replace, rename, move, or materially edit an approved style rule, guide, example, or other material in `visuals/style/` unless an explicit user-authorized visual-design task or specification requires that change.
+
+Exploring a replacement or alternative style direction MUST NOT modify or revoke the currently approved style. Proposed replacements and alternatives MUST remain in `visuals/research/` until the user explicitly approves the new direction.
+
+The existence of a newer style experiment does not supersede an approved style rule.
+
+When a task conflicts with an approved style rule, the conflict MUST be surfaced rather than silently resolved by changing or ignoring the approved style.
+
 ### 2.3 Approved
 
 `visuals/approved/` contains only visual assets explicitly approved for direct production use in Lord Simulator.
@@ -77,6 +87,22 @@ An AI agent MUST NOT infer production approval from silence, lack of criticism, 
 Approved assets are the only visual assets that implementation specifications may identify for direct import or use in the game.
 
 Research files, rejected variants, exploratory references, prompt history, temporary mockups, and other non-production material MUST NOT be stored in `visuals/approved/`.
+
+### 2.4 Canonical Visual Development Lifecycle
+
+Lord Simulator visual work follows this canonical lifecycle:
+
+1. define the visual goal, constraints, and relevant approved style direction;
+2. gather references, research, prototypes, prompt experiments, and AI-generated candidates under `visuals/research/`;
+3. present meaningful alternatives to the user for review when alternatives are useful;
+4. keep rejected, undecided, and revision-requested work in `visuals/research/` and iterate there;
+5. when the user explicitly approves reusable visual direction or a reusable visual rule, record or promote that direction into `visuals/style/`;
+6. when the user explicitly approves a concrete asset for direct game use, promote the exact approved asset into `visuals/approved/` using its final semantic name;
+7. future implementation specifications reference the approved style guidance and exact approved production assets rather than asking the implementation agent to make visual choices.
+
+Approval MUST be explicit. An AI agent MUST NOT infer that a style direction or production asset has advanced to an approved state because it was shown to the user, because iteration stopped, because feedback was generally positive, or because the agent considers the work finished.
+
+Research and iteration MAY continue after a style direction or production asset has been approved, but new experiments do not alter the authority of the currently approved material until the user explicitly approves a replacement or change through the applicable workflow.
 
 ## 3. Approved Asset Preservation
 

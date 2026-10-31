@@ -104,6 +104,18 @@ The implementation agent MAY create derived technical assets when required by im
 
 Examples include generated collision data, engine metadata, generated serialization data, internal lookup data, and engine-specific derived resources.
 
+### 6.1 Visual Asset References
+
+Visual work is governed by `VISUAL_STANDARD.md`.
+
+When a specification requires a concrete visual asset to be imported into or directly used by the game, it MUST reference the exact required asset under `visuals/approved/`.
+
+A specification MUST NOT identify a visual asset from `visuals/research/` as a production implementation input. Research material MAY be referenced only for research, comparison, prototyping, or visual-design work that does not instruct the implementation agent to use that material directly in the game.
+
+A specification MAY reference material under `visuals/style/` as authoritative visual guidance, but a concrete visual file intended for direct production use MUST still be identified under `visuals/approved/`.
+
+An implementation specification MUST NOT require the implementation agent to choose between multiple visual candidates or to substitute an unapproved visual asset when an approved required asset is missing.
+
 ## 7. Specification Structure
 
 Every specification MUST use the following Markdown structure and section order:

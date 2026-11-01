@@ -390,9 +390,11 @@ The authoritative native culture is `en`.
 
 `en` is a required project invariant and MUST be a supported Lord Simulator culture.
 
-The initial production-supported culture set is exactly:
+The production-supported culture set is exactly:
 
-- `en`
+- `en` — English (native/source culture);
+- `cs` — Czech;
+- `uk` — Ukrainian.
 
 The canonical asset-based Unreal String Table is:
 
@@ -472,7 +474,7 @@ Player-facing language-selection UI MUST display native culture display names ob
 
 The project MUST NOT maintain a separate project-owned culture-display-name translation table.
 
-For the initial culture:
+For the native culture:
 
 - culture identifier: `en`
 - expected native display name: `English`

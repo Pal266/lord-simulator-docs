@@ -1003,7 +1003,9 @@ The required relative ordering is:
 7. log that settings loading has completed;
 8. establish the resulting runtime localization state;
 9. mark the localization startup phase complete;
-10. continue unrelated/general application startup.
+10. initialize or ensure the primary local-player UI root when its local-player and viewport prerequisites are available;
+11. once that root is successfully available, present exactly one initial production main-menu screen on the canonical `Menu` layer;
+12. continue unrelated/general application startup.
 
 The localization startup phase begins when localization infrastructure initialization starts.
 
@@ -1019,6 +1021,10 @@ Localization startup completion does not require localization initialization or 
 Failure states are valid completed startup states.
 
 Systems that create, cache, format, or display localizable user-facing text MUST NOT perform localization-dependent initialization before the localization startup phase is complete.
+
+For the primary local player, after localization startup is complete and the primary UI root is successfully available, exactly one initial production main-menu screen MUST be present on the canonical `Menu` layer. Repeated application/UI initialization while that root and menu remain valid MUST NOT create another initial main-menu instance.
+
+If the primary UI root is not yet available when localization startup completes, initial main-menu presentation waits until the required root prerequisites are available. Root or initial-menu creation failure MUST remain non-fatal and MUST NOT intentionally crash or permanently block unrelated application startup.
 
 Localization initialization or language-application failure MUST NOT permanently block unrelated application initialization.
 
@@ -1128,7 +1134,9 @@ UI initialization capable of creating, caching, formatting, or displaying player
 
 Initialization may additionally wait for the owning local player and game viewport. Localization failure is a valid completed startup state and MUST NOT permanently block unrelated UI initialization.
 
-Root creation failure MUST be exposed unambiguously and MUST NOT intentionally crash the application. The UI framework introduces no Lord Simulator project log entry for UI initialization; Unreal technical diagnostics may be used.
+For the primary local player, once localization startup is complete and the primary UI root is successfully available, the UI subsystem MUST ensure exactly one initial production main-menu screen is present on the canonical `Menu` layer. Repeated initialization MUST preserve that invariant without duplicating the screen.
+
+Root creation or initial-menu creation failure MUST be exposed unambiguously and MUST NOT intentionally crash the application. The UI framework introduces no Lord Simulator project log entry for UI initialization; Unreal technical diagnostics may be used.
 
 ### 10.5 Data Flow and Performance
 
@@ -1152,7 +1160,7 @@ The canonical screen-space UI content root is `/Game/UI`. Framework assets use `
 
 Future production UI specifications must supply or identify required visual and localization inputs. Missing production assets MUST NOT be replaced with invented substitute art or runtime-generated visual designs.
 
-The technical UI framework establishes no production main menu, HUD, feature panels, player-facing localization entries, placeholder player-facing UI, or final visual/audio design.
+The technical primary root itself establishes no player-facing text, placeholder production art, HUD, feature panels, or final visual/audio design. Production screens, including the initial main menu, are feature content attached through the canonical layers and own their specification-supplied presentation and localization inputs.
 
 ## 11. Change Control
 

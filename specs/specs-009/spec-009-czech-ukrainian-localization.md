@@ -70,15 +70,15 @@ This specification extends the existing Lord Simulator localization content and 
 16. With `cs` active, the main menu MUST display:
 
    - `NOVÁ HRA`;
-   - `NAČÍST HRU`;
+   - `NAČÍST`;
    - `NASTAVENÍ`;
    - `UKONČIT`.
 
 17. With `uk` active, the main menu MUST display:
 
    - `НОВА ГРА`;
-   - `ЗАВАНТАЖИТИ ГРУ`;
-   - `НАЛАШТУВАННЯ`;
+   - `ЗАВАНТАЖИТИ`;
+   - `ПАРАМЕТРИ`;
    - `ВИЙТИ`.
 
 18. Czech diacritics and Ukrainian Cyrillic characters MUST render correctly using the existing main-menu typography.

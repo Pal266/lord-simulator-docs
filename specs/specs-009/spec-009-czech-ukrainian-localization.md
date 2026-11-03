@@ -47,8 +47,8 @@ This specification extends the existing Lord Simulator localization content and 
 | Localization key | English `en` | Czech `cs` | Ukrainian `uk` |
 |---|---|---|---|
 | `MainMenu.NewGame` | `NEW GAME` | `NOVÁ HRA` | `НОВА ГРА` |
-| `MainMenu.LoadGame` | `LOAD GAME` | `NAČÍST HRU` | `ЗАВАНТАЖИТИ ГРУ` |
-| `MainMenu.Settings` | `SETTINGS` | `NASTAVENÍ` | `НАЛАШТУВАННЯ` |
+| `MainMenu.LoadGame` | `LOAD GAME` | `NAČÍST` | `ЗАВАНТАЖИТИ` |
+| `MainMenu.Settings` | `SETTINGS` | `NASTAVENÍ` | `ПАРАМЕТРИ` |
 | `MainMenu.Quit` | `QUIT` | `UKONČIT` | `ВИЙТИ` |
 
 9. The exact Czech and Ukrainian translations defined in requirement 8 MUST be used.

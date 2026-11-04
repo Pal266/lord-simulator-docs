@@ -441,8 +441,7 @@ for r in rivers_top[:5]:
     print(r)
 
 # ---------- 6. render ----------
-FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-FONTB = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+from fonts import FONT, FONTB
 S = 1.25
 biome = CD["biome"]
 pal = {0: (38, 78, 128), 1: (205, 222, 235), 2: (242, 246, 250), 3: (158, 168, 140), 4: (150, 140, 134),

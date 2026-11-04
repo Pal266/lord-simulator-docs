@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+# Unreal plot heightmaps (~130 MB each) are generated locally, not stored in Git
+regions/*/export/

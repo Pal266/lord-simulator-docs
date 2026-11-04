@@ -232,8 +232,7 @@ for lat_d in range(-60, 61, 30):
     y = (0.5 - lat_d / 180) * img.height
     d.line([(0, y), (img.width, y)], fill=(255, 255, 255), width=1)
 
-FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-FONTB = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+from fonts import FONT, FONTB
 LEG = 110
 canvas = Image.new("RGB", (img.width, img.height + LEG), (24, 26, 32))
 canvas.paste(img, (0, 0))

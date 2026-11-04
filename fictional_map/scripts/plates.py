@@ -240,8 +240,7 @@ def render_map(plate_f, cont_f, new_f, btype_f, scale):
         img = Image.fromarray(arr)
     return img
 
-FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-FONTB = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+from fonts import FONT, FONTB
 S = 1.25
 mp = render_map(plate, cont, new_crust, btype, S)
 d = ImageDraw.Draw(mp)

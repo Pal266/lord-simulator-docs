@@ -257,8 +257,7 @@ biome = np.where(land, ndimage.median_filter(biome, size=3, mode="wrap"), biome)
 biome = np.where(land & (biome <= 1), 3, biome).astype(np.int8)
 
 # ---------- render ----------
-FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-FONTB = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+from fonts import FONT, FONTB
 
 dx = 2 * np.pi * R / W * np.maximum(COS, 0.05) * 1000
 dy = np.pi * R / H * 1000

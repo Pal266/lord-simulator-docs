@@ -27,6 +27,7 @@ fictional_map/
         ├── VALIDATION.md        results of the regional scientific checks (generated)
         ├── VALIDATION_LANDFORMS.md results of the cirque / outwash checks (generated)
         ├── VALIDATION_PLOTS.md  results of the plot checks (generated)
+        ├── VALIDATION_WATER.md  results of the water checks (generated)
         ├── scripts/
         │   ├── region_common.py shared helpers (projection, tiles, sampling) — not run directly
         │   ├── region_flow.py   flow routing / erosion kernels — not run directly
@@ -36,7 +37,10 @@ fictional_map/
         │   ├── refine_25m.py    region step 1b: 25 m refinement (gullies and spurs by erosion, cirques, outwash)
         │   ├── validate_landforms.py checks of cirques and outwash plains against Earth data
         │   ├── detail_plots.py  region step 2: 3 m plots + export for Unreal
-        │   └── validate_plots.py checks of the exported plots (seams, roughness spectrum, fidelity)
+        │   ├── validate_plots.py checks of the exported plots (seams, roughness spectrum, fidelity, layers)
+        │   ├── export_water.py  region step 3: rivers and lakes as water bodies (water.json per plot)
+        │   ├── validate_water.py checks of the water bodies against the terrain and Earth data
+        │   └── ue_import_water.py runs INSIDE Unreal: places the water bodies of one plot
         ├── export/              Unreal heightmaps and layer masks, one folder per plot (not stored in Git)
         └── output/              region results
 ```
@@ -50,7 +54,7 @@ fictional_map/
   pip install -r fictional_map/requirements.txt
   ```
 
-  This installs `numpy`, `scipy`, `pillow` and `numba`.
+  This installs `numpy`, `scipy`, `pillow`, `numba`, `scikit-image` and `matplotlib`.
 - **Disk space:** planet outputs ~50 MB; this region's outputs ~0.6 GB (`regional_model.npz`, `refined_25m.npz`, `detail_prep.npz`, not stored in Git); the 16 exported plots ~0.6 GB more. The final Unreal heightmaps will take about
   130 MB per plot (about 2 GB for all 16), so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
@@ -64,7 +68,8 @@ On Windows use `python`, on Linux/macOS `python3`.
 planet pipeline (once per world seed)          region pipeline (per region)
 plates → heightmap → climate → hydrology  ──►   extract_region → regional_model → validate_region
                                                  → refine_25m → validate_landforms
-                                                 → detail_plots → validate_plots → Unreal (section 9)
+                                                 → detail_plots → validate_plots
+                                                 → export_water → validate_water → Unreal (sections 9, 9a)
                     validate after each step
 ```
 
@@ -219,7 +224,10 @@ exactly the same edge vertices):
 2. fine relief below 100 m with Earth-like roughness statistics (Hurst exponent 0.5), stronger on steep and rocky ground,
    weak on valley floors, plains and soil-covered slopes, none on lake floors;
 3. river channels along the river courses (width = 5·Q^0.5, depth from Manning's equation), banks blending into the terrain;
-4. lake floors below the lake level;
+4. lake floors below the lake level. Lakes are the regional lakes filled to their full basin (spill level) plus kettle
+   lakes and tarns on former glacier ground (closed hollows ≥ 0.5 ha and ≥ 2 m deep); other closed pits of the 25 m
+   surface are model artefacts and are filled, so no dry hollows lie below a water level. River water surfaces never
+   rise downstream (the channel cuts through small bumps);
 5. ground layers, **blended softly** — the weights of all layers add up to 255 at every vertex, as Unreal's
    weight-blended layers expect:
    rock (slopes above ~36–40°, or steep ground well above the treeline), scree (talus slopes of 28–38° near and above
@@ -241,6 +249,32 @@ and `output/preview_tile_x{c}_y{r}.png` (1016 × 1016 shaded preview coloured by
 shared edges identical (seams, heights and layer weights), roughness spectrum close to Earth's (~k⁻²), plots faithful to
 the 25 m base, heights within the Unreal range, layer weights adding up to 255 everywhere with soft transitions.
 
+## 8a. Region step 3 — `export_water.py`, `validate_water.py`
+
+**Purpose:** the heightmaps already contain the river channels and lake basins; this step exports the **water itself**
+for Unreal's Water plugin.
+
+```
+cd fictional_map/regions/southern_coast_range/scripts
+python export_water.py       # ~1 minute; needs output/detail_prep.npz (detail_plots.py)
+python validate_water.py     # ~3 minutes; needs the exported heightmaps
+```
+
+**Writes** `export/tile_x{c}_y{r}/water.json` per plot, `output/water_summary.json` and `output/water_overview.png`
+(rivers and lakes drawn over the plot previews). `water.json` contains, in centimetres in the plot's landscape frame
+(origin = north-west corner vertex, X = east, Y = south, Z = height above sea level):
+
+| Key | Content |
+|---|---|
+| `rivers[]` | `id`, `length_m`, `points_cm` (spline points on the water surface, ≤ 50 m apart), and per point `width_m` (5·Q^0.5), `depth_m` (Manning), `discharge_m3s`, `velocity_ms` (Q / (width · depth)) |
+| `lakes[]` | `id`, `level_m` (water level), `area_m2`, `outline_cm` (closed outline 25 m beyond the shoreline, closed along the plot edge where the lake continues into the next plot) |
+
+Rivers and lakes continue 30 m beyond each plot edge, so the water joins without gaps when plots are shown side by side.
+
+`validate_water.py` writes `VALIDATION_WATER.md` and `output/validation_water.json` (exit code 1 on failure): water
+surfaces fall downstream, the splines run inside the carved channels, depths match the channels, flow velocities lie in
+the range of natural rivers, lakes fill their basins with no dry hollows beside them, lake share of the square.
+
 ## 9. Importing a plot into Unreal Engine 5.8.4
 
 Each plot is its own landscape (the player switches between plots).
@@ -258,10 +292,35 @@ Each plot is its own landscape (the player switches between plots).
    *Import from file* and pick the matching `layer_*.png` from the plot's folder. The weights already add up to 255, so
    import order does not matter. Do not use non-weight-blended Layer Infos: they ignore the blending. Each landscape
    component samples only the layers painted on it, so eight layers stay within the usual texture-sampler budget.
-8. Lakes: their water level is in the lake shape; add Water Body Lake actors at the shoreline height where needed.
+8. Water: see section 9a.
 
 Height encoding of the heightmaps: `value = 32768 + height_m × 12.8` (16-bit). With Z scale 1000 this covers
 −2560 m … +2559.9 m with about 8 cm precision.
+
+## 9a. Placing the water in Unreal (`ue_import_water.py`)
+
+1. **Edit → Plugins:** enable **Water** and **Python Editor Script Plugin**; restart the editor.
+2. Open the plot's level (landscape imported as in section 9, at location 0, 0, 0).
+3. In the **Output Log**, switch the command line from *Cmd* to *Python* and run:
+
+   ```
+   py "C:/path/to/fictional_map/regions/southern_coast_range/scripts/ue_import_water.py" "C:/path/to/fictional_map/regions/southern_coast_range/export/tile_x1_y2"
+   ```
+
+   (forward slashes work on Windows too).
+4. The script places a **WaterZone** over the plot, one **WaterBodyRiver** per river and one **WaterBodyLake** per lake,
+   all in the outliner folder `Water/tile_x1_y2`, with *Affects Landscape* switched off (the channels and basins are
+   already in the heightmap). Running it again replaces that folder's actors.
+5. Read the last line it prints in the Output Log: how many rivers got per-point width / depth / velocity. The Water
+   plugin does not document these per-point curves for scripting; if your engine version refuses them, every river gets
+   its median width, depth and velocity instead (wide rivers then look uniform along their length; you can adjust the
+   width at single spline points by hand in the Details panel).
+6. Settings at the top of the script: `MIN_RIVER_Q` (skip small rivers) and `MIN_LAKE_M2` (skip small ponds) — raise
+   them if a plot has too many water bodies for your target hardware (a plot has up to a few hundred small kettle ponds).
+
+> The script has not been run inside Unreal Engine 5.8.4 by the author of this pipeline (no engine is available where
+> it was generated). It uses the Water plugin's scripting functions documented by Epic (WaterBodyRiver / WaterBodyLake,
+> `get_water_spline`, spline functions). If it stops with an error, send the Output Log text so it can be fixed.
 
 ## 10. Troubleshooting
 
@@ -272,4 +331,6 @@ Height encoding of the heightmaps: `value = 32768 + height_m × 12.8` (16-bit). 
 | `hydrology.py` takes long the first time | `numba` compiles once and caches the result; later runs are faster. |
 | `validate.py` or `validate_region.py` reports FAIL | The result is not accepted. Do not use it; the model has to be fixed first. |
 | `validate_region.py` says `region_context.json` is missing | Run `extract_region.py` first. |
+| `ue_import_water.py`: `AttributeError: module 'unreal' has no attribute 'WaterBodyRiver'` | The Water plugin is not enabled (section 9a, step 1). |
+| Water bodies are invisible in Unreal | They render only inside a WaterZone; check that the WaterZone of the plot exists and covers the plot. |
 | `No suitable font found for map labels` | Labels need DejaVu Sans or Arial (Cyrillic). Windows and macOS have Arial; on Linux install DejaVu (`fonts-dejavu`). The lookup is in `fictional_map/scripts/fonts.py`. |

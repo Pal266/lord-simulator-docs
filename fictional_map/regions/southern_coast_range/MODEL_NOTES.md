@@ -98,6 +98,16 @@ This file records every scientific decision, why it was made and what it rests o
   layers form patches instead of flickering vertex by vertex on rough rock (with the 9 m slope alone 2–12% of all weight
   changes between neighbouring vertices were hard 0↔255 jumps). Slopes are computed with a 12-vertex halo beyond every
   plot edge, so weights match exactly across seams.
+- **Lakes and closed hollows.** In this humid climate (precipitation exceeds evapotranspiration) a closed basin fills
+  with water up to its spill point. A depression of the 25 m surface that contains a regional lake is that lake's full
+  basin; a closed hollow on former glacier ground (≥ 0.5 ha, ≥ 2 m deep) is a kettle lake or tarn; any other closed pit
+  is an artefact of the erosion model (river landscapes have almost no closed pits) and is filled to its spill level.
+  Result: lakes cover ~5% of the square (2.5% before the regional lakes were filled to their spill level); Earth's lakes
+  cover ~3.7% of non-glaciated land, more in formerly glaciated terrain (Verpoorter et al. 2014).
+- **River water surfaces** never rise downstream: along each river the water surface is the closest non-rising profile
+  to the valley floor (isotonic regression), so channels cut through small bumps instead of holding water uphill.
+- **Water bodies for Unreal (`export_water.py`).** Rivers are exported as splines on the water surface with width
+  5·Q^0.5, Manning depth and mean velocity Q/(w·d); lakes as outlines at their spill level, 25 m beyond the shoreline.
 - **Seams:** every vertex is computed from world coordinates only; neighbouring plots share identical edge vertices.
 
 ## Known limitations (v2)

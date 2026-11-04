@@ -48,6 +48,8 @@ FINE_WAVELENGTHS = [12.0, 6.0]   # below ~20 m soil-covered slopes are smooth; o
 SOIL_FINE_FACTOR = 0.25
 AMP_PLAIN, AMP_STEEP, AMP_ALPINE = 0.8, 7.0, 3.0  # metres at the 160 m wavelength
 RIVER_Q_MIN = 1.0               # m3/s: smaller streams stay as fractal relief only
+KETTLE_MIN_DEPTH_M = 2.0        # closed hollows on former glacier ground deeper than this hold a lake (kettles, tarns)
+KETTLE_MIN_CELLS = 8            # ... if at least this many 25 m cells (0.5 ha)
 WIDTH_A, MANNING_N = 5.0, 0.035
 TREELINE_GS_TEMP = 6.7          # C, growing-season mean at the treeline
 GS_THRESHOLD = 0.0              # months with mean temperature above this form the growing season
@@ -108,6 +110,25 @@ def fbm(xw, yw, amp160, wavelengths, hurst, seed):
     return out
 
 
+@njit(cache=True)
+def isotonic_decreasing(y):
+    """Pool-adjacent-violators: least-squares non-increasing fit to y."""
+    n = y.size
+    val = np.empty(n); wt = np.empty(n); cnt = np.empty(n, np.int64)
+    k = 0
+    for i in range(n):
+        val[k] = y[i]; wt[k] = 1.0; cnt[k] = 1
+        while k > 0 and val[k - 1] < val[k]:
+            v = (val[k - 1] * wt[k - 1] + val[k] * wt[k]) / (wt[k - 1] + wt[k])
+            wt[k - 1] += wt[k]; cnt[k - 1] += cnt[k]; val[k - 1] = v; k -= 1
+        k += 1
+    out = np.empty(n); i = 0
+    for b in range(k):
+        for _ in range(cnt[b]):
+            out[i] = val[b]; i += 1
+    return out
+
+
 # ---------------- preparation (once) ----------------
 def prepare():
     m = np.load(os.path.join(REGION_OUT, "regional_model.npz"))
@@ -128,6 +149,24 @@ def prepare():
         ow_belt = np.zeros(z.shape, bool)
     res = float(xs[1] - xs[0])
     level = priority_flood(z, sea, 0.0)
+    # Closed depressions of the 25 m surface. In this humid climate (precipitation exceeds evapotranspiration) a real
+    # closed basin fills with water up to its spill point, so:
+    #  * a depression that contains a regional lake is that lake's full basin (the lake reaches its spill level);
+    #  * a depression on former glacier ground (>= 0.5 ha, >= 2 m deep) is a kettle lake or tarn;
+    #  * any other depression is an artefact of the erosion model (river landscapes have almost no closed pits):
+    #    it is filled to its spill level, so no dry hollows lie below the water table.
+    ice = np.zeros(z.shape, bool)
+    if os.path.exists(refined) and "ice_lgm" in np.load(refined).files:
+        ice = np.load(refined)["ice_lgm"] > 0.5
+    dep = ((level - z) > 0.01) & ~sea
+    lab_, n_ = ndimage.label(dep)
+    idx = range(1, n_ + 1)
+    has_lake = np.r_[False, ndimage.maximum(lake, lab_, idx) > 0]
+    kettle = np.r_[False, (ndimage.sum(dep, lab_, idx) >= KETTLE_MIN_CELLS)
+                   & (ndimage.maximum(level - z, lab_, idx) >= KETTLE_MIN_DEPTH_M) & (ndimage.mean(ice, lab_, idx) > 0.5)]
+    keep = has_lake | kettle
+    z = np.where(dep & ~keep[lab_], level, z)          # fill artefact pits
+    lake = (lake | (dep & keep[lab_])) & ~sea
     lake_level = np.where(lake, level, np.nan)
     # river courses: trace downstream from every channel head, smooth, keep discharge
     river = (Q >= RIVER_Q_MIN) & ~lake.ravel() & ~sea.ravel()
@@ -186,8 +225,14 @@ def prepare():
         best = offs[np.argmin(zz, axis=1)]
         best = ndimage.gaussian_filter1d(best, 40, mode="nearest")      # ~100 m smoothing along the river
         snapped.append(p + best[:, None] * nrm)
+    line_len = np.array([len(p) for p in snapped], np.int64)         # points per river line (for export_water.py)
     P = np.vstack(snapped); Qp = np.concatenate(Qp)
     ws = ndimage.map_coordinates(spl, [(ys[0] - P[:, 1]) / res, (P[:, 0] - xs[0]) / res], order=3, prefilter=False)
+    # water never flows uphill: the water surface along each river line is the closest never-rising profile to the
+    # valley floor (isotonic regression), so the channel cuts through small bumps and fills small pits
+    o_ = 0
+    for n_ in line_len:
+        ws[o_:o_ + n_] = isotonic_decreasing(ws[o_:o_ + n_]); o_ += n_
     # local channel slope from the base surface along each river (smoothed over ~200 m), for Manning depth
     gy, gx = np.gradient(ndimage.gaussian_filter(z, 200.0 / res), res)
     slope_reg = np.hypot(gx, gy)
@@ -219,7 +264,7 @@ def prepare():
     mz = ndimage.uniform_filter(z, win); mz2 = ndimage.uniform_filter(z * z, win)
     relief_std = np.sqrt(np.clip(mz2 - mz * mz, 0, None))                     # relief std in a ~2 km window
     np.savez_compressed(PREP, spline=spl, z=z, x0=xs[0], y0=ys[0], res=res, lake_level=np.nan_to_num(lake_level, nan=-9999.0),
-                        lake=lake, sea=sea, river_pts=P, river_q=Qp, river_ws=ws, river_w=width, river_d=depth,
+                        lake=lake, sea=sea, river_pts=P, river_line_len=line_len, river_q=Qp, river_ws=ws, river_w=width, river_d=depth,
                         treeline=treeline, slope_deg=slope_deg, relief_std=relief_std, river_mask=river.reshape(z.shape),
                         outwash_belt=ow_belt,
                         river_near=ndimage.binary_dilation(river.reshape(z.shape), iterations=int(math.ceil(250.0 / res))))

@@ -113,7 +113,7 @@ python extract_region.py --res 250  # finer sampling (only smoother interpolatio
 | `river_coarse.json` | Coarse course of the square's largest river from its source to its mouth (one point per planet cell) with discharge, and `reaches_sea` |
 | `region_overview.png` | Left: the region on the planet (800 × 800 km). Right: the region with the 16 plots and the river (it continues ~18 km east of the square to the sea) |
 
-**How to read the result:** the planet grid is about 28 km × 15 km at this latitude, so the region is covered by only
+**How to read the result:** the planet grid is about 28 km × 19 km at this latitude, so the region is covered by only
 a few dozen planet cells. `region_context` is the large-scale frame (where the coast is, how high the land is, what the
 climate is). Valleys, glacial landforms, river channels, floodplains and everything smaller are produced by the next steps.
 

@@ -20,11 +20,11 @@ from region_flow import accumulate, diffuse, route, stream_power
 
 DX = 25.0
 MARGIN_M = 2000.0                 # beyond the square, so the plots' edges are not at the model edge
-ERODE_YR, DT = 2.0e5, 2.0e4
+ERODE_YR, DT = 3.0e5, 2.0e4
 K_SP, M_SP = 1.0e-6, 0.5          # same as the regional model
 D_HILL = 0.01
 POSTGLACIAL_YR = 1.5e4
-SEED_RELIEF_M = 4.0               # sub-100 m roughness from which gullies start
+SEED_RELIEF_M = 6.0               # sub-100 m roughness from which gullies start
 
 t0 = time.time()
 m = np.load(os.path.join(REGION_OUT, "regional_model.npz"))
@@ -47,9 +47,32 @@ LAT, LON = xy_to_latlon(X, Y)
 runoff = np.clip(sample_world(wd["hydro"]["runoff_mm"], LAT, LON, 1), 0, None) / 1000.0
 del LAT, LON
 fixed = sea | lake
+# rivers that enter the refined area from outside (e.g. the main river rising on the range crest west of the
+# square): inject the regional model's discharge where they cross into the 25 m grid
+f100, rec100, _, _, _ = route(z100, m["sea"], 100.0)
+X100, Y100 = np.meshgrid(xs, ys)
+ins100 = (np.abs(X100) < half) & (np.abs(Y100) < half)
+r_ = rec100.reshape(-1)
+src = np.nonzero(~ins100.ravel() & ins100.ravel()[r_] & (np.arange(r_.size) != r_))[0]
+inflow = np.zeros(z.shape)
+Q100 = m["discharge_m3s"].ravel() * 3.15576e7
+for k in src:
+    if Q100[k] <= 0:
+        continue
+    # follow the regional river ~1 km into the grid: cells at the grid edge drain straight out of the model
+    kk = int(r_[k])
+    for _ in range(100):
+        jx, ix_ = divmod(kk, xs.size)
+        if min(half - abs(xs[ix_]), half - abs(ys[jx])) > 1000.0 or r_[kk] == kk:
+            break
+        kk = int(r_[kk])
+    jx, ix_ = divmod(kk, xs.size)
+    jj = int(np.clip((y[0] - ys[jx]) / DX, 0, z.shape[0] - 1)); ii = int(np.clip((xs[ix_] - x[0]) / DX, 0, z.shape[1] - 1))
+    inflow[jj, ii] += Q100[k]
+del X100, Y100
 z = np.where(fixed, z, z + noise)
 kfac = (1 - ice) + ice * (POSTGLACIAL_YR / ERODE_YR)       # young glacial surfaces barely eroded
-q_cell = (runoff * DX * DX).ravel()
+q_cell = (runoff * DX * DX + inflow).ravel()
 H, W = z.shape
 print(f"grid {W} x {H} = {H * W / 1e6:.1f} M cells, setup {time.time() - t0:.0f} s")
 for step in range(int(ERODE_YR / DT)):
@@ -58,7 +81,8 @@ for step in range(int(ERODE_YR / DT)):
     zf = stream_power(z.ravel().copy(), oa, rec, dist, Q * kfac.ravel() ** 2, K_SP, M_SP, DT, fixed.ravel())
     z = diffuse(zf.reshape(H, W), D_HILL, DT, DX, fixed, 1)
     print(f"step {step + 1}: {time.time() - t0:.0f} s", flush=True)
-f, rec, dist, oa, od = route(z, fixed, DX)
+# today's discharge: water flows through the lakes (only the sea is a sink)
+f, rec, dist, oa, od = route(z, sea, DX)
 Qs = (accumulate(od, rec, q_cell) / 3.15576e7).reshape(H, W)
 np.savez_compressed(os.path.join(REGION_OUT, "refined_25m.npz"), x_m=x.astype(np.float32), y_m=y.astype(np.float32),
                     elevation_m=z.astype(np.float32), discharge_m3s=Qs.astype(np.float32), lake=lake, sea=sea,

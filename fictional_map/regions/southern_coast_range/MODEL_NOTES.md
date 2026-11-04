@@ -47,6 +47,24 @@ This file records every scientific decision, why it was made and what it rests o
 - Discharge from the planet's runoff routed over the final terrain. The square's largest river (~130 m³/s at the
   square's edge in this model) drains east towards the sea.
 
+## 6. From 100 m to the 3 m plots
+
+- **25 m refinement (`refine_25m.py`).** Interpolated 100 m terrain plus random noise had the right roughness statistics
+  but the wrong shapes (lumps instead of gullies and spurs). Instead, the same stream-power erosion and hillslope
+  diffusion run again on a 25 m grid for 300 000 years. Former glacier areas are eroded only for the ~15 000 years since
+  the ice melted, so troughs and moraines stay fresh. Rivers entering the area from outside carry the regional model's
+  discharge (injected ~1 km inside the grid so they do not drain straight out of its edge).
+- **Roughness below 100 m (`detail_plots.py`).** Self-affine detail with Hurst exponent 0.5: along transects Earth's
+  topography has a power spectrum close to k⁻² (Hurst ~0.5, fractal dimension ~2.5). Its amplitude follows the local
+  relief and is damped on gentle ground (valley floors, plains). Below ~20 m it is weaker on soil-covered slopes than on rock.
+- **Check of the result:** the spectral exponent of the plots over 100 m – 2 km is ~2.6, inside the accepted band (1.6–2.6),
+  but at its rough end: the plots are still a little smoother than typical Earth terrain at hillslope scale.
+- **Rivers:** courses from the 25 m drainage network (≥ 1 m³/s), smoothed and snapped to the lowest line of the valley floor;
+  width 5·Q^0.5, depth from Manning's equation (n = 0.035) with the local slope; banks rise ~15% and fade into the terrain.
+- **Treeline:** where the growing-season mean temperature (months above 0 °C) is 6.7 °C, the value found at high-altitude
+  treelines worldwide (Körner & Paulsen 2004). Here ~1 280 m.
+- **Seams:** every vertex is computed from world coordinates only; neighbouring plots share identical edge vertices.
+
 ## Known limitations (v1)
 
 - Mountain slopes are gentle for a 2 km range (median ~5°, 90% below ~20° above 1000 m): the planet relief that
@@ -55,4 +73,5 @@ This file records every scientific decision, why it was made and what it rests o
 - Glaciers are placed by the accumulation-area method, not by an ice-flow simulation; ice thickness is not modelled.
 - Glacial sediment (outwash plains in front of the moraines) is not modelled.
 - Small rectangular artefacts can appear where moraine ridges meet the edge of a glacier system.
-- The 100 m grid cannot show streams draining less than a few km²; those come with the 3 m plot detailing.
+- Streams smaller than ~1 m³/s are not cut as channels; they exist only as gullies in the 25 m relief.
+- Ground layers are hard 0/255 masks (no blending between layers yet).

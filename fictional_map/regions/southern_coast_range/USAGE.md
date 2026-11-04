@@ -179,7 +179,7 @@ record the reason in `MODEL_NOTES.md`, then run both scripts again.
 
 ```
 cd fictional_map/regions/southern_coast_range/scripts
-python refine_25m.py                          # once, ~3-5 minutes, ~3 GB RAM: 25 m erosion refinement
+python refine_25m.py                          # once, ~5 minutes, ~3 GB RAM: 25 m erosion refinement
 python detail_plots.py --tiles x2_y1 --preview  # seconds: 1/8-resolution preview of one plot
 python detail_plots.py --tiles x1_y1 x2_y1      # selected plots, full resolution (~1 minute each)
 python detail_plots.py --tiles all              # all 16 plots (~20 minutes, ~0.6 GB on disk)
@@ -191,7 +191,8 @@ add `--reprep` to rebuild it after re-running `regional_model.py` or `refine_25m
 
 **What `refine_25m.py` does:** re-runs the regional erosion physics on a 25 m grid over the square (+2 km margin),
 so slopes get real gullies and spurs instead of random lumps. Areas covered by glaciers in the last ice age are eroded
-only for the ~15 000 years since the ice melted, so troughs and moraines stay fresh. Lakes and the sea are fixed.
+only for the ~15 000 years since the ice melted, so troughs and moraines stay fresh. Lakes and the sea are fixed;
+rivers coming from outside the area carry the regional model's discharge.
 
 **What `detail_plots.py` does for every vertex** (only world coordinates are used, so neighbouring plots share
 exactly the same edge vertices):

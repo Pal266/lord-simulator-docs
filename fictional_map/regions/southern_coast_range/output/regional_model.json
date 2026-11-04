@@ -1,0 +1,46 @@
+{
+ "resolution_m": 100.0,
+ "domain_km": 140.0,
+ "tectonics": "old orogen, isostatic uplift (no active plate boundary within ~320 km)",
+ "climate": {
+  "lgm_cooling_c": 8.1,
+  "ela_now_m": 2704,
+  "ela_lgm_m": 1461,
+  "lapse_c_per_km": 6.5,
+  "summer_temp_highest_point_c": 5.9
+ },
+ "glaciers": {
+  "aar": 0.6,
+  "lgm_glaciers": 44,
+  "lgm_ice_pct_of_square": 40.5,
+  "lgm_lowest_terminus_m": 461,
+  "present_glacier_systems_in_domain": 35,
+  "present_ice_km2_in_square": 0.0,
+  "troughs_axis_km": 1928,
+  "cirque_pct": 0.6,
+  "moraine_pct": 2.2
+ },
+ "square": {
+  "elev_min_m": 5,
+  "elev_max_m": 2084,
+  "mean_elev_m": 696,
+  "planet_mean_elev_m": 735,
+  "planet_max_elev_m": 2045,
+  "mountains_pct": 25.3,
+  "foothills_pct": 45.9,
+  "plain_pct": 28.8,
+  "lake_km2": 247.1,
+  "lakes": 798,
+  "mountain_slope_median_deg": 4.7,
+  "mountain_slope_p90_deg": 19.7,
+  "largest_river_m3s": 128.8,
+  "largest_river_reaches_sea_or_edge": true
+ },
+ "erosion": {
+  "years": 2000000.0,
+  "k": 1e-06,
+  "m": 0.5,
+  "hill_diffusivity": 0.01,
+  "relax": 0.5
+ }
+}

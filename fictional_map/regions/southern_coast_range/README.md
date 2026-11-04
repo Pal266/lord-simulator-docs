@@ -36,8 +36,20 @@ mountains rise above 256 m). Neighbouring plots share their edge vertices.
 | Step | Status |
 |---|---|
 | 0. Cut the region out of the planet (`extract_region.py`) | Done |
-| 1. Regional process model at 100 m (range uplift and erosion, glacial history, rivers) | Next |
-| 2. Plot detailing at ~3 m | Planned |
+| 1. Regional process model at 100 m (`regional_model.py`, checks `validate_region.py`) | Done (v1), 12/12 checks |
+| 2. Plot detailing at ~3 m | Next |
 | 3. Export for Unreal (heightmaps + layer masks) | Planned |
 
 Every step must pass scientific validation before it is accepted.
+Regional checks: [VALIDATION.md](VALIDATION.md). Scientific decisions: [MODEL_NOTES.md](MODEL_NOTES.md).
+
+## Regional model (100 m)
+
+- An old mountain range (no active plate boundary nearby) with valleys running from the crest in the west to the plain in the east.
+- No glaciers today (equilibrium line ~2.7 km, summits ~2.1 km). In the last ice age
+  (~8.1 °C colder) 44 valley glaciers covered ~40% of the square, reaching down to ~461 m.
+- Their legacy: U-shaped troughs, cirques, moraines and long finger lakes in the mountain valleys (~247 km² of lakes).
+- Mountains 25.3%, foothills 45.9%, plain 28.8% of the square.
+
+![Regional relief](output/regional_relief.png)
+![Landforms](output/regional_landforms.png)

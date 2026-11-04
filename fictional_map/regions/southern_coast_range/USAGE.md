@@ -23,9 +23,14 @@ fictional_map/
         ├── region.json          region configuration (position, size, tiles, Unreal settings)
         ├── USAGE.md             this file
         ├── README.md            what the region is and its current status
+        ├── MODEL_NOTES.md       scientific decisions of the regional model, with sources
+        ├── VALIDATION.md        results of the regional scientific checks (generated)
         ├── scripts/
         │   ├── region_common.py shared helpers (projection, tiles, sampling) — not run directly
-        │   └── extract_region.py region step 0: cut the region out of the planet
+        │   ├── region_flow.py   flow routing / erosion kernels — not run directly
+        │   ├── extract_region.py region step 0: cut the region out of the planet
+        │   ├── regional_model.py region step 1: 100 m model (rivers, glaciers, lakes)
+        │   └── validate_region.py scientific checks of the regional model
         └── output/              region results
 ```
 
@@ -39,7 +44,7 @@ fictional_map/
   ```
 
   This installs `numpy`, `scipy`, `pillow` and `numba`.
-- **Disk space:** the planet outputs take about 50 MB, this region's outputs about 1 MB so far. The final Unreal heightmaps will take about
+- **Disk space:** the planet outputs take about 50 MB, this region's outputs about 25 MB. The final Unreal heightmaps will take about
   130 MB per plot (about 2 GB for all 16), so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
 
@@ -50,7 +55,7 @@ On Windows use `python`, on Linux/macOS `python3`.
 
 ```
 planet pipeline (once per world seed)          region pipeline (per region)
-plates → heightmap → climate → hydrology  ──►   extract_region → (next steps, section 7)
+plates → heightmap → climate → hydrology  ──►   extract_region → regional_model → validate_region → (next steps, section 8)
                     validate after each step
 ```
 
@@ -126,16 +131,51 @@ print(d.files)                 # list of arrays
 elev = d["elevation_m"]        # 2D array, row 0 = north
 ```
 
-## 7. Next region steps (not written yet)
+## 7. Region step 1 — `regional_model.py` and its check `validate_region.py`
+
+**Purpose:** build the 100 m terrain model of the region: the river landscape of an old mountain range, the glaciers
+of the last ice age and the landforms they left (U-shaped troughs, cirques, moraines, finger lakes), today's rivers and lakes.
+The scientific decisions behind it are in [MODEL_NOTES.md](MODEL_NOTES.md).
+
+```
+cd fictional_map/regions/southern_coast_range/scripts
+python regional_model.py      # ~1.5 minutes; no options
+python validate_region.py     # ~2 seconds
+```
+
+**Needs:** the planet outputs (section 4). `extract_region.py` (section 6) must have been run for `validate_region.py`,
+which compares the result with `output/region_context.json`.
+
+**What it computes** (in this order):
+1. Planet relief, precipitation, runoff and temperatures resampled to 100 m over a 140 × 140 km domain (larger than the square, to avoid edge effects).
+2. 2 million years of river erosion and hillslope diffusion, with slow isostatic uplift that keeps the range's large-scale shape (40 steps of 50 000 years).
+3. Today's and the last glacial maximum's equilibrium-line altitude (Ohmura relation, lapse rate 6.5 °C/km, LGM ~8 °C colder).
+4. Glacier extent per valley (accumulation-area ratio 0.6), then U-shaped troughs, cirques and moraines.
+5. Today's glaciers (none at present), lakes and rivers; where the largest river goes.
+
+**Writes** (to `output/`):
+
+| File | Content |
+|---|---|
+| `regional_model.npz` | 100 m grids over the domain: `x_m`, `y_m` (axes), `elevation_m` (final), `elevation_fluvial_m` (before the ice ages), masks `sea`, `lake`, `rivers`, `ice_lgm`, `ice_now`, `trough_axis`, `cirque`, `moraine`; fields `discharge_m3s`, `trough_halfwidth_m`, `ela_now_m`, `ela_lgm_m`, `terminus_lgm_m`, `summer_temp_c`, `winter_temp_c`, `precip_mm` |
+| `regional_model.json` | Key numbers: LGM cooling and ELAs, glacier count and extent, square statistics (heights, shares of mountains/foothills/plain, lakes, slopes, largest river) |
+| `regional_relief.png` | Shaded relief of the 100 km square with lakes, rivers and the 16 plots |
+| `regional_landforms.png` | Landform map: LGM ice extent (light blue), trough axes, cirques, moraines (brown), lakes and rivers |
+
+`validate_region.py` writes `VALIDATION.md` (in this folder) and `output/validation_region.json`, and exits with code 1
+if any check fails. **The regional model is only accepted when every check passes.**
+
+To change the model, edit the parameter block at the top of `regional_model.py` (each parameter has a comment),
+record the reason in `MODEL_NOTES.md`, then run both scripts again.
+
+## 8. Next region steps (not written yet)
 
 These scripts do not exist yet. Each will be documented here, with its exact command, when it is added.
 
-1. **Regional process model at 100 m** — mountain-range uplift and erosion, glacial history of the range (valley glaciers
-   are likely at the glacial maximum), river network and floodplains; with its own scientific checks.
-2. **Plot detailing at ~3 m** — each 25 km plot refined separately so neighbouring plots match exactly on their shared edges.
-3. **Export for Unreal** — one 16-bit PNG heightmap per plot (8129 × 8129) plus layer masks (forest, meadow, rock, snow, water).
+1. **Plot detailing at ~3 m** — each 25 km plot refined separately so neighbouring plots match exactly on their shared edges.
+2. **Export for Unreal** — one 16-bit PNG heightmap per plot (8129 × 8129) plus layer masks (forest, meadow, rock, snow, water).
 
-## 8. Importing a plot into Unreal Engine 5.8.4 (once heightmaps exist)
+## 9. Importing a plot into Unreal Engine 5.8.4 (once heightmaps exist)
 
 Each plot is its own landscape (the player switches between plots).
 
@@ -150,12 +190,13 @@ Each plot is its own landscape (the player switches between plots).
 Height encoding of the heightmaps: `value = 32768 + height_m × 12.8` (16-bit). With Z scale 1000 this covers
 −2560 m … +2559.9 m with about 8 cm precision.
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 | Problem | Cause and fix |
 |---|---|
 | `Missing planet outputs in …` | Run the planet pipeline (section 4) first. |
 | `ModuleNotFoundError: numba` (or numpy, scipy, PIL) | Run `pip install -r fictional_map/requirements.txt`. |
 | `hydrology.py` takes long the first time | `numba` compiles once and caches the result; later runs are faster. |
-| `validate.py` reports FAIL | The result is not accepted. Do not use it; the model has to be fixed first. |
+| `validate.py` or `validate_region.py` reports FAIL | The result is not accepted. Do not use it; the model has to be fixed first. |
+| `validate_region.py` says `region_context.json` is missing | Run `extract_region.py` first. |
 | `No suitable font found for map labels` | Labels need DejaVu Sans or Arial (Cyrillic). Windows and macOS have Arial; on Linux install DejaVu (`fonts-dejavu`). The lookup is in `fictional_map/scripts/fonts.py`. |

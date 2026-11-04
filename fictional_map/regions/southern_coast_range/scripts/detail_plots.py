@@ -48,6 +48,8 @@ FINE_WAVELENGTHS = [12.0, 6.0]   # below ~20 m soil-covered slopes are smooth; o
 SOIL_FINE_FACTOR = 0.25
 AMP_PLAIN, AMP_STEEP, AMP_ALPINE = 0.8, 7.0, 3.0  # metres at the 160 m wavelength
 RIVER_Q_MIN = 1.0               # m3/s: smaller streams stay as fractal relief only
+SHORE_M, SHORE_PIT_M, SHORE_FLAT_M = 100.0, 2.0, 0.2   # shore flats next to lakes (see build_tile)
+SHORE_FADE_M = 150.0            # fine relief fades out towards lake shores over this distance
 KETTLE_MIN_DEPTH_M = 2.0        # closed hollows on former glacier ground deeper than this hold a lake (kettles, tarns)
 KETTLE_MIN_CELLS = 8            # ... if at least this many 25 m cells (0.5 ha)
 WIDTH_A, MANNING_N = 5.0, 0.035
@@ -151,7 +153,9 @@ def prepare():
     level = priority_flood(z, sea, 0.0)
     # Closed depressions of the 25 m surface. In this humid climate (precipitation exceeds evapotranspiration) a real
     # closed basin fills with water up to its spill point, so:
-    #  * a depression that contains a regional lake is that lake's full basin (the lake reaches its spill level);
+    #  * a depression that contains a regional lake is that lake's full basin (the lake reaches its spill level); a lake
+    #    is always a flat water surface, so regional lake cells outside a closed depression (on a slope of the 25 m
+    #    surface, where the 100 m lake outline does not fit the finer terrain) are land;
     #  * a depression on former glacier ground (>= 0.5 ha, >= 2 m deep) is a kettle lake or tarn;
     #  * any other depression is an artefact of the erosion model (river landscapes have almost no closed pits):
     #    it is filled to its spill level, so no dry hollows lie below the water table.
@@ -166,7 +170,7 @@ def prepare():
                    & (ndimage.maximum(level - z, lab_, idx) >= KETTLE_MIN_DEPTH_M) & (ndimage.mean(ice, lab_, idx) > 0.5)]
     keep = has_lake | kettle
     z = np.where(dep & ~keep[lab_], level, z)          # fill artefact pits
-    lake = (lake | (dep & keep[lab_])) & ~sea
+    lake = dep & keep[lab_]
     lake_level = np.where(lake, level, np.nan)
     # river courses: trace downstream from every channel head, smooth, keep discharge
     river = (Q >= RIVER_Q_MIN) & ~lake.ravel() & ~sea.ravel()
@@ -258,6 +262,10 @@ def prepare():
     XB, YB = np.meshgrid(xs, ys)
     treeline = ndimage.map_coordinates(treeline100, [(m["y_m"][0] - YB) / 100.0, (XB - m["x_m"][0]) / 100.0], order=1)
     del XB, YB
+    # distance to the nearest lake and that lake's level (for the shore flats in build_tile)
+    lake_dist, (nj_, ni_) = ndimage.distance_transform_edt(~lake, return_indices=True)
+    lake_dist = lake_dist * res
+    lake_near_level = np.nan_to_num(lake_level, nan=-9999.0)[nj_, ni_]
     gyz, gxz = np.gradient(z, res)
     slope_deg = np.degrees(np.arctan(np.hypot(gxz, gyz)))
     win = int(round(2000.0 / res)) | 1
@@ -267,7 +275,8 @@ def prepare():
                         lake=lake, sea=sea, river_pts=P, river_line_len=line_len, river_q=Qp, river_ws=ws, river_w=width, river_d=depth,
                         treeline=treeline, slope_deg=slope_deg, relief_std=relief_std, river_mask=river.reshape(z.shape),
                         outwash_belt=ow_belt,
-                        river_near=ndimage.binary_dilation(river.reshape(z.shape), iterations=int(math.ceil(250.0 / res))))
+                        river_near=ndimage.binary_dilation(river.reshape(z.shape), iterations=int(math.ceil(250.0 / res))),
+                        lake_dist=lake_dist.astype(np.float32), lake_near_level=lake_near_level.astype(np.float32))
     return dict(rivers=len(lines), river_points=int(P.shape[0]),
                 treeline_m=round(float(np.median(treeline[(np.abs(xs)[None, :] <= HALF_M) & (np.abs(ys)[:, None] <= HALF_M)])), 0))
 
@@ -298,11 +307,21 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     gentle = np.clip(slope100 / 10.0, 0.12, 1.0)
     amp = DETAIL_C * rstd * gentle * (DETAIL_WAVELENGTHS[0] / 2000.0) ** HURST + AMP_PLAIN * 0.3
     amp = np.where(lake_f > 0.5, 0.0, amp)
+    # lake shores are smoothed by waves and shore ice: the fine relief fades out towards the water (within ~150 m),
+    # so it cannot dig hollows below the lake level beside the lake
+    sd = ndimage.map_coordinates(prep["lake_dist"], [fj, fi], order=1)
+    sl_ = ndimage.map_coordinates(prep["lake_near_level"], [fj, fi], order=0)
+    amp = amp * np.where(sl_ > -9000, 0.1 + 0.9 * smoothstep(0.0, SHORE_FADE_M, sd), 1.0)
     rocky = np.clip((slope100 - 25.0) / 10.0, 0, 1) + alpine * 0.5
     amp_fine = amp * (FINE_WAVELENGTHS[0] / DETAIL_WAVELENGTHS[0]) ** HURST * \
         (SOIL_FINE_FACTOR + (1 - SOIL_FINE_FACTOR) * np.clip(rocky, 0, 1))
     z = base + fbm(Xw, Yw, amp, np.array(DETAIL_WAVELENGTHS), HURST, SEED) \
              + fbm(Xw, Yw, amp_fine, np.array(FINE_WAVELENGTHS), HURST, SEED + 1)
+    # lake shores: the fine relief must not dig dry pits below the water level next to a lake. Within SHORE_M of a
+    # lake, shallow hollows below the level (up to SHORE_PIT_M deep: the scale of the fine relief) become flats just
+    # above the water, like the wet shore flats of real lakes; deeper ground (e.g. below a moraine dam) is left as it is.
+    shore = (sd < SHORE_M) & (sl_ > -9000) & (z < sl_ + SHORE_FLAT_M) & (z > sl_ - SHORE_PIT_M)
+    z = np.where(shore & ~((lake_f > 0.5) & (lake_lv > -9000)), sl_ + SHORE_FLAT_M, z)
     # rivers
     near = ndimage.map_coordinates(prep["river_near"].astype(float), [fj, fi], order=0) > 0.5
     riverbed = np.zeros(z.shape); wet = np.zeros(z.shape); gravel = np.zeros(z.shape)

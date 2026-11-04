@@ -224,9 +224,10 @@ exactly the same edge vertices):
 2. fine relief below 100 m with Earth-like roughness statistics (Hurst exponent 0.5), stronger on steep and rocky ground,
    weak on valley floors, plains and soil-covered slopes, none on lake floors;
 3. river channels along the river courses (width = 5·Q^0.5, depth from Manning's equation), banks blending into the terrain;
-4. lake floors below the lake level. Lakes are the regional lakes filled to their full basin (spill level) plus kettle
-   lakes and tarns on former glacier ground (closed hollows ≥ 0.5 ha and ≥ 2 m deep); other closed pits of the 25 m
-   surface are model artefacts and are filled, so no dry hollows lie below a water level. River water surfaces never
+4. lake floors below the lake level. Lakes are the closed basins of the 25 m surface, each flat at its spill level:
+   the regional lakes' full basins plus kettle lakes and tarns on former glacier ground (closed hollows ≥ 0.5 ha and
+   ≥ 2 m deep); other closed pits are model artefacts and are filled. Lake shores are smoothed (no dry hollows below the
+   water level beside a lake). River water surfaces never
    rise downstream (the channel cuts through small bumps);
 5. ground layers, **blended softly** — the weights of all layers add up to 255 at every vertex, as Unreal's
    weight-blended layers expect:

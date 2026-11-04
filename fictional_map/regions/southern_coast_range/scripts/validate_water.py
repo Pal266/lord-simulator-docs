@@ -13,6 +13,7 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 from matplotlib.path import Path
+from scipy.spatial import cKDTree
 from region_common import REGION_DIR, REGION_OUT
 import detail_plots as dp
 
@@ -34,7 +35,7 @@ def check(kind, name, value, ref, lo, hi, unit, src, note=""):
 SP = dp.SPACING * 100.0
 rises = steps = 0
 in_channel = []; depth_ratio = []; vel = []
-lake_wet_in = []; lake_dry_out = []
+lake_wet_in = []; dry_cells = [0, 0]
 for c_ in range(4):
     for r_ in range(4):
         name = f"tile_x{c_}_y{r_}"
@@ -58,19 +59,49 @@ for c_ in range(4):
         sub = z[::4, ::4]
         jj, ii = np.mgrid[0:sub.shape[0], 0:sub.shape[1]]
         pts = np.column_stack([(ii * 4 * SP).ravel(), (jj * 4 * SP).ravel()])
+        # ground covered by river water (channels, incl. lake outlets): within half a width (+6 m) of a river spline
+        dense, rad = [], []
+        for rv in w["rivers"]:
+            p = np.array(rv["points_cm"])[:, :2]; hw = np.array(rv["width_m"]) * 50.0 + 600.0
+            seg = np.hypot(*np.diff(p, axis=0).T); t = np.r_[0, np.cumsum(seg)]
+            tt = np.arange(0, t[-1], 300.0)
+            dense.append(np.column_stack([np.interp(tt, t, p[:, 0]), np.interp(tt, t, p[:, 1])])); rad.append(np.interp(tt, t, hw))
+        river_cov = np.zeros(sub.size, bool)
+        if dense:
+            dense = np.vstack(dense); rad = np.concatenate(rad)
+            dd, ix = cKDTree(dense).query(pts, distance_upper_bound=float(rad.max()) + 1)
+            river_cov = np.isfinite(dd) & (dd <= rad[np.minimum(ix, rad.size - 1)])
+        # union of all lake outlines of the plot (a lake can be split into several outlines at the plot edge)
+        cover = np.zeros(sub.shape, bool); parts = {}
         for lk in w["lakes"]:
-            poly = np.array(lk["outline_cm"])
-            x0, y0 = poly.min(0) - 10000; x1, y1 = poly.max(0) + 10000    # bounding box + 100 m
-            sel = (pts[:, 0] >= x0) & (pts[:, 0] <= x1) & (pts[:, 1] >= y0) & (pts[:, 1] <= y1)
-            if not sel.any():
+            poly = np.array(lk["outline_cm"]) / (4 * SP)                 # in sub-grid cells (x = col, y = row)
+            i0, j0 = np.maximum(np.floor(poly.min(0)).astype(int), 0)
+            i1, j1 = np.minimum(np.ceil(poly.max(0)).astype(int) + 1, [sub.shape[1], sub.shape[0]])
+            if i1 <= i0 or j1 <= j0:
                 continue
-            inside = Path(poly).contains_points(pts[sel])
-            below = sub.ravel()[sel] < lk["level_m"]
-            if inside.any():
-                lake_wet_in.append(float(below[inside].mean()))
-            # dry hollows below the lake level just outside the outline (water missing there)
-            if (~inside).any():
-                lake_dry_out.append(float(below[~inside].mean()))
+            jj_, ii_ = np.mgrid[j0:j1, i0:i1]
+            m = Path(poly).contains_points(np.column_stack([ii_.ravel(), jj_.ravel()])).reshape(jj_.shape)
+            cover[j0:j1, i0:i1] |= m
+            parts.setdefault(lk["id"], []).append((j0, j1, i0, i1, m, lk["level_m"]))
+        rc = river_cov.reshape(sub.shape)
+        for lid, pl in parts.items():
+            level_ = pl[0][5]
+            j0 = max(0, min(p_[0] for p_ in pl) - 9); j1 = min(sub.shape[0], max(p_[1] for p_ in pl) + 9)
+            i0 = max(0, min(p_[2] for p_ in pl) - 9); i1 = min(sub.shape[1], max(p_[3] for p_ in pl) + 9)
+            inn = np.zeros((j1 - j0, i1 - i0), bool)
+            for a, b, c, d, m, _ in pl:
+                inn[a - j0:b - j0, c - i0:d - i0] |= m
+            if not inn.any():
+                continue
+            zz = sub[j0:j1, i0:i1]
+            lake_wet_in.append(float((zz[inn] < level_).mean()))
+            # dry hollows: ground more than 0.3 m below the lake level, connected to the lake, covered by no lake or
+            # river water body - water would stand there but nothing covers it. Ground below the level downstream of
+            # the lake's outlet is reached only through the outlet river (covered) and does not count.
+            bel = (zz < level_ - 0.3) & ~cover[j0:j1, i0:i1] & ~rc[j0:j1, i0:i1]
+            lab_, _ = ndimage.label(bel | inn)
+            conn = np.isin(lab_, np.unique(lab_[inn]))
+            dry_cells[0] += int((conn & bel).sum()); dry_cells[1] += int(inn.sum())
         del z, sub
         print(name, "checked", flush=True)
 
@@ -84,8 +115,8 @@ check("Earth data", "Mean flow velocity v = Q/(w d), median", float(np.median(ve
 check("Earth data", "Mean flow velocity, 99th percentile", float(np.percentile(vel, 99)), "< ~5 m/s", 0, 5.0, "m/s", "leopold")
 check("physics", "Lakes cover their basins: median share of terrain below the lake level inside the outline",
       100.0 * float(np.median(lake_wet_in)), "most of the lake area", 50.0, 100.0, "%", "model", f"{len(lake_wet_in)} lake parts")
-check("physics", "No dry hollows next to lakes: median share of terrain below the level within 100 m outside the outline",
-      100.0 * float(np.median(lake_dry_out)), "~0", 0, 5.0, "%", "model")
+check("physics", "No dry hollows next to lakes: dry ground > 0.3 m below the lake level, connected to a lake, as share of lake area",
+      100.0 * dry_cells[0] / max(dry_cells[1], 1), "~0", 0, 5.0, "%", "model")
 
 prep = np.load(dp.PREP)
 res = float(prep["res"]); n_ = prep["lake"].shape

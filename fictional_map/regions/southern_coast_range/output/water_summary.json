@@ -1,73 +1,73 @@
 {
- "rivers": 491,
- "river_points": 54780,
- "river_km": 1547.4,
- "lakes": 817,
- "lake_points": 14764,
+ "rivers": 785,
+ "river_points": 40916,
+ "river_km": 1136.7,
+ "lakes": 3814,
+ "lake_points": 82202,
  "plots": {
   "tile_x0_y0": {
-   "rivers": 66,
-   "lakes": 128
+   "rivers": 69,
+   "lakes": 403
   },
   "tile_x1_y0": {
-   "rivers": 27,
-   "lakes": 34
+   "rivers": 25,
+   "lakes": 117
   },
   "tile_x2_y0": {
-   "rivers": 11,
-   "lakes": 33
+   "rivers": 13,
+   "lakes": 47
   },
   "tile_x3_y0": {
    "rivers": 6,
-   "lakes": 9
+   "lakes": 13
   },
   "tile_x0_y1": {
-   "rivers": 30,
-   "lakes": 33
+   "rivers": 115,
+   "lakes": 465
   },
   "tile_x1_y1": {
-   "rivers": 74,
-   "lakes": 160
+   "rivers": 73,
+   "lakes": 604
   },
   "tile_x2_y1": {
-   "rivers": 49,
-   "lakes": 59
+   "rivers": 36,
+   "lakes": 96
   },
   "tile_x3_y1": {
-   "rivers": 8,
-   "lakes": 9
+   "rivers": 12,
+   "lakes": 13
   },
   "tile_x0_y2": {
-   "rivers": 27,
-   "lakes": 33
+   "rivers": 112,
+   "lakes": 538
   },
   "tile_x1_y2": {
-   "rivers": 63,
-   "lakes": 124
+   "rivers": 75,
+   "lakes": 433
   },
   "tile_x2_y2": {
-   "rivers": 18,
-   "lakes": 26
+   "rivers": 21,
+   "lakes": 27
   },
   "tile_x3_y2": {
    "rivers": 4,
-   "lakes": 2
+   "lakes": 6
   },
   "tile_x0_y3": {
-   "rivers": 26,
-   "lakes": 30
+   "rivers": 147,
+   "lakes": 682
   },
   "tile_x1_y3": {
-   "rivers": 59,
-   "lakes": 85
+   "rivers": 56,
+   "lakes": 310
   },
   "tile_x2_y3": {
-   "rivers": 19,
-   "lakes": 47
+   "rivers": 17,
+   "lakes": 53
   },
   "tile_x3_y3": {
    "rivers": 4,
-   "lakes": 5
+   "lakes": 7
   }
  }
 }

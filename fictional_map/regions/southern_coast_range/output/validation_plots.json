@@ -1,5 +1,5 @@
 {
- "passed": 119,
+ "passed": 128,
  "total": 128,
  "checks": [
   {
@@ -19,7 +19,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 2.2042,
+   "value": 0.0473,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -28,7 +28,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 29.8%"
+   "note": "blended vertices 31.5%"
   },
   {
    "kind": "Earth data",
@@ -89,7 +89,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 4.6268,
+   "value": 0.0194,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -98,7 +98,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 28.3%"
+   "note": "blended vertices 31.3%"
   },
   {
    "kind": "Earth data",
@@ -159,7 +159,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 9.4253,
+   "value": 0.0194,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -167,8 +167,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 16.1%"
+   "passed": true,
+   "note": "blended vertices 18.4%"
   },
   {
    "kind": "Earth data",
@@ -229,7 +229,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 12.1455,
+   "value": 0.0196,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -237,8 +237,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 6.6%"
+   "passed": true,
+   "note": "blended vertices 7.5%"
   },
   {
    "kind": "Earth data",
@@ -299,7 +299,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 7.0347,
+   "value": 0.1054,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -307,8 +307,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 1.6%"
+   "passed": true,
+   "note": "blended vertices 2.1%"
   },
   {
    "kind": "Earth data",
@@ -369,7 +369,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 7.7713,
+   "value": 0.1256,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -377,8 +377,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 5.2%"
+   "passed": true,
+   "note": "blended vertices 6.9%"
   },
   {
    "kind": "Earth data",
@@ -439,7 +439,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 3.8909,
+   "value": 0.0412,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -448,7 +448,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 19.4%"
+   "note": "blended vertices 21.4%"
   },
   {
    "kind": "Earth data",
@@ -509,7 +509,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 3.6482,
+   "value": 0.0224,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -518,7 +518,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 27.2%"
+   "note": "blended vertices 30.0%"
   },
   {
    "kind": "Earth data",
@@ -579,7 +579,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 3.4534,
+   "value": 0.101,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -588,7 +588,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.7%"
+   "note": "blended vertices 0.8%"
   },
   {
    "kind": "Earth data",
@@ -649,7 +649,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 8.4592,
+   "value": 0.0405,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -657,8 +657,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 2.5%"
+   "passed": true,
+   "note": "blended vertices 3.8%"
   },
   {
    "kind": "Earth data",
@@ -719,7 +719,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 7.808,
+   "value": 0.0297,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -727,8 +727,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 2.2%"
+   "passed": true,
+   "note": "blended vertices 3.2%"
   },
   {
    "kind": "Earth data",
@@ -789,7 +789,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 8.1476,
+   "value": 0.0371,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -797,8 +797,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 2.8%"
+   "passed": true,
+   "note": "blended vertices 3.9%"
   },
   {
    "kind": "Earth data",
@@ -859,7 +859,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 5.9326,
+   "value": 0.5939,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -867,7 +867,7 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
+   "passed": true,
    "note": "blended vertices 0.3%"
   },
   {
@@ -929,7 +929,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 3.6848,
+   "value": 0.242,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -938,7 +938,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.7%"
+   "note": "blended vertices 0.6%"
   },
   {
    "kind": "Earth data",
@@ -999,7 +999,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 4.3283,
+   "value": 0.0756,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1008,7 +1008,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.3%"
+   "note": "blended vertices 0.4%"
   },
   {
    "kind": "Earth data",
@@ -1069,7 +1069,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 5.5374,
+   "value": 0.3528,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1077,7 +1077,7 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
+   "passed": true,
    "note": "blended vertices 0.3%"
   },
   {

@@ -1,0 +1,54 @@
+{
+ "note": "coarse planet-scale course (one point per ~15-28 km cell), upstream to mouth",
+ "points": [
+  {
+   "x_m": -103503,
+   "y_m": 97220,
+   "discharge_m3s": 14401
+  },
+  {
+   "x_m": -89668,
+   "y_m": 69072,
+   "discharge_m3s": 14436
+  },
+  {
+   "x_m": -75095,
+   "y_m": 68767,
+   "discharge_m3s": 14449
+  },
+  {
+   "x_m": -60520,
+   "y_m": 68516,
+   "discharge_m3s": 14529
+  },
+  {
+   "x_m": -46269,
+   "y_m": 40522,
+   "discharge_m3s": 14868
+  },
+  {
+   "x_m": -31590,
+   "y_m": 40378,
+   "discharge_m3s": 14918
+  },
+  {
+   "x_m": -16911,
+   "y_m": 40289,
+   "discharge_m3s": 14973
+  },
+  {
+   "x_m": -2247,
+   "y_m": 12454,
+   "discharge_m3s": 15010
+  },
+  {
+   "x_m": 12536,
+   "y_m": 12473,
+   "discharge_m3s": 15017
+  }
+ ],
+ "sea_point": {
+  "x_m": 27318,
+  "y_m": 12547
+ }
+}

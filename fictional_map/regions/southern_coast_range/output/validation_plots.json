@@ -1,0 +1,1798 @@
+{
+ "passed": 128,
+ "total": 128,
+ "checks": [
+  {
+   "kind": "layers",
+   "name": "tile_x0_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.1498,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 30.2%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2458,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y0: mean difference from the base model (outside lakes)",
+   "value": -0.5835,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y0: height range fits Unreal Z scale 1000",
+   "value": 1459.2188,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.1384,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 29.6%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2097,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
+   "value": -0.7107,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y1: height range fits Unreal Z scale 1000",
+   "value": 1794.375,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.2183,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 17.4%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.3561,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y2: mean difference from the base model (outside lakes)",
+   "value": -0.2826,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y2: height range fits Unreal Z scale 1000",
+   "value": 2015.0,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.6158,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 7.2%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2874,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
+   "value": -0.1264,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y3: height range fits Unreal Z scale 1000",
+   "value": 2093.9062,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.5746,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 1.9%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.3055,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y0: mean difference from the base model (outside lakes)",
+   "value": -0.2964,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y0: height range fits Unreal Z scale 1000",
+   "value": 984.1406,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.8908,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 6.8%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.339,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
+   "value": -0.4506,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y1: height range fits Unreal Z scale 1000",
+   "value": 1194.6875,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.2285,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 20.7%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.332,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y2: mean difference from the base model (outside lakes)",
+   "value": -0.7204,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y2: height range fits Unreal Z scale 1000",
+   "value": 1535.0,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.1007,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 29.0%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.4416,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
+   "value": -0.4036,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y3: height range fits Unreal Z scale 1000",
+   "value": 1747.9688,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.9701,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.7%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.9791,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y0: mean difference from the base model (outside lakes)",
+   "value": -0.0473,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y0: height range fits Unreal Z scale 1000",
+   "value": 587.2656,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.3767,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 3.5%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.9986,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y1: mean difference from the base model (outside lakes)",
+   "value": -0.1548,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y1: height range fits Unreal Z scale 1000",
+   "value": 725.9375,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.1662,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 3.1%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.0087,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y2: mean difference from the base model (outside lakes)",
+   "value": -0.0871,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y2: height range fits Unreal Z scale 1000",
+   "value": 848.2031,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.1447,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 3.8%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.0912,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y3: mean difference from the base model (outside lakes)",
+   "value": -0.0674,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y3: height range fits Unreal Z scale 1000",
+   "value": 862.9688,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 3.1774,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.3%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.6874,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y0: mean difference from the base model (outside lakes)",
+   "value": -0.0569,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y0: height range fits Unreal Z scale 1000",
+   "value": 313.2031,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 2.4398,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.6%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.0134,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y1: mean difference from the base model (outside lakes)",
+   "value": -0.075,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y1: height range fits Unreal Z scale 1000",
+   "value": 303.75,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 0.7619,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.4%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.7564,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y2: mean difference from the base model (outside lakes)",
+   "value": -0.008,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y2: height range fits Unreal Z scale 1000",
+   "value": 294.6875,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 1.6423,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.4%"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.7656,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
+   "value": -0.0254,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y3: height range fits Unreal Z scale 1000",
+   "value": 273.5156,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 | tile_x1_y0: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 | tile_x1_y0: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 / tile_x0_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 / tile_x0_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 | tile_x1_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 | tile_x1_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 / tile_x0_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 / tile_x0_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 | tile_x1_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 | tile_x1_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 / tile_x0_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 / tile_x0_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y3 | tile_x1_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y3 | tile_x1_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 | tile_x2_y0: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 | tile_x2_y0: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 / tile_x1_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 / tile_x1_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 | tile_x2_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 | tile_x2_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 / tile_x1_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 / tile_x1_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 | tile_x2_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 | tile_x2_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 / tile_x1_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 / tile_x1_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y3 | tile_x2_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y3 | tile_x2_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 | tile_x3_y0: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 | tile_x3_y0: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 / tile_x2_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 / tile_x2_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 | tile_x3_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 | tile_x3_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 / tile_x2_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 / tile_x2_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 | tile_x3_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 | tile_x3_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 / tile_x2_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 / tile_x2_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y3 | tile_x3_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y3 | tile_x3_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y0 / tile_x3_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y0 / tile_x3_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y1 / tile_x3_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y1 / tile_x3_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y2 / tile_x3_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y2 / tile_x3_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  }
+ ]
+}

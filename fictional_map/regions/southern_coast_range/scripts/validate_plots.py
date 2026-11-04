@@ -1,0 +1,144 @@
+"""
+Checks for the exported plots (region step 2).
+
+  * seams     - neighbouring exported plots have identical heights on their shared edge;
+  * Earth data - the power spectrum of height along transects falls off as k^-beta with beta ~ 2 (Earth's
+                 topography);
+  * model     - the 3 m plot stays faithful to the 100 m regional model; heights fit the Unreal Z range;
+  * layers    - the soft ground-layer weights add up to 255 at every vertex (Unreal weight blending), transitions
+                are soft (blended vertices exist), and the weights match across plot seams.
+
+Usage:  python validate_plots.py          (checks every plot found in ../export)
+Writes ../VALIDATION_PLOTS.md and ../output/validation_plots.json; exits with code 1 if any check fails.
+"""
+import glob, json, math, os, sys
+import numpy as np
+from PIL import Image
+from scipy import ndimage
+from region_common import CFG, HALF_M, REGION_DIR, REGION_OUT
+import detail_plots as dp
+
+SOURCES = {
+    "spectrum": ("Why is topography fractal? (arXiv:physics/9705033): transect spectra S(k) ~ k^-2",
+                 "https://arxiv.org/pdf/physics/9705033"),
+    "perron": ("Perron, Kirchner & Dietrich 2008, Spectral signatures of characteristic spatial scales and nonfractal structure in landscapes (JGR, doi:10.1029/2007JF000866)",
+               "https://earthref.org/ERR/119557/"),
+    "treeline": ("Koerner & Paulsen 2004, A world-wide study of high altitude treeline temperatures (abstract)",
+                 "https://edoc.unibas.ch/8594"),
+    "ue": ("Unreal Engine Landscape Technical Guide",
+           "https://dev.epicgames.com/documentation/en-us/unreal-engine/landscape-technical-guide-in-unreal-engine"),
+    "ue_layers": ("Unreal Engine Landscape Paint Mode: weight-blended layers (weights of all layers sum to 1 at a vertex)",
+                  "https://dev.epicgames.com/documentation/en-us/unreal-engine/landscape-paint-mode-in-unreal-engine"),
+    "model": ("This region's regional model (output/regional_model.npz)", "output/regional_model.json"),
+}
+checks = []
+
+
+def check(kind, name, value, ref, lo, hi, unit, src, note=""):
+    checks.append(dict(kind=kind, name=name, value=value if isinstance(value, bool) else round(float(value), 4),
+                       reference=ref, band=[lo, hi], unit=unit, source=src, passed=bool(lo <= value <= hi), note=note))
+
+
+def load_h(name):
+    a = np.array(Image.open(os.path.join(REGION_DIR, "export", name, "heightmap.png"))).astype(np.float64)
+    return (a - 32768) / dp.UNITS_PER_M
+
+
+tiles = sorted(os.path.basename(p) for p in glob.glob(os.path.join(REGION_DIR, "export", "tile_x*_y*")))
+if not tiles:
+    raise SystemExit("No exported plots in ../export - run detail_plots.py first.")
+have = {t: tuple(int(v[1:]) for v in t.replace("tile_", "").split("_")) for t in tiles}
+INFO = []             # hillslope-scale spectral exponents (reported, not checked)
+EDGES = {}            # only the four edges of each plot are kept in memory (a full plot is 0.5 GB as float64)
+
+prep = dict(np.load(dp.PREP))
+for t, (c, r) in have.items():
+    z = load_h(t)
+    EDGES[t] = dict(w=z[:, 0].copy(), e=z[:, -1].copy(), n=z[0, :].copy(), s=z[-1, :].copy())
+    # --- soft layers ---
+    tot = None; blended = None; LEDGE = {}; jumps = 0; changes = 0
+    for n_ in dp.LAYERS:
+        a = np.array(Image.open(os.path.join(REGION_DIR, "export", t, f"layer_{n_}.png")))
+        tot = a.astype(np.uint16) if tot is None else tot + a
+        part = (a > 0) & (a < 255)
+        d_ = np.abs(np.diff(a.astype(np.int16), axis=1))          # neighbouring vertices along rows
+        changes += int((d_ > 0).sum()); jumps += int((d_ == 255).sum())
+        del d_
+        blended = part if blended is None else blended | part
+        LEDGE[n_] = dict(w=a[:, 0].astype(np.int16), e=a[:, -1].astype(np.int16), n=a[0, :].astype(np.int16), s=a[-1, :].astype(np.int16))
+        del a
+    EDGES[t]["layers"] = LEDGE
+    check("layers", f"{t}: layer weights add up to 255 at every vertex (min, max)", float(tot.min() == 255 and tot.max() == 255),
+          "1 = yes", 1, 1, "", "ue_layers", f"min {int(tot.min())}, max {int(tot.max())}")
+    # soft transitions: where a layer weight changes between neighbouring vertices, it almost never jumps 0 <-> 255
+    check("layers", f"{t}: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+          100.0 * jumps / max(changes, 1), "~0 (soft transitions)", 0, 5.0, "%", "ue_layers",
+          f"blended vertices {blended.mean() * 100:.1f}%")
+    del tot, blended
+    # --- spectrum of height along rows (transects), wavelengths 20 m - 2 km ---
+    rows = z[::512, :]
+    rows = rows - rows.mean(axis=1, keepdims=True)
+    win = np.hanning(rows.shape[1])
+    ps = np.mean(np.abs(np.fft.rfft(rows * win, axis=1)) ** 2, axis=0)
+    k = np.fft.rfftfreq(rows.shape[1], d=dp.SPACING)
+    xs_ = np.arange(rows.shape[1])
+    rows2 = z[::256, :] - np.array([np.polyval(np.polyfit(xs_, r, 1), xs_) for r in z[::256, :]])
+    ps = np.mean(np.abs(np.fft.rfft(rows2 * win, axis=1)) ** 2, axis=0)
+    band = (k > 1 / 10000.0) & (k < 1 / 500.0)
+    beta = -np.polyfit(np.log(k[band]), np.log(ps[band]), 1)[0]
+    check("Earth data", f"{t}: spectral exponent beta of height transects (500 m - 10 km)", beta, "~2 (1.8-2.1 reported)",
+          1.6, 2.6, "", "spectrum", "landscape scale, where topography behaves as a fractal")
+    hb = (k > 1 / 2000.0) & (k < 1 / 100.0)
+    INFO.append((t, round(float(-np.polyfit(np.log(k[hb]), np.log(ps[hb]), 1)[0]), 2)))
+    # --- faithful to the regional model (100 m averages) ---
+    x0 = -HALF_M + c * dp.TILE_M; y0 = HALF_M - r * dp.TILE_M
+    sub = z[::32, ::32]
+    xv = x0 + np.arange(0, dp.NV, 32) * dp.SPACING; yv = y0 - np.arange(0, dp.NV, 32) * dp.SPACING
+    Xw, Yw = np.meshgrid(xv, yv)
+    res = float(prep["res"])
+    reg = ndimage.map_coordinates(prep["z"], [(prep["y0"] - Yw) / res, (Xw - prep["x0"]) / res], order=1)
+    lake = ndimage.map_coordinates(prep["lake"].astype(float), [(prep["y0"] - Yw) / res, (Xw - prep["x0"]) / res], order=0) > 0.5
+    diff = ndimage.uniform_filter(sub, 3) - reg
+    check("model", f"{t}: mean difference from the base model (outside lakes)", float(np.mean(diff[~lake])), 0, -3.0, 3.0, "m", "model")
+    check("Earth data", f"{t}: height range fits Unreal Z scale {dp.Z_SCALE}", float(np.abs(z).max()), "<= 2559.9", 0, 2559.9, "m", "ue")
+    del z, sub
+
+# --- seams ---
+pairs = 0
+for t, (c, r) in have.items():
+    e = f"tile_x{c + 1}_y{r}"; s_ = f"tile_x{c}_y{r + 1}"
+    if e in EDGES:
+        check("seams", f"{t} | {e}: max height difference on the shared edge",
+              float(np.abs(EDGES[t]["e"] - EDGES[e]["w"]).max()), 0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
+        check("seams", f"{t} | {e}: max layer-weight difference on the shared edge",
+              float(max(np.abs(EDGES[t]["layers"][n_]["e"] - EDGES[e]["layers"][n_]["w"]).max() for n_ in dp.LAYERS)), 0, 0, 2, "of 255", "ue_layers")
+    if s_ in EDGES:
+        check("seams", f"{t} / {s_}: max height difference on the shared edge",
+              float(np.abs(EDGES[t]["s"] - EDGES[s_]["n"]).max()), 0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
+        check("seams", f"{t} / {s_}: max layer-weight difference on the shared edge",
+              float(max(np.abs(EDGES[t]["layers"][n_]["s"] - EDGES[s_]["layers"][n_]["n"]).max() for n_ in dp.LAYERS)), 0, 0, 2, "of 255", "ue_layers")
+
+# the treeline height is reported (not a pass/fail check): it follows from the 6.7 C rule in detail_plots.py
+treeline_median_m = float(np.median(prep["treeline"]))
+
+passed = sum(c_["passed"] for c_ in checks)
+lines = ["# Validation of the exported plots — region `southern_coast_range`", "",
+         "Generated by `scripts/validate_plots.py` for the plots present in `export/`.", "",
+         f"**Result: {passed} / {len(checks)} checks passed** ({len(tiles)} plots, {pairs} shared edges).", "",
+         f"Treeline (growing-season mean 6.7 C, Koerner & Paulsen 2004): median height {treeline_median_m:.0f} m.", "",
+         "Hillslope-scale spectral exponents (100 m - 2 km), reported only: landscapes are not fractal at the scale of their "
+         "ridge-and-valley spacing (Perron et al. 2008), so no Earth band applies there. "
+         + ", ".join(f"{t}: {b}" for t, b in INFO), "",
+         "| Kind | Check | Value | Reference | Accepted band | Result | Source |", "|---|---|---|---|---|---|---|"]
+for c_ in checks:
+    u = f" {c_['unit']}" if c_["unit"] else ""
+    note = f" ({c_['note']})" if c_["note"] else ""
+    lines.append(f"| {c_['kind']} | {c_['name']}{note} | {c_['value']}{u} | {c_['reference']} | {c_['band'][0]}–{c_['band'][1]}{u} | "
+                 f"{'PASS' if c_['passed'] else 'FAIL'} | {c_['source']} |")
+lines += ["", "## Sources", ""] + [f"- **{k}**: [{t}]({u})" for k, (t, u) in SOURCES.items()]
+open(os.path.join(REGION_DIR, "VALIDATION_PLOTS.md"), "w").write("\n".join(lines) + "\n")
+json.dump(dict(passed=passed, total=len(checks), checks=checks), open(os.path.join(REGION_OUT, "validation_plots.json"), "w"), indent=1)
+for c_ in checks:
+    print(("PASS " if c_["passed"] else "FAIL ") + f"[{c_['kind']}] {c_['name']}: {c_['value']} (band {c_['band']})")
+print(f"{passed}/{len(checks)} passed")
+sys.exit(0 if passed == len(checks) else 1)

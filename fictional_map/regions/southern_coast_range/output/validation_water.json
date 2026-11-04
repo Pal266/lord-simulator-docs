@@ -1,0 +1,118 @@
+{
+ "passed": 8,
+ "total": 8,
+ "checks": [
+  {
+   "kind": "physics",
+   "name": "River water surfaces fall downstream: share of spline steps rising > 0.2 m",
+   "value": 0.0,
+   "reference": "~0",
+   "band": [
+    0,
+    2.0
+   ],
+   "unit": "%",
+   "source": "model",
+   "passed": true,
+   "note": "40209 steps"
+  },
+  {
+   "kind": "physics",
+   "name": "River splines lie in the carved channel: share of points with terrain at or below the water surface",
+   "value": 99.9289,
+   "reference": "~100",
+   "band": [
+    95.0,
+    100.0
+   ],
+   "unit": "%",
+   "source": "model",
+   "passed": true,
+   "note": "40811 points"
+  },
+  {
+   "kind": "physics",
+   "name": "Water depth over the terrain / Manning depth, median",
+   "value": 0.9411,
+   "reference": "~1",
+   "band": [
+    0.5,
+    1.5
+   ],
+   "unit": "",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Mean flow velocity v = Q/(w d), median",
+   "value": 1.989,
+   "reference": "~0.3-2 m/s in natural rivers",
+   "band": [
+    0.2,
+    3.0
+   ],
+   "unit": "m/s",
+   "source": "leopold",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Mean flow velocity, 99th percentile",
+   "value": 3.417,
+   "reference": "< ~5 m/s",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "m/s",
+   "source": "leopold",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "physics",
+   "name": "Lakes cover their basins: median share of terrain below the lake level inside the outline",
+   "value": 64.9573,
+   "reference": "most of the lake area",
+   "band": [
+    50.0,
+    100.0
+   ],
+   "unit": "%",
+   "source": "model",
+   "passed": true,
+   "note": "3829 lake parts"
+  },
+  {
+   "kind": "physics",
+   "name": "No dry hollows next to lakes: dry ground > 0.3 m below the lake level, connected to a lake, as share of lake area",
+   "value": 1.7594,
+   "reference": "~0",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Lake share of the square",
+   "value": 4.8863,
+   "reference": "3.7% of Earth's land; more in formerly glaciated terrain",
+   "band": [
+    1.0,
+    12.0
+   ],
+   "unit": "%",
+   "source": "lakes",
+   "passed": true,
+   "note": ""
+  }
+ ]
+}

@@ -1,0 +1,328 @@
+{
+ "passed": 23,
+ "total": 23,
+ "checks": [
+  {
+   "step": "2 Plates",
+   "name": "Number of major plates (>= 4% of surface)",
+   "value": 10.0,
+   "earth": "7-8",
+   "band": [
+    6,
+    10
+   ],
+   "unit": "",
+   "source": "plates",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "2 Plates",
+   "name": "Fastest plate speed",
+   "value": 2.9,
+   "earth": "typically 0-10, up to ~16",
+   "band": [
+    1.0,
+    16.0
+   ],
+   "unit": "cm/yr",
+   "source": "plates",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "2 Plates",
+   "name": "Mean plate speed",
+   "value": 1.78,
+   "earth": "typically 0-10",
+   "band": [
+    0.5,
+    10.0
+   ],
+   "unit": "cm/yr",
+   "source": "plates",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "3 Relief",
+   "name": "Land share of surface",
+   "value": 29.0,
+   "earth": 29.22,
+   "band": [
+    26,
+    33
+   ],
+   "unit": "%",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "3 Relief",
+   "name": "Mean land elevation",
+   "value": 973.95,
+   "earth": 840,
+   "band": [
+    600,
+    1100
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "3 Relief",
+   "name": "Mean ocean depth",
+   "value": 3626.25,
+   "earth": 3800,
+   "band": [
+    3300,
+    4300
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": "other references give 3 682 m"
+  },
+  {
+   "step": "3 Relief",
+   "name": "Highest point",
+   "value": 8836.82,
+   "earth": 8848,
+   "band": [
+    7000,
+    9500
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "3 Relief",
+   "name": "Deepest point",
+   "value": 10060.37,
+   "earth": 11035,
+   "band": [
+    8500,
+    11500
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": "a 28 km grid cell averages trench depth, so the band is wider downwards"
+  },
+  {
+   "step": "3 Relief",
+   "name": "Continental shelf + slope (sea floor above -2 500 m), share of ocean",
+   "value": 17.89,
+   "earth": 15.3,
+   "band": [
+    10,
+    22
+   ],
+   "unit": "%",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "4 Climate",
+   "name": "Mean precipitation over land",
+   "value": 843.8,
+   "earth": "818 (2.24 mm/day)",
+   "band": [
+    700,
+    950
+   ],
+   "unit": "mm/yr",
+   "source": "gpcp",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "4 Climate",
+   "name": "Mean precipitation over ocean",
+   "value": 1037.25,
+   "earth": "1059 (2.90 mm/day)",
+   "band": [
+    900,
+    1200
+   ],
+   "unit": "mm/yr",
+   "source": "gpcp",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "4 Climate",
+   "name": "Land / ocean precipitation ratio",
+   "value": 0.81,
+   "earth": 0.77,
+   "band": [
+    0.65,
+    0.92
+   ],
+   "unit": "",
+   "source": "gpcp",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "4 Climate",
+   "name": "Arid + semi-arid climates (Koppen B), share of land",
+   "value": 21.5,
+   "earth": "about a quarter",
+   "band": [
+    20,
+    35
+   ],
+   "unit": "%",
+   "source": "britannica",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "4 Climate",
+   "name": "Hot desert (BWh), share of land",
+   "value": 11.0,
+   "earth": 14.2,
+   "band": [
+    10,
+    20
+   ],
+   "unit": "%",
+   "source": "peel",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "4 Climate",
+   "name": "Tropical savanna (Aw), share of land",
+   "value": 11.4,
+   "earth": 11.5,
+   "band": [
+    8,
+    15
+   ],
+   "unit": "%",
+   "source": "peel",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "River discharge to the ocean",
+   "value": 47312.0,
+   "earth": "40 000",
+   "band": [
+    28000,
+    52000
+   ],
+   "unit": "km3/yr",
+   "source": "trenberth",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Runoff ratio over land (runoff / precipitation)",
+   "value": 0.41,
+   "earth": "0.355 (40.0 / 112.6)",
+   "band": [
+    0.28,
+    0.45
+   ],
+   "unit": "",
+   "source": "trenberth",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Endorheic (closed) basins, share of land",
+   "value": 18.8,
+   "earth": 18,
+   "band": [
+    12,
+    24
+   ],
+   "unit": "%",
+   "source": "basins",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Lake area, share of land",
+   "value": 2.56,
+   "earth": "3.7 (all lakes > 0.002 km2)",
+   "band": [
+    0.5,
+    3.7
+   ],
+   "unit": "%",
+   "source": "glowabo",
+   "passed": true,
+   "note": "the 28 km grid only resolves large lakes, so the value must stay below the all-lakes total"
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Hack's law exponent h (L ~ A^h)",
+   "value": 0.5,
+   "earth": "slightly below 0.6",
+   "band": [
+    0.45,
+    0.65
+   ],
+   "unit": "",
+   "source": "hack",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Horton bifurcation ratio",
+   "value": 4.6,
+   "earth": "3-5",
+   "band": [
+    3.0,
+    5.0
+   ],
+   "unit": "",
+   "source": "strahler",
+   "passed": true,
+   "note": "fitted over Strahler orders, highest order excluded"
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Mean land elevation after erosion",
+   "value": 1013.64,
+   "earth": 840,
+   "band": [
+    600,
+    1100
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Highest point after erosion",
+   "value": 8950.01,
+   "earth": 8848,
+   "band": [
+    7000,
+    9500
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  }
+ ]
+}

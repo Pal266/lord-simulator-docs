@@ -1,0 +1,146 @@
+{
+ "passed": 10,
+ "total": 10,
+ "checks": [
+  {
+   "kind": "Earth data",
+   "name": "LGM July temperature in the region (glaciers need summers near 0 C)",
+   "value": 10.5,
+   "reference": "cooling 9.7 C (6 global, 14 Arctic)",
+   "band": [
+    2.0,
+    40.0
+   ],
+   "unit": "C",
+   "source": "tierney",
+   "passed": true,
+   "note": "positive LGM summers -> the region stayed ice-free; it was periglacial"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Delta age (start of Holocene progradation)",
+   "value": 7500.0,
+   "reference": "8000-7000 yr",
+   "band": [
+    7000,
+    8000
+   ],
+   "unit": "yr",
+   "source": "stanley",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Sediment load between the Mackenzie-concentration and BQART (B = 1) estimates",
+   "value": 247.6,
+   "reference": "182.4-336.1 Mt/yr",
+   "band": [
+    182.4,
+    336.1
+   ],
+   "unit": "Mt/yr",
+   "source": "mackenzie",
+   "passed": true,
+   "note": "high basin: 57% above 1000 m; Lena (lowland) is not a valid analogue"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Share of the load kept in the delta",
+   "value": 0.7,
+   "reference": "> 0.7 (less than 30% reaches the sea)",
+   "band": [
+    0.7,
+    0.9
+   ],
+   "unit": "",
+   "source": "lenadelta",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "physics",
+   "name": "Delta volume built / sediment budget",
+   "value": 0.995,
+   "reference": 1.0,
+   "band": [
+    0.9,
+    1.15
+   ],
+   "unit": "",
+   "source": "bqart",
+   "passed": true,
+   "note": "mass conservation"
+  },
+  {
+   "kind": "physics",
+   "name": "Main channel capacity (Manning) / river discharge",
+   "value": 1.0,
+   "reference": 1.0,
+   "band": [
+    0.9,
+    1.1
+   ],
+   "unit": "",
+   "source": "fedorova",
+   "passed": true,
+   "note": "continuity Q = w d v with Manning velocity"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Open-coast shoreface coefficient A (h = A x^2/3), whole model domain",
+   "value": 0.096,
+   "reference": "0.055-0.10 (D50 ~ 0.2 mm)",
+   "band": [
+    0.05,
+    0.15
+   ],
+   "unit": "m^1/3",
+   "source": "dean",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "planet",
+   "name": "Land share of the square before the Holocene delta vs planet (the planet model has no deltas)",
+   "value": 74.03,
+   "reference": 75.1,
+   "band": [
+    70.1,
+    80.1
+   ],
+   "unit": "%",
+   "source": "planet",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "planet",
+   "name": "Mean land elevation vs planet sample",
+   "value": 46.5,
+   "reference": 46.3,
+   "band": [
+    26.3,
+    66.3
+   ],
+   "unit": "m",
+   "source": "planet",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Height range fits Unreal Z scale 100 (-256 ... +256 m)",
+   "value": 178.855,
+   "reference": "<= 256",
+   "band": [
+    0,
+    255.99
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  }
+ ]
+}

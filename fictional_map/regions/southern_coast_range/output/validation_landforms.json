@@ -1,0 +1,106 @@
+{
+ "passed": 7,
+ "total": 7,
+ "checks": [
+  {
+   "kind": "Earth data",
+   "name": "Cirque width, median",
+   "value": 675.0,
+   "reference": "~656 m (global median)",
+   "band": [
+    400,
+    1100
+   ],
+   "unit": "m",
+   "source": "evans",
+   "passed": true,
+   "note": "263 cirques"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Cirque floor gradient, median",
+   "value": 8.0,
+   "reference": "~7.7 deg (global median)",
+   "band": [
+    3,
+    15
+   ],
+   "unit": "deg",
+   "source": "evans",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Cirque headwall maximum gradient, median",
+   "value": 53.677,
+   "reference": "~57 deg (global median)",
+   "band": [
+    40,
+    70
+   ],
+   "unit": "deg",
+   "source": "evans",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Cirque wall height, median",
+   "value": 285.686,
+   "reference": "~210 m (global median)",
+   "band": [
+    80,
+    500
+   ],
+   "unit": "m",
+   "source": "evans",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Outwash fill: maximum thickness",
+   "value": 68.343,
+   "reference": "up to ~100 m",
+   "band": [
+    0,
+    100.000001
+   ],
+   "unit": "m",
+   "source": "outwash",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "physics",
+   "name": "Outwash lies outside the LGM ice",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0
+   ],
+   "unit": "cells",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Outwash long profile is concave: gradient near ice front / far end, median",
+   "value": 1.078,
+   "reference": "> 1 (concave)",
+   "band": [
+    1.0,
+    50.0
+   ],
+   "unit": "",
+   "source": "outwash",
+   "passed": true,
+   "note": "7 profiles >= 6 km"
+  }
+ ],
+ "steep_pct_before": 3.75154554795117,
+ "steep_pct_after": 5.0663932570572765
+}

@@ -1,0 +1,210 @@
+{
+ "centre": [
+  -45.6,
+  112.25
+ ],
+ "size_km": 100.0,
+ "sampling_m": 500.0,
+ "lat_range": [
+  -46.047,
+  -45.151
+ ],
+ "lon_range": [
+  111.605,
+  112.895
+ ],
+ "land_pct": 100.0,
+ "land_elevation_m": [
+  28,
+  2014
+ ],
+ "sea_depth_min_m": null,
+ "temp_jan_c": 14.3,
+ "temp_jul_c": -1.7,
+ "precip_mm": 1105,
+ "koppen_pct": {
+  "Cf": 39.2,
+  "Df": 44.6,
+  "ET": 16.3
+ },
+ "biome_pct": {
+  "tundra": 16.3,
+  "taiga": 45.6,
+  "temperate_forest": 38.1
+ },
+ "sea_ice_in_winter": false,
+ "river_max_discharge_in_square_m3s": 203,
+ "river_mouth_discharge_m3s": 298,
+ "river_mouth_xy_m": [
+  68042,
+  -3151
+ ],
+ "river_reaches_sea": true,
+ "relief_shares_pct": {
+  "mountains_gt_1000m": 30.6,
+  "foothills_300_1000m": 42.0,
+  "plain_lt_300m": 27.3
+ },
+ "tiles": {
+  "tile_x0_y0": {
+   "x_range_m": [
+    -50000.0,
+    -25000.0
+   ],
+   "y_range_m": [
+    25000.0,
+    50000.0
+   ]
+  },
+  "tile_x1_y0": {
+   "x_range_m": [
+    -25000.0,
+    0.0
+   ],
+   "y_range_m": [
+    25000.0,
+    50000.0
+   ]
+  },
+  "tile_x2_y0": {
+   "x_range_m": [
+    0.0,
+    25000.0
+   ],
+   "y_range_m": [
+    25000.0,
+    50000.0
+   ]
+  },
+  "tile_x3_y0": {
+   "x_range_m": [
+    25000.0,
+    50000.0
+   ],
+   "y_range_m": [
+    25000.0,
+    50000.0
+   ]
+  },
+  "tile_x0_y1": {
+   "x_range_m": [
+    -50000.0,
+    -25000.0
+   ],
+   "y_range_m": [
+    0.0,
+    25000.0
+   ]
+  },
+  "tile_x1_y1": {
+   "x_range_m": [
+    -25000.0,
+    0.0
+   ],
+   "y_range_m": [
+    0.0,
+    25000.0
+   ]
+  },
+  "tile_x2_y1": {
+   "x_range_m": [
+    0.0,
+    25000.0
+   ],
+   "y_range_m": [
+    0.0,
+    25000.0
+   ]
+  },
+  "tile_x3_y1": {
+   "x_range_m": [
+    25000.0,
+    50000.0
+   ],
+   "y_range_m": [
+    0.0,
+    25000.0
+   ]
+  },
+  "tile_x0_y2": {
+   "x_range_m": [
+    -50000.0,
+    -25000.0
+   ],
+   "y_range_m": [
+    -25000.0,
+    0.0
+   ]
+  },
+  "tile_x1_y2": {
+   "x_range_m": [
+    -25000.0,
+    0.0
+   ],
+   "y_range_m": [
+    -25000.0,
+    0.0
+   ]
+  },
+  "tile_x2_y2": {
+   "x_range_m": [
+    0.0,
+    25000.0
+   ],
+   "y_range_m": [
+    -25000.0,
+    0.0
+   ]
+  },
+  "tile_x3_y2": {
+   "x_range_m": [
+    25000.0,
+    50000.0
+   ],
+   "y_range_m": [
+    -25000.0,
+    0.0
+   ]
+  },
+  "tile_x0_y3": {
+   "x_range_m": [
+    -50000.0,
+    -25000.0
+   ],
+   "y_range_m": [
+    -50000.0,
+    -25000.0
+   ]
+  },
+  "tile_x1_y3": {
+   "x_range_m": [
+    -25000.0,
+    0.0
+   ],
+   "y_range_m": [
+    -50000.0,
+    -25000.0
+   ]
+  },
+  "tile_x2_y3": {
+   "x_range_m": [
+    0.0,
+    25000.0
+   ],
+   "y_range_m": [
+    -50000.0,
+    -25000.0
+   ]
+  },
+  "tile_x3_y3": {
+   "x_range_m": [
+    25000.0,
+    50000.0
+   ],
+   "y_range_m": [
+    -50000.0,
+    -25000.0
+   ]
+  }
+ }
+}

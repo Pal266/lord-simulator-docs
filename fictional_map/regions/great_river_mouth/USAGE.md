@@ -22,9 +22,14 @@ fictional_map/
         ├── region.json          region configuration (position, size, tiles, Unreal settings)
         ├── USAGE.md             this file
         ├── README.md            what the region is and its current status
+        ├── MODEL_NOTES.md       scientific decisions of the regional model, with sources
+        ├── VALIDATION.md        results of the regional scientific checks (generated)
         ├── scripts/
         │   ├── region_common.py shared helpers (projection, tiles, sampling) — not run directly
-        │   └── extract_region.py region step 0: cut the region out of the planet
+        │   ├── region_flow.py   flow routing / erosion kernels — not run directly
+        │   ├── extract_region.py region step 0: cut the region out of the planet
+        │   ├── regional_model.py region step 1: 100 m process model
+        │   └── validate_region.py scientific checks of the regional model
         └── output/              region results
 ```
 
@@ -38,7 +43,7 @@ fictional_map/
   ```
 
   This installs `numpy`, `scipy`, `pillow` and `numba`.
-- **Disk space:** the planet and region outputs take under 20 MB. The final Unreal heightmaps will take about
+- **Disk space:** the planet and region outputs take about 70 MB. The final Unreal heightmaps will take about
   130 MB per plot (about 2 GB for all 16), so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
 
@@ -49,7 +54,7 @@ On Windows use `python`, on Linux/macOS `python3`.
 
 ```
 planet pipeline (once per world seed)          region pipeline (per region)
-plates → heightmap → climate → hydrology  ──►   extract_region → (next steps, see section 7)
+plates → heightmap → climate → hydrology  ──►   extract_region → regional_model → validate_region → (next steps, section 8)
                     validate after each step
 ```
 
@@ -125,17 +130,56 @@ print(d.files)                 # list of arrays
 elev = d["elevation_m"]        # 2D array, row 0 = north
 ```
 
-## 7. Next region steps (not written yet)
+## 7. Region step 1 — `regional_model.py` and its check `validate_region.py`
+
+**Purpose:** build the 100 m terrain model of the region from physical processes: Quaternary valley erosion,
+the main river with meanders, floodplain and oxbow lakes, the Holocene delta, and the open-coast shoreface.
+The scientific decisions behind it are in [MODEL_NOTES.md](MODEL_NOTES.md).
+
+```
+cd fictional_map/regions/great_river_mouth/scripts
+python regional_model.py      # ~2 minutes; no options
+python validate_region.py     # ~2 seconds
+```
+
+**Needs:** the planet outputs (section 4) and `output/river_coarse.json` from `extract_region.py` (section 6).
+Run `extract_region.py` first whenever `region.json` changes.
+
+**What it computes** (in this order):
+1. Planet relief resampled to 100 m and smoothed (planet grid artefacts removed), plus initial small-scale roughness.
+2. The main valley along the river's planet course, extended to the actual coastline; floodplain 10–18 km wide.
+3. 2.6 million years of stream-power erosion and hillslope diffusion (52 steps of 50 000 years) — this carves the tributary valleys.
+4. The meandering main channel (width ~610 m, depth ~20 m), natural levees, backswamps and oxbow lakes.
+5. Sediment budget and the bird's-foot delta (grown until its volume matches the budget).
+6. Dean shoreface along the open coast, beaches, then lakes and rivers.
+
+The model domain (170 × 120 km) is larger than the 100 km square so the delta and the edges are modelled properly;
+maps and checks use the square only.
+
+**Writes** (to `output/`):
+
+| File | Content |
+|---|---|
+| `regional_model.npz` | 100 m grids over the whole domain: `x_m`, `y_m` (axes), `elevation_m`, `pre_delta_m`, masks `sea`, `open_sea`, `lake`, `main_channel`, `distributaries`, `delta_land`, `floodplain`, `rivers`, `shoreface`, `beach`, and `discharge_m3s` |
+| `regional_model.json` | Key numbers: glacial-maximum climate, sediment budget, channel geometry, delta size, square statistics, erosion parameters |
+| `regional_relief.png` | Shaded relief of the 100 km square with the 16 plots |
+| `regional_water.png` | Water map: sea, lakes, main channel, distributaries, rivers ≥ 5 m³/s, floodplain and delta plain |
+
+`validate_region.py` writes `VALIDATION.md` (in this folder) and `output/validation_region.json`, and exits with code 1
+if any check fails. **The regional model is only accepted when every check passes.**
+
+To change the model, edit the parameter block at the top of `regional_model.py` (each parameter has a comment) and
+record the reason in `MODEL_NOTES.md`; then run both scripts again.
+
+## 8. Next region steps (not written yet)
 
 These scripts do not exist yet. Each will be documented here, with its exact command, when it is added.
 
-1. **Regional process model at 100 m** — glacial history, delta or estuary, river channels, floodplains, coast, erosion;
-   must pass its own scientific checks.
-2. **Plot detailing at ~3 m** — each 25 km plot refined separately with rules that depend only on world coordinates,
+1. **Plot detailing at ~3 m** — each 25 km plot refined separately with rules that depend only on world coordinates,
    so neighbouring plots match exactly on their shared edges.
-3. **Export for Unreal** — one 16-bit PNG heightmap per plot (8129 × 8129) plus layer masks (forest, field, sand, rock, water).
+2. **Export for Unreal** — one 16-bit PNG heightmap per plot (8129 × 8129) plus layer masks (forest, field, sand, rock, water).
 
-## 8. Importing a plot into Unreal Engine 5.8.4 (once heightmaps exist)
+## 9. Importing a plot into Unreal Engine 5.8.4 (once heightmaps exist)
 
 Each plot is its own landscape (the player switches between plots).
 
@@ -150,12 +194,13 @@ Each plot is its own landscape (the player switches between plots).
 Height encoding of the heightmaps: `value = 32768 + height_m × 128` (16-bit). With Z scale 100 this covers
 −256 m … +255.99 m with about 8 mm precision.
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 | Problem | Cause and fix |
 |---|---|
 | `Missing planet outputs in …` | Run the planet pipeline (section 4) first. |
 | `ModuleNotFoundError: numba` (or numpy, scipy, PIL) | Run `pip install -r fictional_map/requirements.txt`. |
 | `hydrology.py` takes long the first time | `numba` compiles once and caches the result; later runs are faster. |
-| `validate.py` reports FAIL | The result is not accepted. Do not use it; the model has to be fixed first. |
+| `validate.py` or `validate_region.py` reports FAIL | The result is not accepted. Do not use it; the model has to be fixed first. |
+| `regional_model.py` says a file is missing | Run `extract_region.py` first (it writes `river_coarse.json`). |
 | `No suitable font found for map labels` | Labels need DejaVu Sans or Arial (Cyrillic). Windows and macOS have Arial; on Linux install DejaVu (`fonts-dejavu`). The lookup is in `fictional_map/scripts/fonts.py`. |

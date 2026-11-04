@@ -1,0 +1,146 @@
+{
+ "passed": 10,
+ "total": 10,
+ "checks": [
+  {
+   "kind": "Earth data",
+   "name": "LGM July temperature in the region (glaciers need summers near 0 C)",
+   "value": 10.5,
+   "reference": "cooling 9.7 C (6 global, 14 Arctic)",
+   "band": [
+    2.0,
+    40.0
+   ],
+   "unit": "C",
+   "source": "tierney",
+   "passed": true,
+   "note": "positive LGM summers -> the region stayed ice-free; it was periglacial"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Delta age (start of Holocene progradation)",
+   "value": 7500.0,
+   "reference": "8000-7000 yr",
+   "band": [
+    7000,
+    8000
+   ],
+   "unit": "yr",
+   "source": "stanley",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Sediment load vs the Lena analogue (850 kg/s at 16 800 m3/s)",
+   "value": 25.9,
+   "reference": "26.8 Mt/yr",
+   "band": [
+    20.0,
+    35.0
+   ],
+   "unit": "Mt/yr",
+   "source": "fedorova",
+   "passed": true,
+   "note": "scaled with the BQART discharge exponent Q^0.31"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Share of the load kept in the delta",
+   "value": 0.7,
+   "reference": "> 0.7 (less than 30% reaches the sea)",
+   "band": [
+    0.7,
+    0.9
+   ],
+   "unit": "",
+   "source": "lenadelta",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "physics",
+   "name": "Delta volume built / sediment budget",
+   "value": 1.02,
+   "reference": 1.0,
+   "band": [
+    0.9,
+    1.15
+   ],
+   "unit": "",
+   "source": "bqart",
+   "passed": true,
+   "note": "mass conservation"
+  },
+  {
+   "kind": "physics",
+   "name": "Main channel capacity (Manning) / river discharge",
+   "value": 1.0,
+   "reference": 1.0,
+   "band": [
+    0.9,
+    1.1
+   ],
+   "unit": "",
+   "source": "fedorova",
+   "passed": true,
+   "note": "continuity Q = w d v with Manning velocity"
+  },
+  {
+   "kind": "Earth data",
+   "name": "Shoreface equilibrium-profile coefficient A (h = A x^2/3)",
+   "value": 0.1,
+   "reference": "0.055-0.10 (D50 ~ 0.2 mm)",
+   "band": [
+    0.05,
+    0.15
+   ],
+   "unit": "m^1/3",
+   "source": "dean",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "planet",
+   "name": "Land share of the square vs planet",
+   "value": 75.8,
+   "reference": 75.1,
+   "band": [
+    70.1,
+    80.1
+   ],
+   "unit": "%",
+   "source": "planet",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "planet",
+   "name": "Mean land elevation vs planet sample",
+   "value": 54.9,
+   "reference": 46.3,
+   "band": [
+    26.3,
+    66.3
+   ],
+   "unit": "m",
+   "source": "planet",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "Height range fits Unreal Z scale 100 (-256 ... +256 m)",
+   "value": 178.855,
+   "reference": "<= 256",
+   "band": [
+    0,
+    255.99
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  }
+ ]
+}

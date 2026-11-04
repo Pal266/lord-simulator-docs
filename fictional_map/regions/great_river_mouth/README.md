@@ -34,8 +34,19 @@ Neighbouring plots share their edge vertices, so there are no steps at plot bord
 | Step | Status |
 |---|---|
 | 0. Cut the region out of the planet (`extract_region.py`) | Done |
-| 1. Regional process model at 100 m (glacial history, delta or estuary, channels, floodplains, coast) | Next |
-| 2. Plot detailing at ~3 m | Planned |
+| 1. Regional process model at 100 m (`regional_model.py`, checks `validate_region.py`) | Done (v1), 10/10 checks |
+| 2. Plot detailing at ~3 m | Next |
 | 3. Export for Unreal (heightmaps + layer masks) | Planned |
 
 Every step must pass scientific validation before it is accepted, like the planet steps (see `../../VALIDATION.md`).
+Regional checks: [VALIDATION.md](VALIDATION.md). Scientific decisions: [MODEL_NOTES.md](MODEL_NOTES.md).
+
+## Regional model (100 m)
+
+- Never glaciated, but periglacial (permafrost) at glacial maxima; sea level then ~120 m lower.
+- Dissected lowland plain: dendritic valleys, local relief ~17 m per km, slopes mostly below 2.5°, heights 0–180 m.
+- Main river ~610 m wide and ~20 m deep, meandering (sinuosity ~1.5) across a 10–18 km floodplain with oxbow lakes.
+- Bird's-foot delta (~85 km³ of Holocene sediment, 8 distributary mouths), extending east beyond the square.
+
+![Regional relief](output/regional_relief.png)
+![Water](output/regional_water.png)

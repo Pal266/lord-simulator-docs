@@ -1,0 +1,59 @@
+{
+ "domain_km": [
+  170.0,
+  120.0
+ ],
+ "resolution_m": 100.0,
+ "lgm": {
+  "cooling_c": 9.7,
+  "july_c": 10.5,
+  "mean_annual_c": -3.1,
+  "glaciated": false,
+  "permafrost": true
+ },
+ "sediment": {
+  "basin_area_km2": 2828850,
+  "basin_mean_temp_c": -16.9,
+  "basin_relief_km": 8.03,
+  "bqart_form": "T < 2 C",
+  "load_mt_yr": 25.9,
+  "bqart_b1_upper_bound_mt_yr": 336.1,
+  "analog": "Lena River",
+  "delta_age_yr": 7500.0,
+  "retention": 0.7,
+  "target_volume_km3": 85.01,
+  "built_volume_km3": 86.68,
+  "network_scale": 0.832
+ },
+ "channel": {
+  "discharge_m3s": 15017,
+  "width_m": 613,
+  "depth_m": 20.0,
+  "velocity_ms": 1.23,
+  "slope": 2.5e-05,
+  "manning_n": 0.03,
+  "capacity_m3s": 15017,
+  "meander_wavelength_m": 6740,
+  "sinuosity": 1.45
+ },
+ "delta": {
+  "distributary_mouths": 8,
+  "delta_land_km2_in_square": 163,
+  "delta_land_km2_domain": 342
+ },
+ "square": {
+  "land_pct": 75.8,
+  "lake_km2": 111,
+  "elev_min_m": -54.9,
+  "elev_max_m": 178.9,
+  "mean_land_elev_m": 54.9,
+  "planet_mean_land_elev_m": 46.3,
+  "river_km_per_km2": 0.037
+ },
+ "erosion": {
+  "years": 2600000.0,
+  "k": 1e-06,
+  "m": 0.5,
+  "hill_diffusivity_m2_yr": 0.005
+ }
+}

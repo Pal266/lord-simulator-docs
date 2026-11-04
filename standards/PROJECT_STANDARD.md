@@ -263,6 +263,16 @@ Default:
 
 Its validity and runtime behavior are defined by the Localization Framework section of this standard.
 
+#### `Width`, `Height`, and `Fullscreen`
+
+`Width` and `Height` default to `auto`. Each accepts the exact value `auto` or a positive base-10 integer in pixels representable as a signed 32-bit integer. Missing dimensions use their individual defaults. Both dimensions must be `auto` to select automatic resolution directly. Two valid numeric dimensions request that exact resolution. A mixed pair, malformed or duplicate dimension, zero, or negative value rejects the pair and selects automatic resolution.
+
+Automatic resolution uses the current screen resolution of the standalone game window during startup. An explicit resolution that is unavailable, unusable, or fails recoverably also falls back to automatic current-screen resolution. Resolution fallback preserves the resolved fullscreen mode.
+
+`Fullscreen` accepts `1` for fullscreen and `0` for windowed mode. Missing, invalid, or duplicate values use the default `1`. A fullscreen-only validation failure does not reject the resolution.
+
+The three entries are part of complete settings load, comparison, and shutdown persistence. Display settings are applied during existing standalone startup before the production main menu is presented.
+
 ### 5.5 Settings Loading Logs
 
 All settings-framework log entries in this section use `Default` mode.
@@ -306,6 +316,12 @@ When `Language` is missing:
 When `Language` is invalid:
 
 `Setting 'Language' has an invalid value. Default value 'en' will be used.`
+
+When a configured resolution is rejected during startup, write exactly one `Default`-mode project log entry, substituting the raw configured dimension values:
+
+`Configured display resolution '{Width}x{Height}' is invalid or unavailable. Falling back to automatic screen resolution.`
+
+An accepted resolution, an automatic pair, or a fullscreen-only validation failure does not write this entry.
 
 ### 5.6 Applying Settings at Startup
 

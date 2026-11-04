@@ -3,5 +3,12 @@
  "cells": 17305600,
  "years": 1000000.0,
  "postglacial_years": 15000.0,
- "seconds": 356
+ "cirques": 273,
+ "cirque_width_m": 650.0,
+ "cirque_floor_halfwidth_m": 260.0,
+ "cirque_floor_back_m": 250.0,
+ "cirque_km2": 126.1,
+ "outwash_km2": 10.0,
+ "outwash_max_thickness_m": 68.3,
+ "seconds": 83
 }

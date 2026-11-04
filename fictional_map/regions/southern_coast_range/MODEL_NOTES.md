@@ -56,6 +56,24 @@ This file records every scientific decision, why it was made and what it rests o
   every ~3 km; the lower value keeps a denser valley network. Former glacier areas are eroded only for the ~15 000
   years since the ice melted, so troughs and moraines stay fresh. Rivers entering the area from outside carry the
   regional model's discharge (injected ~1 km inside the grid so they do not drain straight out of its edge).
+- **Cirques at 25 m (`refine_25m.py`).** The 100 m model only marks cirque hollows; at 25 m they are carved with
+  the global median morphometry of Evans & Cox (2015): width ~650 m, floor gradient ~8°, headwall maximum ~57°
+  (the model uses a mean wall of ~50°, varied 38–60° between cirques). Sites: heads of LGM glacier valleys above the
+  LGM ELA where the ground 700 m up the valley axis is at least 200 m higher — on gentle plateau ground real cirques are
+  shallow or absent, so none are carved there. Each cirque lowers the ground only (erosion), to a floor that dips out
+  of the mountain behind a ~15 m rock lip; neighbouring cirques (≥ 700 m apart) cut into the same ridges from different
+  sides and leave sharp arêtes and peaks where their walls meet. Result: 273 cirques; median width 675 m, floor 8°,
+  maximum headwall ~54°, wall height ~290 m (checks in VALIDATION_LANDFORMS.md).
+- **Outwash plains (valley trains).** Where a glacier-fed river (≥ 5 m³/s today) left the LGM ice and stayed outside
+  it for at least 2 km (a real ice front, not a stream skirting a lateral margin), meltwater gravel filled the valley
+  floor: 40 m thick at the ice front, thinning downstream with an e-folding length of 4 km (deposits are coarsest and
+  thickest near the ice; outwash fills reach ~100 m at most), over at most 15 km, never more than 100 m. The fill spreads
+  sideways only over the connected valley floor that lies below its surface. Because the fill thins downstream, the
+  surface is steeper near the former ice front than further down: a concave long profile, as observed on sandar.
+  In the Holocene the river cut ~8 m into the fill, leaving terraces on both sides. Kettle-like small lakes on the
+  route are kept. Result: 10 valley trains, ~10 km²: the glaciers ended in mountain valleys, so the outwash forms
+  narrow valley trains rather than broad lowland sandar (like the outwash of the Southern Alps' valleys rather than
+  Iceland's coastal sandar).
 - **Roughness below 100 m (`detail_plots.py`).** Self-affine detail with Hurst exponent 0.5: along transects Earth's
   topography has a power spectrum close to k⁻² (Hurst ~0.5, fractal dimension ~2.5). Its amplitude follows the local
   relief and is damped on gentle ground (valley floors, plains). Below ~20 m it is weaker on soil-covered slopes than on rock.
@@ -70,17 +88,26 @@ This file records every scientific decision, why it was made and what it rests o
 - **Rivers:** courses from the 25 m drainage network (≥ 1 m³/s), smoothed and snapped to the lowest line of the valley floor;
   width 5·Q^0.5, depth from Manning's equation (n = 0.035) with the local slope; banks rise ~15% and fade into the terrain.
 - **Treeline:** where the growing-season mean temperature (months above 0 °C) is 6.7 °C, the value found at high-altitude
-  treelines worldwide (Körner & Paulsen 2004). Here ~1 280 m.
+  treelines worldwide (Körner & Paulsen 2004). Here ~1 280 m. It is painted as a ~150 m wide ecotone (forest thins into
+  alpine meadow) whose position wanders ±60 m, as real treelines follow exposure and soil.
+- **Soft ground layers.** Weights are blended, not 0/255 masks, and add up to 255 at every vertex (Unreal weight
+  blending). Layers are painted bottom to top, each covering the ones below by its weight: forest / alpine meadow,
+  wet meadow, gravel (bars along rivers ≥ 3 m³/s and the floodplain inside outwash terraces), scree (28–34° fading in;
+  talus stands at ~30–38°, near and above the treeline), rock (above ~36–40°, or > 25° well above the treeline),
+  riverbed (soft water's edge), lakebed (soft shoreline). Slopes are computed with a 3-vertex halo beyond every plot edge,
+  so weights match exactly across seams.
 - **Seams:** every vertex is computed from world coordinates only; neighbouring plots share identical edge vertices.
 
-## Known limitations (v1)
+## Known limitations (v2)
 
-- Mountain slopes are gentle for a 2 km range (median ~5°, 90% below ~20° above 1000 m): the planet relief that
-  constrains the model is smooth, so the range has broad high surfaces like an old, plateau-like orogen. Steep alpine
-  ridges (aretes) are not formed.
+- Mountain slopes away from troughs and cirques are gentle (median ~5° above 1000 m): the range is an old orogen
+  (section 1) with broad high surfaces, like the Scandinavian mountains or the Cairngorms. Cirques bite into these
+  surfaces and form arêtes where they meet, but most of the high ground stays rolling; steep ground (> 35°) on former
+  glacier ground above 1300 m rose from ~3.8% to ~5% with the cirques. A young, Alps-like range would need a different
+  (active) tectonic setting on the planet.
 - Glaciers are placed by the accumulation-area method, not by an ice-flow simulation; ice thickness is not modelled.
-- Glacial sediment (outwash plains in front of the moraines) is not modelled.
+- Outwash is modelled as valley trains with a prescribed thinning law, not by a sediment-transport simulation.
+- Cirque shapes are geometric (floor + walls), not eroded by an ice model; they can look regular in places.
 - Small rectangular artefacts can appear where moraine ridges meet the edge of a glacier system.
 - Streams smaller than ~1 m³/s are not cut as channels; they exist only as gullies in the 25 m relief.
-- Ground layers are hard 0/255 masks (no blending between layers yet).
 - The eastern plain is smoother than the mountains at hillslope scale (100 m – 2 km); its exponents are reported in VALIDATION_PLOTS.md.

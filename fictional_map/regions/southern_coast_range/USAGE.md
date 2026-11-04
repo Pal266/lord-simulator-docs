@@ -25,13 +25,16 @@ fictional_map/
         ├── README.md            what the region is and its current status
         ├── MODEL_NOTES.md       scientific decisions of the regional model, with sources
         ├── VALIDATION.md        results of the regional scientific checks (generated)
+        ├── VALIDATION_LANDFORMS.md results of the cirque / outwash checks (generated)
+        ├── VALIDATION_PLOTS.md  results of the plot checks (generated)
         ├── scripts/
         │   ├── region_common.py shared helpers (projection, tiles, sampling) — not run directly
         │   ├── region_flow.py   flow routing / erosion kernels — not run directly
         │   ├── extract_region.py region step 0: cut the region out of the planet
         │   ├── regional_model.py region step 1: 100 m model (rivers, glaciers, lakes)
         │   ├── validate_region.py scientific checks of the regional model
-        │   ├── refine_25m.py    region step 1b: 25 m refinement (gullies and spurs by erosion)
+        │   ├── refine_25m.py    region step 1b: 25 m refinement (gullies and spurs by erosion, cirques, outwash)
+        │   ├── validate_landforms.py checks of cirques and outwash plains against Earth data
         │   ├── detail_plots.py  region step 2: 3 m plots + export for Unreal
         │   └── validate_plots.py checks of the exported plots (seams, roughness spectrum, fidelity)
         ├── export/              Unreal heightmaps and layer masks, one folder per plot (not stored in Git)
@@ -60,7 +63,8 @@ On Windows use `python`, on Linux/macOS `python3`.
 ```
 planet pipeline (once per world seed)          region pipeline (per region)
 plates → heightmap → climate → hydrology  ──►   extract_region → regional_model → validate_region
-                                                 → refine_25m → detail_plots → validate_plots → Unreal (section 9)
+                                                 → refine_25m → validate_landforms
+                                                 → detail_plots → validate_plots → Unreal (section 9)
                     validate after each step
 ```
 
@@ -179,10 +183,12 @@ record the reason in `MODEL_NOTES.md`, then run both scripts again.
 
 ```
 cd fictional_map/regions/southern_coast_range/scripts
-python refine_25m.py                          # once, ~5 minutes, ~3 GB RAM: 25 m erosion refinement
+python refine_25m.py                          # once, ~7 minutes, ~3 GB RAM: 25 m erosion, cirques, outwash
+python refine_25m.py --reuse-erosion          # ~1.5 minutes: keep the erosion stage, redo cirques and outwash only
+python validate_landforms.py                  # seconds: cirque and outwash checks
 python detail_plots.py --tiles x2_y1 --preview  # seconds: 1/8-resolution preview of one plot
 python detail_plots.py --tiles x1_y1 x2_y1      # selected plots, full resolution (~1 minute each)
-python detail_plots.py --tiles all              # all 16 plots (~20 minutes, ~0.6 GB on disk)
+python detail_plots.py --tiles all              # all 16 plots (~40 minutes, ~1 GB on disk)
 python validate_plots.py                        # checks every plot present in export/
 ```
 
@@ -193,6 +199,19 @@ add `--reprep` to rebuild it after re-running `regional_model.py` or `refine_25m
 so slopes get real gullies and spurs instead of random lumps. Areas covered by glaciers in the last ice age are eroded
 only for the ~15 000 years since the ice melted, so troughs and moraines stay fresh. Lakes and the sea are fixed;
 rivers coming from outside the area carry the regional model's discharge.
+After the erosion it adds two glacial landforms of the last ice age (parameters at the top of the script, reasons in
+MODEL_NOTES.md):
+- **Cirques** at glacier valley heads above the LGM snowline where the mountain behind rises at least 200 m within 700 m:
+  a floor dipping ~8° out of the mountain behind a low rock lip, and headwalls of ~50° (varying 38–60°) up to the
+  surrounding ground. Size, wall steepness and orientation vary between cirques. Where the walls of neighbouring cirques
+  meet, sharp ridges (arêtes) and peaks remain.
+- **Outwash plains (valley trains)** where glacier-fed rivers (≥ 5 m³/s today) left the LGM ice: the valley floor is
+  filled with gravel 40 m thick at the ice front, thinning downstream (e-folding 4 km, at most 15 km, never more than
+  100 m), spreading sideways over the valley floor; the river then cut ~8 m into the fill, leaving terraces.
+
+The erosion stage is saved to `output/eroded_25m.npz`; `--reuse-erosion` starts from it, which is useful when only the
+cirque / outwash parameters change. `validate_landforms.py` writes `VALIDATION_LANDFORMS.md` and
+`output/validation_landforms.json` (exit code 1 on failure).
 
 **What `detail_plots.py` does for every vertex** (only world coordinates are used, so neighbouring plots share
 exactly the same edge vertices):
@@ -201,23 +220,26 @@ exactly the same edge vertices):
    weak on valley floors, plains and soil-covered slopes, none on lake floors;
 3. river channels along the river courses (width = 5·Q^0.5, depth from Manning's equation), banks blending into the terrain;
 4. lake floors below the lake level;
-5. ground layers: rock (slopes > 38°, or steep ground above the treeline), alpine meadow (above the treeline),
-   forest (below it), wet meadow (flat floodplains of larger rivers), riverbed, lakebed. The treeline follows a
-   growing-season mean temperature of 6.7 °C.
+5. ground layers, **blended softly** — the weights of all layers add up to 255 at every vertex, as Unreal's
+   weight-blended layers expect:
+   rock (slopes above ~36–40°, or steep ground well above the treeline), scree (talus slopes of 28–38° near and above
+   the treeline), alpine meadow (above the treeline), forest (below it), wet meadow (flat floodplains of larger rivers),
+   gravel (river bars and the Holocene floodplain inside the outwash terraces), riverbed, lakebed. The treeline follows a
+   growing-season mean temperature of 6.7 °C and is a ~150 m wide transition that wanders ±60 m.
 
 **Writes** `export/tile_x{c}_y{r}/` per plot:
 
 | File | Content |
 |---|---|
 | `heightmap.png` | 16-bit grayscale, 8129 × 8129, `value = 32768 + height_m × 12.8` (Z scale 1000) |
-| `layer_rock.png`, `layer_alpine_meadow.png`, `layer_forest.png`, `layer_wet_meadow.png`, `layer_riverbed.png`, `layer_lakebed.png` | 8-bit weight maps (0 or 255) for Unreal landscape layers |
+| `layer_rock.png`, `layer_scree.png`, `layer_alpine_meadow.png`, `layer_forest.png`, `layer_wet_meadow.png`, `layer_gravel.png`, `layer_riverbed.png`, `layer_lakebed.png` | 8-bit weight maps (0–255, all eight add up to 255 at every vertex) for Unreal weight-blended landscape layers |
 | `tile.json` | Height range, mean, layer shares, encoding |
 
 and `output/preview_tile_x{c}_y{r}.png` (1016 × 1016 shaded preview coloured by layer).
 
 `validate_plots.py` writes `VALIDATION_PLOTS.md` and `output/validation_plots.json` and exits with code 1 if a check fails:
-shared edges identical (seams), roughness spectrum close to Earth's (~k⁻²), plots faithful to the 25 m base, heights
-within the Unreal range.
+shared edges identical (seams, heights and layer weights), roughness spectrum close to Earth's (~k⁻²), plots faithful to
+the 25 m base, heights within the Unreal range, layer weights adding up to 255 everywhere with soft transitions.
 
 ## 9. Importing a plot into Unreal Engine 5.8.4
 
@@ -230,9 +252,12 @@ Each plot is its own landscape (the player switches between plots).
 5. Location: **0, 0, 0** when every plot is a separate level. If several plots are placed in one world,
    use X = col × 2 500 000 cm and Y = row × 2 500 000 cm so their shared edges meet.
 6. **Import.** Sea level is height 0 m (heightmap value 32768); place the sea or water body at Z = 0.
-7. **Layers:** create landscape layers named `rock`, `alpine_meadow`, `forest`, `wet_meadow`, `riverbed`, `lakebed`
-   in your landscape material, then in Landscape mode → Paint → Layers, right-click each layer → *Import from file*
-   and pick the matching `layer_*.png` from the plot's folder.
+7. **Layers:** create eight landscape layers named `rock`, `scree`, `alpine_meadow`, `forest`, `wet_meadow`, `gravel`,
+   `riverbed`, `lakebed` in your landscape material (Landscape Layer Blend node, blend type **LB Weight Blend**), create
+   a **weight-blended** Layer Info for each, then in Landscape mode → Paint → Layers, right-click each layer →
+   *Import from file* and pick the matching `layer_*.png` from the plot's folder. The weights already add up to 255, so
+   import order does not matter. Do not use non-weight-blended Layer Infos: they ignore the blending. Each landscape
+   component samples only the layers painted on it, so eight layers stay within the usual texture-sampler budget.
 8. Lakes: their water level is in the lake shape; add Water Body Lake actors at the shoreline height where needed.
 
 Height encoding of the heightmaps: `value = 32768 + height_m × 12.8` (16-bit). With Z scale 1000 this covers

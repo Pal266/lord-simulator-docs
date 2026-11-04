@@ -4,7 +4,9 @@ Checks for the exported plots (region step 2).
   * seams     - neighbouring exported plots have identical heights on their shared edge;
   * Earth data - the power spectrum of height along transects falls off as k^-beta with beta ~ 2 (Earth's
                  topography);
-  * model     - the 3 m plot stays faithful to the 100 m regional model; heights fit the Unreal Z range.
+  * model     - the 3 m plot stays faithful to the 100 m regional model; heights fit the Unreal Z range;
+  * layers    - the soft ground-layer weights add up to 255 at every vertex (Unreal weight blending), transitions
+                are soft (blended vertices exist), and the weights match across plot seams.
 
 Usage:  python validate_plots.py          (checks every plot found in ../export)
 Writes ../VALIDATION_PLOTS.md and ../output/validation_plots.json; exits with code 1 if any check fails.
@@ -25,6 +27,8 @@ SOURCES = {
                  "https://edoc.unibas.ch/8594"),
     "ue": ("Unreal Engine Landscape Technical Guide",
            "https://dev.epicgames.com/documentation/en-us/unreal-engine/landscape-technical-guide-in-unreal-engine"),
+    "ue_layers": ("Unreal Engine Landscape Paint Mode: weight-blended layers (weights of all layers sum to 1 at a vertex)",
+                  "https://dev.epicgames.com/documentation/en-us/unreal-engine/landscape-paint-mode-in-unreal-engine"),
     "model": ("This region's regional model (output/regional_model.npz)", "output/regional_model.json"),
 }
 checks = []
@@ -51,6 +55,21 @@ prep = dict(np.load(dp.PREP))
 for t, (c, r) in have.items():
     z = load_h(t)
     EDGES[t] = dict(w=z[:, 0].copy(), e=z[:, -1].copy(), n=z[0, :].copy(), s=z[-1, :].copy())
+    # --- soft layers ---
+    tot = None; blended = None; LEDGE = {}
+    for n_ in dp.LAYERS:
+        a = np.array(Image.open(os.path.join(REGION_DIR, "export", t, f"layer_{n_}.png")))
+        tot = a.astype(np.uint16) if tot is None else tot + a
+        part = (a > 0) & (a < 255)
+        blended = part if blended is None else blended | part
+        LEDGE[n_] = dict(w=a[:, 0].astype(np.int16), e=a[:, -1].astype(np.int16), n=a[0, :].astype(np.int16), s=a[-1, :].astype(np.int16))
+        del a
+    EDGES[t]["layers"] = LEDGE
+    check("layers", f"{t}: layer weights add up to 255 at every vertex (min, max)", float(tot.min() == 255 and tot.max() == 255),
+          "1 = yes", 1, 1, "", "ue_layers", f"min {int(tot.min())}, max {int(tot.max())}")
+    check("layers", f"{t}: share of vertices with blended (partial) weights", float(blended.mean() * 100), "> 0 (soft transitions)",
+          0.5, 100, "%", "ue_layers")
+    del tot, blended
     # --- spectrum of height along rows (transects), wavelengths 20 m - 2 km ---
     rows = z[::512, :]
     rows = rows - rows.mean(axis=1, keepdims=True)
@@ -86,9 +105,13 @@ for t, (c, r) in have.items():
     if e in EDGES:
         check("seams", f"{t} | {e}: max height difference on the shared edge",
               float(np.abs(EDGES[t]["e"] - EDGES[e]["w"]).max()), 0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
+        check("seams", f"{t} | {e}: max layer-weight difference on the shared edge",
+              float(max(np.abs(EDGES[t]["layers"][n_]["e"] - EDGES[e]["layers"][n_]["w"]).max() for n_ in dp.LAYERS)), 0, 0, 2, "of 255", "ue_layers")
     if s_ in EDGES:
         check("seams", f"{t} / {s_}: max height difference on the shared edge",
               float(np.abs(EDGES[t]["s"] - EDGES[s_]["n"]).max()), 0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
+        check("seams", f"{t} / {s_}: max layer-weight difference on the shared edge",
+              float(max(np.abs(EDGES[t]["layers"][n_]["s"] - EDGES[s_]["layers"][n_]["n"]).max() for n_ in dp.LAYERS)), 0, 0, 2, "of 255", "ue_layers")
 
 # the treeline height is reported (not a pass/fail check): it follows from the 6.7 C rule in detail_plots.py
 treeline_median_m = float(np.median(prep["treeline"]))

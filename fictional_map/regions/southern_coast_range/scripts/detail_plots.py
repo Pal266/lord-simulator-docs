@@ -9,9 +9,11 @@ For every vertex of a plot (8129 x 8129, spacing 25000/8128 m):
   3. River channels cut along smoothed river courses: width w = 5 Q^0.5, depth from Manning's equation with
      the local channel slope, parabolic cross-section, banks blending into the floodplain.
   4. Lake floors below the lake level of the regional model.
-  5. Ground layers: rock (steep), alpine meadow (above the treeline), forest (below the treeline),
-     wet meadow (flat river floodplains), riverbed and lakebed. The treeline follows the ~6.7 C growing-season
-     mean temperature found at high-altitude treelines worldwide (Koerner & Paulsen 2004).
+  5. Ground layers, blended softly (weights of all layers add up to 255 at every vertex): rock (steep walls),
+     scree (talus at 28-38 deg below the walls), alpine meadow (above the treeline), forest (below it), wet meadow
+     (flat river floodplains), gravel (river bars and the Holocene floodplain cut into the outwash plains),
+     riverbed and lakebed. The treeline follows the ~6.7 C growing-season mean temperature found at high-altitude
+     treelines worldwide (Koerner & Paulsen 2004) and is a ~150 m wide transition (ecotone), not a line.
 
 Every value depends only on world coordinates, never on the plot, so neighbouring plots share identical edge
 vertices: the plots join without steps.
@@ -50,9 +52,27 @@ WIDTH_A, MANNING_N = 5.0, 0.035
 TREELINE_GS_TEMP = 6.7          # C, growing-season mean at the treeline
 GS_THRESHOLD = 0.0              # months with mean temperature above this form the growing season
 LAPSE = 0.0065
-ROCK_SLOPE_DEG = 38.0
+ROCK_SLOPE_DEG = 38.0           # above the angle of repose of talus (~32-38 deg): bare rock
+SCREE_SLOPE_DEG = (28.0, 34.0)  # talus slopes stand at ~30-38 deg; scree fades in over this range
+TREELINE_ECOTONE_M = 150.0      # width of the forest -> alpine meadow transition
+TREELINE_NOISE_M = 60.0         # the treeline wanders up and down with local exposure and soil
 SEED = CFG["world_seed"] * 7919 + 13
-LAYERS = ["rock", "alpine_meadow", "forest", "wet_meadow", "riverbed", "lakebed"]
+LAYERS = ["rock", "scree", "alpine_meadow", "forest", "wet_meadow", "gravel", "riverbed", "lakebed"]
+L_ = {n: k for k, n in enumerate(LAYERS)}
+
+
+def smoothstep(a, b, x):
+    t = np.clip((x - a) / (b - a), 0.0, 1.0)
+    return t * t * (3 - 2 * t)
+
+
+def to_weights255(wf):
+    """float weights (..., L) summing to 1 -> uint8 weights summing exactly to 255 (remainder to the largest)."""
+    w8 = np.floor(wf * 255.0).astype(np.int16)
+    rem = 255 - w8.sum(axis=-1)
+    top = np.argmax(wf, axis=-1)
+    np.put_along_axis(w8, top[..., None], np.take_along_axis(w8, top[..., None], -1) + rem[..., None], -1)
+    return w8.astype(np.uint8)
 
 EXPORT = os.path.join(REGION_DIR, "export")
 PREP = os.path.join(REGION_OUT, "detail_prep.npz")
@@ -96,10 +116,16 @@ def prepare():
         b = np.load(refined)
         z = b["elevation_m"].astype(np.float64); xs = b["x_m"].astype(np.float64); ys = b["y_m"].astype(np.float64)
         sea = b["sea"]; lake = b["lake"]; Q = b["discharge_m3s"].ravel(); rec = b["receiver"].ravel().astype(np.int64)
+        if "outwash" in b.files:   # Holocene floodplain inside the outwash terraces (gravel at the surface)
+            dt_ = ndimage.distance_transform_edt(~b["outwash_trunk"]) * float(xs[1] - xs[0])
+            ow_belt = b["outwash"] & (dt_ < 150.0)
+        else:
+            ow_belt = np.zeros(z.shape, bool)
     else:                                            # fallback: the 100 m regional model
         z = m["elevation_m"].astype(np.float64); xs = m["x_m"].astype(np.float64); ys = m["y_m"].astype(np.float64)
         sea = m["sea"]; lake = m["lake"]; Q = m["discharge_m3s"].ravel()
         rec = route(z, sea, DX_REG)[1]
+        ow_belt = np.zeros(z.shape, bool)
     res = float(xs[1] - xs[0])
     level = priority_flood(z, sea, 0.0)
     lake_level = np.where(lake, level, np.nan)
@@ -195,6 +221,7 @@ def prepare():
     np.savez_compressed(PREP, spline=spl, z=z, x0=xs[0], y0=ys[0], res=res, lake_level=np.nan_to_num(lake_level, nan=-9999.0),
                         lake=lake, sea=sea, river_pts=P, river_q=Qp, river_ws=ws, river_w=width, river_d=depth,
                         treeline=treeline, slope_deg=slope_deg, relief_std=relief_std, river_mask=river.reshape(z.shape),
+                        outwash_belt=ow_belt,
                         river_near=ndimage.binary_dilation(river.reshape(z.shape), iterations=int(math.ceil(250.0 / res))))
     return dict(rivers=len(lines), river_points=int(P.shape[0]),
                 treeline_m=round(float(np.median(treeline[(np.abs(xs)[None, :] <= HALF_M) & (np.abs(ys)[:, None] <= HALF_M)])), 0))
@@ -233,7 +260,7 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
              + fbm(Xw, Yw, amp_fine, np.array(FINE_WAVELENGTHS), HURST, SEED + 1)
     # rivers
     near = ndimage.map_coordinates(prep["river_near"].astype(float), [fj, fi], order=0) > 0.5
-    riverbed = np.zeros(z.shape, bool); wet = np.zeros(z.shape, bool)
+    riverbed = np.zeros(z.shape); wet = np.zeros(z.shape); gravel = np.zeros(z.shape)
     P = prep["river_pts"]
     sel = (P[:, 0] > xv[0] - 600) & (P[:, 0] < xv[-1] + 600) & (P[:, 1] < yv[0] + 600) & (P[:, 1] > yv[-1] - 600)
     if sel.any() and near.any():
@@ -251,49 +278,72 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
         cut = np.where(zc > target, (zc - target) * wgt, 0.0)
         zc = np.where(inch, bed, zc - cut)
         z[qj, qi] = zc
-        riverbed[qj[inch], qi[inch]] = True
-        big = prep["river_q"][sel][ix] >= 20.0
-        wet[qj, qi] = big & (d >= hw) & (d < hw + 400.0)
+        qq = prep["river_q"][sel][ix]
+        riverbed[qj, qi] = 1 - smoothstep(hw - 1.5, hw + 0.5, d)            # wet channel, soft water's edge
+        bar = np.maximum(2.0, 0.4 * hw)                                      # gravel bars along the banks
+        gravel[qj, qi] = np.where(qq >= 3.0, smoothstep(hw - 1.0, hw, d) * (1 - smoothstep(hw + 0.5 * bar, hw + bar, d)), 0.0)
+        wet[qj, qi] = np.where(qq >= 20.0, smoothstep(hw, hw + 15.0, d) * (1 - smoothstep(hw + 300.0, hw + 400.0, d)), 0.0)
     # lakes
     lk = (lake_f > 0.5) & (lake_lv > -9000)            # nearest regional cell must itself be lake
     z = np.where(lk, np.minimum(z, lake_lv - 1.5), z)
+    # lakebed weight: under water, with a soft shoreline (the lake surface is lake_lv)
+    lakebed = np.where(lake_lv > -9000, smoothstep(-0.5, 0.5, lake_lv - z) * smoothstep(0.3, 0.6, lake_f), 0.0)
     z = np.clip(z, -2559.9, 2559.9)
     # layers
     gy, gx = np.gradient(ndimage.uniform_filter(z, 3) if step == 1 else z, SPACING * step)
     slope = np.degrees(np.arctan(np.hypot(gx, gy)))             # slope over ~9 m (ignores single-vertex bumps)
-    layer = np.full(z.shape, 2, np.uint8)                        # forest
-    layer[z > tl] = 1                                            # alpine meadow
-    layer[wet & (slope < 3)] = 3                                 # wet meadow on floodplains
-    layer[slope > ROCK_SLOPE_DEG] = 0                            # rock
-    layer[(z > tl + 150) & (slope > 25)] = 0
-    layer[riverbed] = 4
-    layer[lk] = 5
+    # soft layers, painted bottom to top: each layer covers the ones below by its weight ("over" blending),
+    # so the weights always add up to 1
+    ones = np.ones(z.shape)
+    tl_n = tl + TREELINE_NOISE_M * fbm(Xw, Yw, ones, np.array([400.0, 200.0, 100.0]), HURST, SEED + 2) / 1.6
+    alp = smoothstep(tl_n - TREELINE_ECOTONE_M / 2, tl_n + TREELINE_ECOTONE_M / 2, z)
+    wf = np.zeros(z.shape + (len(LAYERS),))
+    wf[..., L_["forest"]] = 1 - alp
+    wf[..., L_["alpine_meadow"]] = alp
+
+    def over(name, a):
+        a = np.clip(a, 0, 1)
+        wf[...] *= (1 - a)[..., None]
+        wf[..., L_[name]] += a
+    over("wet_meadow", wet * (1 - smoothstep(2.0, 5.0, slope)))
+    ow = ndimage.map_coordinates(prep["outwash_belt"].astype(float), [fj, fi], order=1)
+    over("gravel", np.maximum(gravel, 0.6 * smoothstep(0.3, 0.7, ow) * (1 - smoothstep(3.0, 8.0, slope))))
+    # scree accumulates below rock walls near and above the treeline
+    over("scree", smoothstep(*SCREE_SLOPE_DEG, slope) * smoothstep(tl - 250.0, tl - 50.0, z))
+    over("rock", np.maximum(smoothstep(ROCK_SLOPE_DEG - 4.0, ROCK_SLOPE_DEG + 2.0, slope),
+                            smoothstep(tl + 100.0, tl + 250.0, z) * smoothstep(22.0, 28.0, slope)))
+    over("riverbed", riverbed)
+    over("lakebed", lakebed)
+    w8 = to_weights255(wf)
     stats = dict(tile=f"tile_x{col}_y{row}", step=step, min_m=round(float(z.min()), 2), max_m=round(float(z.max()), 2),
                  mean_m=round(float(z.mean()), 2),
-                 layers_pct={n: round(float((layer == k).mean() * 100), 2) for k, n in enumerate(LAYERS)})
-    return z, layer, stats
+                 layers_pct={n: round(float(w8[..., k].mean() / 2.55), 2) for k, n in enumerate(LAYERS)})
+    return z, w8, stats
 
 
 def export_tile(col, row, prep, out_dir, strip=1024):
     """Full-resolution plot, built in strips of rows so memory stays below ~3 GB."""
     os.makedirs(out_dir, exist_ok=True)
     h16 = np.empty((NV, NV), np.uint16)
-    lay = np.empty((NV, NV), np.uint8)
+    lay = np.empty((NV, NV, len(LAYERS)), np.uint8)
     zsum, zmin, zmax = 0.0, 1e9, -1e9
     for r0 in range(0, NV, strip):
         r1 = min(NV, r0 + strip)
-        a0, a1 = max(0, r0 - 3), min(NV, r1 + 3)                # overlap so slopes match across strips
-        z, layer, _ = build_tile(col, row, prep, step=1, window=(a0, a1, 0, NV))
-        z = z[r0 - a0:r0 - a0 + (r1 - r0)]; layer = layer[r0 - a0:r0 - a0 + (r1 - r0)]
+        # 3-vertex halo on every side (also beyond the plot edge): slopes, and so the layer weights, are then
+        # identical on both sides of a strip boundary and of a plot seam
+        a0, a1 = r0 - 3, r1 + 3
+        z, layer, _ = build_tile(col, row, prep, step=1, window=(a0, a1, -3, NV + 3))
+        z = z[3:3 + (r1 - r0), 3:3 + NV]; layer = layer[3:3 + (r1 - r0), 3:3 + NV]
         h16[r0:r1] = np.clip(np.round(32768 + z * UNITS_PER_M), 0, 65535).astype(np.uint16)
         lay[r0:r1] = layer
         zsum += float(z.sum()); zmin = min(zmin, float(z.min())); zmax = max(zmax, float(z.max()))
     Image.fromarray(h16).save(os.path.join(out_dir, "heightmap.png"))
     for k, n in enumerate(LAYERS):
-        Image.fromarray(((lay == k) * 255).astype(np.uint8)).save(os.path.join(out_dir, f"layer_{n}.png"), optimize=True)
+        Image.fromarray(np.ascontiguousarray(lay[..., k])).save(os.path.join(out_dir, f"layer_{n}.png"), optimize=True)
     stats = dict(tile=f"tile_x{col}_y{row}", vertices=NV, spacing_m=round(SPACING, 4),
                  min_m=round(zmin, 2), max_m=round(zmax, 2), mean_m=round(zsum / NV / NV, 2),
-                 layers_pct={n: round(float((lay == k).mean() * 100), 2) for k, n in enumerate(LAYERS)},
+                 layers_pct={n: round(float(lay[..., k].mean(dtype=np.float64) / 2.55), 2) for k, n in enumerate(LAYERS)},
+                 layer_weights="8-bit weight maps, all layers add up to 255 at every vertex",
                  heightmap_encoding=f"value = 32768 + height_m * {UNITS_PER_M} (Unreal Z scale {Z_SCALE})")
     json.dump(stats, open(os.path.join(out_dir, "tile.json"), "w"), indent=1)
     z_prev = (h16[::8, ::8].astype(np.float64) - 32768) / UNITS_PER_M
@@ -301,11 +351,12 @@ def export_tile(col, row, prep, out_dir, strip=1024):
 
 
 def preview(z, layer, path, step):
-    pal = np.array([[150, 140, 130], [175, 190, 120], [70, 115, 65], [140, 175, 110], [180, 165, 130], [80, 130, 190]], float)
+    pal = np.array([[150, 140, 130], [185, 180, 165], [175, 190, 120], [70, 115, 65], [140, 175, 110], [200, 190, 160],
+                    [180, 165, 130], [80, 130, 190]], float)
     gy, gx = np.gradient(z, SPACING * step)
     nx, ny = -gx * 2, gy * 2
     sh = np.clip((nx * -0.6 + ny * 0.6 + 0.6) / np.sqrt(nx ** 2 + ny ** 2 + 1) / 0.6, 0.3, 1.5)
-    rgb = pal[layer] * sh[..., None]
+    rgb = (layer.astype(float) / 255.0) @ pal * sh[..., None]
     img = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8))
     if img.width > 1100:
         img = img.resize((1016, 1016), Image.LANCZOS)

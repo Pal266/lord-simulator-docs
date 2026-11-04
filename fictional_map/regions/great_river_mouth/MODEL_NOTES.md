@@ -36,22 +36,26 @@ This file records every scientific decision, why it was made and what it rests o
 
 ## 4. Sediment supply
 
-- The closest Earth analogue is the **Lena River**: similar discharge (16 800 m³/s), cold climate, huge lowland basin.
-  Its load is ~680 kg/s suspended plus ~170 kg/s bedload (Fedorova et al. 2015).
-- Scaled to this river's discharge with the BQART exponent Q^0.31 (Syvitski & Milliman 2007): **~26 Mt/yr**.
-- The BQART equation itself, with all basin factors B = 1, gives ~336 Mt/yr, mostly because this river's basin
-  includes 8 km mountains under the polar ice cap. Without data for the factor B this is treated as an upper bound
-  only. It is the main open uncertainty of the region (see "Open questions").
+- The first version used the Lena River as analogue (~26 Mt/yr). That was wrong: the Lena drains a lowland basin,
+  while this river's basin is high — 57% above 1000 m, 22% above 2000 m, 10% above 4000 m under the polar ice sheet,
+  with more than 30% of the water coming from mountains and ice.
+- Two independent estimates are combined:
+  - **Mackenzie concentration** — the Arctic river with large mountain tributaries carries 127 Mt/yr in 330 km³/yr of
+    water; at this river's discharge that is **~182 Mt/yr** (lower bound, because this basin's mountains are higher);
+  - **BQART** (Syvitski & Milliman 2007, explains 96% of the variation between 488 rivers) with B = 1: **~336 Mt/yr**
+    (upper bound; the lithology factor for this planet is unknown).
+- Central value: geometric mean **~248 Mt/yr** (like the pre-dam Mississippi). Set `SEDIMENT_CASE=low` or `high`
+  in the environment to run the bounds.
 
 ## 5. The delta
 
 - Modern marine deltas began to grow 8000–7000 years ago, when sea-level rise slowed (Stanley & Warne 1994).
   Delta age here: 7500 years.
 - Less than 30% of the Lena's load reaches the open sea, so 70% of the load stays in the delta.
-- Volume = load × age × 0.7 / 1600 kg/m³ (bulk density of young deltaic sediment) ≈ 85 km³.
-- Winter sea ice and a shallow semi-enclosed sea mean weak waves: a **river-dominated (bird's-foot) delta** with
-  8 distributary mouths, natural levees, marsh islands and shallow interdistributary bays.
-  The distributary network is grown until its volume matches the sediment budget.
+- Volume = load × age × 0.7 / 1600 kg/m³ ≈ **810 km³**.
+- The delta plain (topset +3 m at the apex to +0.4 m at the shore) progrades over the old sea floor with a foreset of
+  ~0.3° until its volume equals the budget; river-dominated, so 1.5 times longer along the river axis than across it.
+- Result: delta plain ~7 300 km², coast advanced up to ~115 km seaward, 16 distributary mouths, many delta lakes.
 
 ## 6. The open coast
 
@@ -61,9 +65,11 @@ This file records every scientific decision, why it was made and what it rests o
 
 ## Open questions and known limitations (v1)
 
-- **Sediment supply** is the largest uncertainty (26 Mt/yr from the Lena analogue vs up to 336 Mt/yr from BQART).
-  A much larger load would push the coast tens of kilometres seaward and turn most of the eastern plots into delta plain.
-  The planet's own erosion model (16 Mt/yr for this basin) is too coarse to settle it.
+- **Square position (decided 2026-11-04):** the square stays where it is (option A). With the revised load its eastern
+  half is delta plain (channels, islands, lakes) and the open sea lies east of the square.
+- **Delta morphology (to fix):** distributaries fan out almost as straight rays from one point and delta lakes are too
+  many; real distributaries branch progressively and meander.
+- The planet's own erosion model (16 Mt/yr for this basin) under-predicts sediment flux; it is not used here.
 - The delta is built geometrically and then mass-balanced; channel switching and lobe abandonment are not simulated.
 - Floodplain relief (levees, scroll bars) is drawn from rules, not simulated.
 - The 100 m grid cannot show streams draining less than ~5 km²; those come with the 3 m plot detailing.

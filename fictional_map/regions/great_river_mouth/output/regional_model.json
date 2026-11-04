@@ -1,7 +1,7 @@
 {
  "domain_km": [
-  170.0,
-  120.0
+  260.0,
+  200.0
  ],
  "resolution_m": 100.0,
  "lgm": {
@@ -16,14 +16,15 @@
   "basin_mean_temp_c": -16.9,
   "basin_relief_km": 8.03,
   "bqart_form": "T < 2 C",
-  "load_mt_yr": 25.9,
-  "bqart_b1_upper_bound_mt_yr": 336.1,
-  "analog": "Lena River",
+  "case": "central",
+  "load_mt_yr": 247.6,
+  "bqart_b1_mt_yr": 336.1,
+  "mackenzie_concentration_mt_yr": 182.4,
+  "lena_lowland_reference_mt_yr": 25.9,
   "delta_age_yr": 7500.0,
   "retention": 0.7,
-  "target_volume_km3": 85.01,
-  "built_volume_km3": 86.68,
-  "network_scale": 0.832
+  "target_volume_km3": 812.42,
+  "built_volume_km3": 808.12
  },
  "channel": {
   "discharge_m3s": 15017,
@@ -37,18 +38,21 @@
   "sinuosity": 1.45
  },
  "delta": {
-  "distributary_mouths": 8,
-  "delta_land_km2_in_square": 163,
-  "delta_land_km2_domain": 342
+  "distributary_mouths": 16,
+  "radius_km": 66.5,
+  "shoreline_advance_km": 116.3,
+  "delta_plain_km2": 7309,
+  "delta_land_km2_in_square": 1490,
+  "delta_land_km2_domain": 5307
  },
  "square": {
-  "land_pct": 75.8,
-  "lake_km2": 111,
-  "elev_min_m": -54.9,
+  "land_pct": 90.2,
+  "lake_km2": 801,
+  "elev_min_m": -45.9,
   "elev_max_m": 178.9,
-  "mean_land_elev_m": 54.9,
+  "mean_land_elev_m": 46.5,
   "planet_mean_land_elev_m": 46.3,
-  "river_km_per_km2": 0.037
+  "river_km_per_km2": 0.033
  },
  "erosion": {
   "years": 2600000.0,

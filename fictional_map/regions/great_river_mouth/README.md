@@ -34,7 +34,7 @@ Neighbouring plots share their edge vertices, so there are no steps at plot bord
 | Step | Status |
 |---|---|
 | 0. Cut the region out of the planet (`extract_region.py`) | Done |
-| 1. Regional process model at 100 m (`regional_model.py`, checks `validate_region.py`) | Done (v1), 10/10 checks |
+| 1. Regional process model at 100 m (`regional_model.py`, checks `validate_region.py`) | v2: sediment budget revised, 10/10 checks; delta shape being refined |
 | 2. Plot detailing at ~3 m | Next |
 | 3. Export for Unreal (heightmaps + layer masks) | Planned |
 
@@ -46,7 +46,8 @@ Regional checks: [VALIDATION.md](VALIDATION.md). Scientific decisions: [MODEL_NO
 - Never glaciated, but periglacial (permafrost) at glacial maxima; sea level then ~120 m lower.
 - Dissected lowland plain: dendritic valleys, local relief ~17 m per km, slopes mostly below 2.5°, heights 0–180 m.
 - Main river ~610 m wide and ~20 m deep, meandering (sinuosity ~1.5) across a 10–18 km floodplain with oxbow lakes.
-- Bird's-foot delta (~85 km³ of Holocene sediment, 8 distributary mouths), extending east beyond the square.
+- Holocene delta: ~810 km³ of sediment (~250 Mt/yr), delta plain ~7 300 km², coast advanced up to ~115 km; most of the
+  eastern half of the square is delta plain. The square stays in place; delta morphology is being refined (see MODEL_NOTES.md).
 
 ![Regional relief](output/regional_relief.png)
 ![Water](output/regional_water.png)

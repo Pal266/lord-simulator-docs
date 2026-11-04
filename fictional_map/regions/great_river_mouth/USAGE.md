@@ -138,7 +138,9 @@ The scientific decisions behind it are in [MODEL_NOTES.md](MODEL_NOTES.md).
 
 ```
 cd fictional_map/regions/great_river_mouth/scripts
-python regional_model.py      # ~2 minutes; no options
+python regional_model.py      # ~4 minutes
+SEDIMENT_CASE=low python regional_model.py    # sediment lower bound (Mackenzie concentration); `high` = BQART upper bound
+# on Windows (PowerShell):  $env:SEDIMENT_CASE="low"; python regional_model.py
 python validate_region.py     # ~2 seconds
 ```
 
@@ -150,10 +152,10 @@ Run `extract_region.py` first whenever `region.json` changes.
 2. The main valley along the river's planet course, extended to the actual coastline; floodplain 10–18 km wide.
 3. 2.6 million years of stream-power erosion and hillslope diffusion (52 steps of 50 000 years) — this carves the tributary valleys.
 4. The meandering main channel (width ~610 m, depth ~20 m), natural levees, backswamps and oxbow lakes.
-5. Sediment budget and the bird's-foot delta (grown until its volume matches the budget).
+5. Sediment budget (Mackenzie-concentration and BQART estimates) and the Holocene delta, grown until its volume matches the budget.
 6. Dean shoreface along the open coast, beaches, then lakes and rivers.
 
-The model domain (170 × 120 km) is larger than the 100 km square so the delta and the edges are modelled properly;
+The model domain (260 × 200 km) is larger than the 100 km square so the delta and the edges are modelled properly;
 maps and checks use the square only.
 
 **Writes** (to `output/`):

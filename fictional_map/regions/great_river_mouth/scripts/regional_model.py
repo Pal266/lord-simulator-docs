@@ -10,10 +10,11 @@ Scientific decisions (details and sources in ../MODEL_NOTES.md):
      exposing the whole shelf inside the square.
   2. Holocene delta: modern marine deltas started to grow 8000-7000 years ago, when sea-level rise
      slowed (Stanley & Warne 1994). Delta age here: 7500 years.
-  3. Sediment supply anchored on the closest Earth analogue, the Lena River (similar discharge, cold
-     climate, large lowland basin): ~680 kg/s suspended + ~170 kg/s bedload (Fedorova et al. 2015),
-     scaled to this river's discharge with the BQART exponent Q^0.31 (Syvitski & Milliman 2007).
-     BQART itself with B = 1 gives ~13x more; it is reported as an upper bound.
+  3. Sediment supply: the basin is high (57% above 1000 m, 10% above 4000 m under ice), so two independent
+     estimates are combined: the global BQART model (Syvitski & Milliman 2007, B = 1) and the sediment
+     concentration of the Mackenzie River, the Arctic river with a large mountain source area
+     (127 Mt/yr in 330 km3/yr). Central value = geometric mean; the Lena River (lowland basin) is
+     reported as a lower reference only.
   4. Sea ice in winter and a shallow semi-enclosed sea give weak waves: river-dominated (bird's-foot)
      delta with distributaries, levees and shallow interdistributary bays (analogues: Mississippi, Lena).
   5. Main channel width from hydraulic geometry w = a Q^0.5 (a = 5, as in the planet model),
@@ -40,8 +41,8 @@ rng = np.random.default_rng(CFG["world_seed"] * 101 + 7)
 DX = float(CFG["model_resolution_m"])
 
 # ---------------- parameters (see MODEL_NOTES.md) ----------------
-DOMAIN_X = (-60e3, 110e3)        # model domain is larger than the 100 km square (delta and boundary effects)
-DOMAIN_Y = (-60e3, 60e3)
+DOMAIN_X = (-60e3, 200e3)        # model domain is larger than the 100 km square (delta and boundary effects)
+DOMAIN_Y = (-100e3, 100e3)
 EROSION_YR, EROSION_DT = 2.6e6, 5.0e4      # Quaternary (glacial cycles)
 K_SP, M_SP = 1.0e-6, 0.5         # soft sedimentary cover of a platform erodes far faster than the planet average
 D_HILL = 0.005                   # m2/yr hillslope diffusivity (periglacial / temperate lowland)
@@ -57,8 +58,10 @@ DELTA_AGE_YR = 7500.0
 DELTA_RETENTION = 0.7            # Lena: less than 30% of the load reaches the open sea
 BULK_DENSITY = 1600.0            # kg/m3, unconsolidated deltaic sediment
 BQART_OMEGA = 0.02               # kg/s
-ANALOG_LOAD_KGS = 680.0 + 170.0  # Lena River suspended + bedload (Fedorova et al. 2015)
-ANALOG_Q_M3S = 16800.0           # Lena River mean discharge (Fedorova et al. 2015)
+LENA_LOAD_KGS = 680.0 + 170.0    # Lena River suspended + bedload (Fedorova et al. 2015) - lowland reference
+LENA_Q_M3S = 16800.0
+MACKENZIE_CONC_KG_M3 = 127e9 / 330e9   # Mackenzie: 127 Mt/yr in 330 km3/yr of water (Arctic journal)
+SEDIMENT_CASE = os.environ.get("SEDIMENT_CASE", "central")   # central | low (Mackenzie) | high (BQART)
 DEAN_A, CLOSURE_M = 0.10, 8.0
 LGM_COOLING_GLOBAL, LGM_COOLING_POLAR = 6.0, 14.0
 
@@ -230,79 +233,92 @@ if basin_T >= 2:
     qs_kgs = BQART_OMEGA * B * Q_RIVER ** 0.31 * basin_area_km2 ** 0.5 * basin_relief_km * basin_T
 else:
     qs_kgs = 2 * BQART_OMEGA * B * Q_RIVER ** 0.31 * basin_area_km2 ** 0.5 * basin_relief_km
-bqart_upper_mt_yr = qs_kgs * 3.15576e7 / 1e9
-qs_kgs = ANALOG_LOAD_KGS * (Q_RIVER / ANALOG_Q_M3S) ** 0.31
-qs_mt_yr = qs_kgs * 3.15576e7 / 1e9
+bqart_kgs = qs_kgs
+mack_kgs = MACKENZIE_CONC_KG_M3 * Q_RIVER
+lena_kgs = LENA_LOAD_KGS * (Q_RIVER / LENA_Q_M3S) ** 0.31
+qs_kgs = {"central": math.sqrt(bqart_kgs * mack_kgs), "low": mack_kgs, "high": bqart_kgs}[SEDIMENT_CASE]
+to_mt = lambda v: v * 3.15576e7 / 1e9
+qs_mt_yr = to_mt(qs_kgs)
 V_target = qs_kgs * 3.15576e7 * DELTA_AGE_YR * DELTA_RETENTION / BULK_DENSITY     # m3
 
-# ---------------- 4. bird's-foot delta ----------------
+# ---------------- 4. Holocene delta (mass-balanced progradation) ----------------
+# The delta plain advances into the sea until the deposited volume equals the sediment budget:
+# a topset (delta plain, +3 m at the apex to +0.4 m at the shore) and a foreset slope down to the old sea floor.
+# River-dominated, so the plain is elongated along the river axis and cut by a branching distributary network.
 pre = z.copy()                       # transgressed surface before the delta (sea floor = planet trend)
 apex = channel_line[-1]
 base_ang = math.atan2(seaward[1], seaward[0])
+DELTA_ELONGATION = 1.5               # river-dominated: longer along the river axis than across it
+TOPSET_APEX_M, TOPSET_SHORE_M = 3.0, 0.4
+FORESET_GRADIENT = 0.006             # ~0.3 degrees, muddy delta front
+U = (X - apex[0]) * seaward[0] + (Y - apex[1]) * seaward[1]
+V = -(X - apex[0]) * seaward[1] + (Y - apex[1]) * seaward[0]
+Dn = np.sqrt((np.clip(U, 0, None) / DELTA_ELONGATION) ** 2 + V ** 2) * (1 + 0.16 * fbm2(51, 4, 40, 1.0))
+Dn = Dn + np.where(U < 0, -U * 4.0, 0.0)             # little growth behind the apex
+can_fill = (pre <= TOPSET_APEX_M) & (U > -3000)
 
 
-def build_network(scale):
-    """Distributary tree from the apex; returns list of (polyline, generation)."""
-    r = np.random.default_rng(4242)
-    out = []
-    stack = [(apex.copy(), base_ang, 0)]
-    while stack:
-        p0, ang, g = stack.pop()
-        L = scale * 22000.0 * 0.72 ** g
-        n = max(int(L / 100), 2)
-        wig = r.uniform(0, 6.28)
-        line = [p0]
-        a = ang
-        for k in range(1, n):
-            a += 0.025 * math.sin(k / 9 + wig) + r.normal(0, 0.006)
-            line.append(line[-1] + 100.0 * np.array([math.cos(a), math.sin(a)]))
-        line = np.array(line)
-        out.append((line, g))
-        if g < 3:
-            spread = r.uniform(0.25, 0.42)
-            stack.append((line[-1], a + spread, g + 1))
-            stack.append((line[-1], a - spread * r.uniform(0.6, 1.0), g + 1))
-    return out
+def delta_surface(R):
+    t = np.clip(Dn / R, 0, 1)
+    top = TOPSET_APEX_M * (1 - t) + TOPSET_SHORE_M * t
+    front = -2.0 - FORESET_GRADIENT * (Dn - R)
+    surf = np.where(Dn <= R, top, front)
+    new = np.where(can_fill, np.maximum(pre, surf), pre)
+    return new, float(np.clip(new - pre, 0, None).sum() * DX * DX)
 
 
-P2 = np.column_stack([X.ravel(), Y.ravel()])
-
-
-def delta_surface(scale):
-    net = build_network(scale)
-    allp = np.vstack([l for l, g in net]); gen = np.concatenate([[g] * len(l) for l, g in net])
-    frac = np.concatenate([np.linspace(0, 1, len(l)) for l, g in net])
-    tr = cKDTree(allp)
-    d, ix = tr.query(P2, distance_upper_bound=40000)
-    d = d.reshape(Hn, Wn); ix = np.clip(ix.reshape(Hn, Wn), 0, len(allp) - 1)
-    g = gen[ix]; fr = frac[ix]
-    half_lobe = 2600.0 * 0.8 ** g + 900.0
-    w_ch = width / (2 ** (g / 2))
-    top = 2.2 * np.exp(-np.clip(d - w_ch / 2, 0, None) / 700.0) * (1 - 0.6 * fr * (g == 3)) + 0.25
-    bay = -1.8
-    envelope = half_lobe + 4500.0
-    front = -2.0 - 0.0035 * np.clip(d - envelope, 0, None)
-    surf = np.where(d <= half_lobe, top, np.where(d <= envelope, bay, front))
-    dep_ch = np.maximum(depth * 0.85 ** g * (1 - 0.5 * fr * (g == 3)), 3.0)
-    surf = np.where(d <= w_ch / 2, -dep_ch * (1 - (d / (w_ch / 2)) ** 2), surf)
-    zone = (~upstream_side | (pre <= 1.0)) & (d < envelope + 20000)
-    new = np.where(zone, np.maximum(pre, surf), pre)
-    # channels are cut into whatever was there
-    new = np.where(zone & (d <= w_ch / 2), np.minimum(new, surf), new)
-    vol = float(np.clip(new - pre, 0, None).sum() * DX * DX)
-    return new, vol, (d <= w_ch / 2) & zone, (d <= half_lobe) & zone, net
-
-
-lo, hi = 0.2, 4.0
-for _ in range(18):                                  # bisection: delta volume = sediment budget
+lo, hi = 1000.0, 300000.0
+for _ in range(30):                                  # bisection: delta volume = sediment budget
     mid = 0.5 * (lo + hi)
-    _, v, _, _, _ = delta_surface(mid)
-    if v < V_target:
+    if delta_surface(mid)[1] < V_target:
         lo = mid
     else:
         hi = mid
-scale = 0.5 * (lo + hi)
-z, V_built, dist_ch, delta_land, net = delta_surface(scale)
+R_delta = 0.5 * (lo + hi)
+z, V_built = delta_surface(R_delta)
+delta_land = (Dn <= R_delta) & can_fill & (z > 0)
+
+# distributary network: a branching tree that fans out from the apex to the delta shore
+r_ = np.random.default_rng(4242)
+net = []
+stack = [(apex.copy(), base_ang, 0)]
+while stack:
+    p0, ang, g = stack.pop()
+    seg_len = 9000.0 * 0.8 ** g
+    line = [p0]; a = ang; reached = False
+    for k in range(int(4 * R_delta / 100)):
+        pnew = line[-1] + 100.0 * np.array([math.cos(a), math.sin(a)])
+        line.append(pnew)
+        jj = int((DOMAIN_Y[1] - pnew[1]) / DX); ii = int((pnew[0] - DOMAIN_X[0]) / DX)
+        if not (0 <= jj < Hn and 0 <= ii < Wn) or Dn[jj, ii] > R_delta:
+            reached = True
+            break
+        radial = math.atan2(pnew[1] - apex[1], pnew[0] - apex[0])
+        a += 0.04 * math.sin(radial - a) + r_.normal(0, 0.02)     # fan out radially, with wiggle
+        if g < 4 and len(line) * 100.0 >= seg_len:
+            break
+    line = np.array(line)
+    net.append((line, g, reached))
+    if not reached and g < 4:
+        spread = r_.uniform(0.28, 0.5)
+        stack.append((line[-1], a + spread, g + 1))
+        stack.append((line[-1], a - spread * r_.uniform(0.6, 1.0), g + 1))
+allp = np.vstack([l for l, g, _ in net]); gen = np.concatenate([[g] * len(l) for l, g, _ in net])
+dch, ixc = cKDTree(allp).query(np.column_stack([X.ravel(), Y.ravel()]), distance_upper_bound=20000)
+dch = dch.reshape(Hn, Wn); gch = gen[np.clip(ixc, 0, len(allp) - 1)].reshape(Hn, Wn)
+w_g = width / 2 ** (gch / 2)
+d_g = np.maximum(depth * 0.85 ** gch, 3.0)
+plain = (Dn <= R_delta) & can_fill
+z = np.where(plain, z + 0.9 * np.exp(-np.clip(dch - w_g / 2, 0, None) / 500.0), z)       # natural levees
+micro = fbm2(53, 4, 3, 1.0)
+z = np.where(plain & (dch > w_g), z + 0.5 * micro, z)                                      # marsh micro-relief
+delta_lakes = plain & (dch > 2 * w_g) & (micro < -0.42)
+z = np.where(delta_lakes, -0.8, z)                                                          # thaw / floodplain lakes
+dist_ch = (dch <= w_g / 2) & ((Dn <= R_delta * 1.02) | (pre <= 0)) & (U > -3000)
+z = np.where(dist_ch, np.minimum(z, 0.5 - d_g * (1 - (dch / (w_g / 2)) ** 2)), z)
+V_built = float(np.clip(z - pre, 0, None).sum() * DX * DX)
+delta_land = plain & (z > 0)
+shore_advance_km = float(U[delta_land].max() / 1000.0) if delta_land.any() else 0.0
 
 # ---------------- 5. shoreface (Dean profile) outside the delta ----------------
 land_now = z > 0
@@ -312,14 +328,14 @@ land_now = z > 0
 coast_d = ndimage.distance_transform_edt(~land_now) * DX
 delta_zone = ndimage.binary_dilation(delta_land, iterations=int(9000 / DX))
 dean = -np.minimum(DEAN_A * coast_d ** (2 / 3), CLOSURE_M)
-shore = ~land_now & ~delta_zone & (coast_d < 6000)
+shore = sea0 & ~land_now & ~delta_zone & (coast_d < 6000) & ~main_channel & ~dist_ch   # the sea, not river channels
 z = np.where(shore, np.minimum(np.maximum(dean, z - 0.0), np.where(z > dean, dean, z)), z)
 beach = land_now & ~delta_zone & (ndimage.distance_transform_edt(land_now) * DX <= 200)
 z = np.where(beach, np.clip(z, 0.6, 3.0), z)
 
 # ---------------- 6. lakes and rivers ----------------
 sea = z <= 0
-sea_lbl, n_lbl = ndimage.label(sea)
+sea_lbl, n_lbl = ndimage.label(sea & ~main_channel & ~dist_ch)     # river channels are not sea
 edge_lbls = set(np.unique(np.r_[sea_lbl[0], sea_lbl[-1], sea_lbl[:, 0], sea_lbl[:, -1]])) - {0}
 open_sea = np.isin(sea_lbl, list(edge_lbls))
 water_fixed = open_sea | main_channel | dist_ch
@@ -342,16 +358,18 @@ stats = dict(
              glaciated=lgm_july < 0.0, permafrost=lgm_maat < -1.0),
     sediment=dict(basin_area_km2=round(basin_area_km2), basin_mean_temp_c=round(basin_T, 1),
                   basin_relief_km=round(basin_relief_km, 2), bqart_form="T < 2 C" if basin_T < 2 else "T >= 2 C",
-                  load_mt_yr=round(qs_mt_yr, 1), bqart_b1_upper_bound_mt_yr=round(bqart_upper_mt_yr, 1),
-                  analog="Lena River", delta_age_yr=DELTA_AGE_YR, retention=DELTA_RETENTION,
-                  target_volume_km3=round(V_target / 1e9, 2), built_volume_km3=round(V_built / 1e9, 2),
-                  network_scale=round(scale, 3)),
+                  case=SEDIMENT_CASE, load_mt_yr=round(qs_mt_yr, 1),
+                  bqart_b1_mt_yr=round(to_mt(bqart_kgs), 1), mackenzie_concentration_mt_yr=round(to_mt(mack_kgs), 1),
+                  lena_lowland_reference_mt_yr=round(to_mt(lena_kgs), 1), delta_age_yr=DELTA_AGE_YR, retention=DELTA_RETENTION,
+                  target_volume_km3=round(V_target / 1e9, 2), built_volume_km3=round(V_built / 1e9, 2)),
     channel=dict(discharge_m3s=round(Q_RIVER), width_m=round(width), depth_m=round(depth, 1),
                  velocity_ms=round(velocity, 2), slope=RIVER_SLOPE, manning_n=MANNING_N,
                  capacity_m3s=round(width * depth * velocity), meander_wavelength_m=round(wavelength),
                  sinuosity=round(float(np.sum(np.hypot(*np.diff(channel_line, axis=0).T)) /
                                        np.sum(np.hypot(*np.diff(valley, axis=0).T))), 2)),
-    delta=dict(distributary_mouths=int(sum(1 for _, g in net if g == 3)),
+    delta=dict(distributary_mouths=int(sum(1 for _, g, reached in net if reached)),
+               radius_km=round(R_delta / 1000, 1), shoreline_advance_km=round(shore_advance_km, 1),
+               delta_plain_km2=round(float(delta_land.sum() * DX * DX / 1e6)),
                delta_land_km2_in_square=round(float((delta_land & inside & (z > 0)).sum() * DX * DX / 1e6)),
                delta_land_km2_domain=round(float((delta_land & (z > 0)).sum() * DX * DX / 1e6))),
     square=dict(land_pct=round(float((~sea & inside).sum() / inside.sum() * 100), 1),

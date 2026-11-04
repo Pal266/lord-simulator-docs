@@ -20,6 +20,8 @@ SOURCES = {
                 "https://www.searchanddiscovery.com/abstracts/html/1994/annual/abstracts/0264c.htm"),
     "fedorova": ("Fedorova et al. 2015, Lena Delta hydrology and geochemistry (Biogeosciences)",
                  "https://epic2-clone.awi.de/37164/1/Fedorova_et_al_2015_BG.pdf"),
+    "mackenzie": ("Mackenzie River: 127 Mt/yr of sediment in 330 km3/yr of water (Arctic journal)",
+                  "https://journalhosting.ucalgary.ca/index.php/arctic/article/download/63079/47019/180209"),
     "lenadelta": ("An Overview of the Lena River Delta Setting (Journal of Coastal Research)",
                   "https://journals.flvc.org/jcr/article/view/80930"),
     "bqart": ("Cohen et al. 2011, presenting the BQART equation of Syvitski & Milliman 2007 (Computers & Geosciences)",
@@ -49,8 +51,10 @@ check("Earth data", "LGM July temperature in the region (glaciers need summers n
       "positive LGM summers -> the region stayed ice-free; it was periglacial")
 check("Earth data", "Delta age (start of Holocene progradation)", st["sediment"]["delta_age_yr"], "8000-7000 yr",
       7000, 8000, "yr", "stanley")
-check("Earth data", "Sediment load vs the Lena analogue (850 kg/s at 16 800 m3/s)", st["sediment"]["load_mt_yr"],
-      "26.8 Mt/yr", 20.0, 35.0, "Mt/yr", "fedorova", "scaled with the BQART discharge exponent Q^0.31")
+sd = st["sediment"]
+check("Earth data", "Sediment load between the Mackenzie-concentration and BQART (B = 1) estimates", sd["load_mt_yr"],
+      f"{sd['mackenzie_concentration_mt_yr']}-{sd['bqart_b1_mt_yr']} Mt/yr", sd["mackenzie_concentration_mt_yr"],
+      sd["bqart_b1_mt_yr"], "Mt/yr", "mackenzie", "high basin: 57% above 1000 m; Lena (lowland) is not a valid analogue")
 check("Earth data", "Share of the load kept in the delta", st["sediment"]["retention"], "> 0.7 (less than 30% reaches the sea)",
       0.7, 0.9, "", "lenadelta")
 
@@ -65,14 +69,16 @@ check("physics", "Main channel capacity (Manning) / river discharge", ch["capaci
 shore = m["shoreface"]; sea = m["sea"]; land = ~sea
 from scipy import ndimage
 cd = ndimage.distance_transform_edt(~land) * 100.0
-sel = shore & inside & (cd > 50) & (cd < 1500) & (z < 0)
+# with the delta the square's own coast is delta front, so the open-coast profile is checked over the whole model domain
+sel = shore & m["open_sea"] & (cd > 50) & (cd < 1500) & (z < 0)
 A_fit = float(np.median((-z[sel]) / cd[sel] ** (2 / 3))) if sel.any() else 0.0
-check("Earth data", "Shoreface equilibrium-profile coefficient A (h = A x^2/3)", A_fit, "0.055-0.10 (D50 ~ 0.2 mm)",
+check("Earth data", "Open-coast shoreface coefficient A (h = A x^2/3), whole model domain", A_fit, "0.055-0.10 (D50 ~ 0.2 mm)",
       0.05, 0.15, "m^1/3", "dean")
 
 # --- consistency with the planet ---
-check("planet", "Land share of the square vs planet", st["square"]["land_pct"], ctx["land_pct"],
-      ctx["land_pct"] - 5, ctx["land_pct"] + 5, "%", "planet")
+pre_land = float(((m["pre_delta_m"] > 0) & inside).sum() / inside.sum() * 100)
+check("planet", "Land share of the square before the Holocene delta vs planet (the planet model has no deltas)", pre_land,
+      ctx["land_pct"], ctx["land_pct"] - 5, ctx["land_pct"] + 5, "%", "planet")
 check("planet", "Mean land elevation vs planet sample", st["square"]["mean_land_elev_m"],
       st["square"]["planet_mean_land_elev_m"], st["square"]["planet_mean_land_elev_m"] - 20,
       st["square"]["planet_mean_land_elev_m"] + 20, "m", "planet")

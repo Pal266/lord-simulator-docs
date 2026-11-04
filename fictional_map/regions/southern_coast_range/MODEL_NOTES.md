@@ -57,8 +57,10 @@ This file records every scientific decision, why it was made and what it rests o
 - **Roughness below 100 m (`detail_plots.py`).** Self-affine detail with Hurst exponent 0.5: along transects Earth's
   topography has a power spectrum close to k⁻² (Hurst ~0.5, fractal dimension ~2.5). Its amplitude follows the local
   relief and is damped on gentle ground (valley floors, plains). Below ~20 m it is weaker on soil-covered slopes than on rock.
-- **Check of the result:** the spectral exponent of the plots over 100 m – 2 km is ~2.6, inside the accepted band (1.6–2.6),
-  but at its rough end: the plots are still a little smoother than typical Earth terrain at hillslope scale.
+- **Check of the result (all 16 plots):** the 24 shared edges are identical, every plot stays within 0.3 m of its base
+  on average. The roughness spectrum over 100 m – 2 km passes in the 11 mountain and foothill plots (exponent ~2.4–2.6)
+  but **fails in the 5 eastern plain plots (~2.9–3.4)**: the plain is too smooth at 100 m – 2 km scales. Stronger fine
+  detail does not fix it (it only acts below 100 m); the plain needs more relief from the 25 m model itself.
 - **Rivers:** courses from the 25 m drainage network (≥ 1 m³/s), smoothed and snapped to the lowest line of the valley floor;
   width 5·Q^0.5, depth from Manning's equation (n = 0.035) with the local slope; banks rise ~15% and fade into the terrain.
 - **Treeline:** where the growing-season mean temperature (months above 0 °C) is 6.7 °C, the value found at high-altitude
@@ -75,3 +77,4 @@ This file records every scientific decision, why it was made and what it rests o
 - Small rectangular artefacts can appear where moraine ridges meet the edge of a glacier system.
 - Streams smaller than ~1 m³/s are not cut as channels; they exist only as gullies in the 25 m relief.
 - Ground layers are hard 0/255 masks (no blending between layers yet).
+- The eastern plain plots are smoother than Earth-like terrain at 100 m – 2 km (see VALIDATION_PLOTS.md); to be fixed.

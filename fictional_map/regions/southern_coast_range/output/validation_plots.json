@@ -1,25 +1,221 @@
 {
- "passed": 7,
- "total": 7,
+ "passed": 67,
+ "total": 72,
  "checks": [
   {
-   "kind": "seams",
-   "name": "tile_x1_y1 | tile_x2_y1: max height difference on the shared edge",
-   "value": 0.0,
+   "kind": "Earth data",
+   "name": "tile_x0_y0: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.4502,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y0: mean difference from the base model (outside lakes)",
+   "value": -0.4128,
    "reference": 0,
    "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y0: height range fits Unreal Z scale 1000",
+   "value": 1461.1719,
+   "reference": "<= 2559.9",
+   "band": [
     0,
-    0.08
+    2559.9
    ],
    "unit": "m",
    "source": "ue",
    "passed": true,
-   "note": "one 16-bit step is 0.078 m"
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y1: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.4288,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
+   "value": -0.5962,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y1: height range fits Unreal Z scale 1000",
+   "value": 1796.0938,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y2: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.4517,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y2: mean difference from the base model (outside lakes)",
+   "value": -0.1618,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y2: height range fits Unreal Z scale 1000",
+   "value": 2011.0156,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y3: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.2881,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
+   "value": 0.0392,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x0_y3: height range fits Unreal Z scale 1000",
+   "value": 2089.2188,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y0: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.5958,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y0: mean difference from the base model (outside lakes)",
+   "value": -0.2273,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y0: height range fits Unreal Z scale 1000",
+   "value": 977.6562,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "Earth data",
    "name": "tile_x1_y1: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.5771,
+   "value": 2.5778,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -33,7 +229,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
-   "value": -0.2052,
+   "value": -0.2142,
    "reference": 0,
    "band": [
     -3.0,
@@ -60,8 +256,134 @@
   },
   {
    "kind": "Earth data",
+   "name": "tile_x1_y2: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.4964,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y2: mean difference from the base model (outside lakes)",
+   "value": -0.5165,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y2: height range fits Unreal Z scale 1000",
+   "value": 1511.6406,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y3: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.1836,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
+   "value": -0.2942,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y3: height range fits Unreal Z scale 1000",
+   "value": 1753.3594,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y0: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.8675,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y0: mean difference from the base model (outside lakes)",
+   "value": -0.0048,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y0: height range fits Unreal Z scale 1000",
+   "value": 584.375,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
    "name": "tile_x2_y1: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.572,
+   "value": 2.5751,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -75,7 +397,7 @@
   {
    "kind": "model",
    "name": "tile_x2_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0429,
+   "value": -0.0512,
    "reference": 0,
    "band": [
     -3.0,
@@ -99,6 +421,594 @@
    "source": "ue",
    "passed": true,
    "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y2: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.5632,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y2: mean difference from the base model (outside lakes)",
+   "value": -0.028,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y2: height range fits Unreal Z scale 1000",
+   "value": 841.6406,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y3: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 2.377,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y3: mean difference from the base model (outside lakes)",
+   "value": -0.0339,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y3: height range fits Unreal Z scale 1000",
+   "value": 859.5312,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y0: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 3.35,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y0: mean difference from the base model (outside lakes)",
+   "value": -0.0077,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y0: height range fits Unreal Z scale 1000",
+   "value": 311.6406,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y1: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 3.0034,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y1: mean difference from the base model (outside lakes)",
+   "value": -0.0071,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y1: height range fits Unreal Z scale 1000",
+   "value": 301.9531,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y2: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 3.134,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y2: mean difference from the base model (outside lakes)",
+   "value": 0.0039,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y2: height range fits Unreal Z scale 1000",
+   "value": 293.6719,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y3: spectral exponent beta of height transects (100 m - 2 km)",
+   "value": 3.422,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+  },
+  {
+   "kind": "model",
+   "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
+   "value": -0.0054,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x3_y3: height range fits Unreal Z scale 1000",
+   "value": 270.0,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 | tile_x1_y0: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 / tile_x0_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 | tile_x1_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 / tile_x0_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 | tile_x1_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 / tile_x0_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y3 | tile_x1_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 | tile_x2_y0: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 / tile_x1_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 | tile_x2_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 / tile_x1_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 | tile_x2_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 / tile_x1_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y3 | tile_x2_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 | tile_x3_y0: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 / tile_x2_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 | tile_x3_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 / tile_x2_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 | tile_x3_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 / tile_x2_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y3 | tile_x3_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y0 / tile_x3_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y1 / tile_x3_y2: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y2 / tile_x3_y3: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
   }
  ]
 }

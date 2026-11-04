@@ -42,22 +42,12 @@ tiles = sorted(os.path.basename(p) for p in glob.glob(os.path.join(REGION_DIR, "
 if not tiles:
     raise SystemExit("No exported plots in ../export - run detail_plots.py first.")
 have = {t: tuple(int(v[1:]) for v in t.replace("tile_", "").split("_")) for t in tiles}
-H = {t: load_h(t) for t in tiles}
-
-# --- seams ---
-pairs = 0
-for t, (c, r) in have.items():
-    e = f"tile_x{c + 1}_y{r}"; s = f"tile_x{c}_y{r + 1}"
-    if e in H:
-        check("seams", f"{t} | {e}: max height difference on the shared edge", float(np.abs(H[t][:, -1] - H[e][:, 0]).max()),
-              0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
-    if s in H:
-        check("seams", f"{t} / {s}: max height difference on the shared edge", float(np.abs(H[t][-1, :] - H[s][0, :]).max()),
-              0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
+EDGES = {}            # only the four edges of each plot are kept in memory (a full plot is 0.5 GB as float64)
 
 prep = dict(np.load(dp.PREP))
 for t, (c, r) in have.items():
-    z = H[t]
+    z = load_h(t)
+    EDGES[t] = dict(w=z[:, 0].copy(), e=z[:, -1].copy(), n=z[0, :].copy(), s=z[-1, :].copy())
     # --- spectrum of height along rows (transects), wavelengths 20 m - 2 km ---
     rows = z[::512, :]
     rows = rows - rows.mean(axis=1, keepdims=True)
@@ -82,6 +72,18 @@ for t, (c, r) in have.items():
     diff = ndimage.uniform_filter(sub, 3) - reg
     check("model", f"{t}: mean difference from the base model (outside lakes)", float(np.mean(diff[~lake])), 0, -3.0, 3.0, "m", "model")
     check("Earth data", f"{t}: height range fits Unreal Z scale {dp.Z_SCALE}", float(np.abs(z).max()), "<= 2559.9", 0, 2559.9, "m", "ue")
+    del z, sub
+
+# --- seams ---
+pairs = 0
+for t, (c, r) in have.items():
+    e = f"tile_x{c + 1}_y{r}"; s_ = f"tile_x{c}_y{r + 1}"
+    if e in EDGES:
+        check("seams", f"{t} | {e}: max height difference on the shared edge",
+              float(np.abs(EDGES[t]["e"] - EDGES[e]["w"]).max()), 0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
+    if s_ in EDGES:
+        check("seams", f"{t} / {s_}: max height difference on the shared edge",
+              float(np.abs(EDGES[t]["s"] - EDGES[s_]["n"]).max()), 0, 0, 0.08, "m", "ue", "one 16-bit step is 0.078 m"); pairs += 1
 
 # the treeline height is reported (not a pass/fail check): it follows from the 6.7 C rule in detail_plots.py
 treeline_median_m = float(np.median(prep["treeline"]))

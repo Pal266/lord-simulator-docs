@@ -1,0 +1,26 @@
+{
+ "seed": 7,
+ "grid": [
+  1440,
+  720
+ ],
+ "projection": "equirectangular",
+ "km_per_px_equator": 27.8,
+ "land_pct": 29.0,
+ "highest_m": 8837,
+ "deepest_m": -10060,
+ "mean_land_m": 974,
+ "mean_ocean_m": -3626,
+ "heightmap_16bit_range_m": [
+  -10060,
+  8837
+ ],
+ "highest_at_latlon": [
+  -73.9,
+  128.4
+ ],
+ "deepest_at_latlon": [
+  28.4,
+  -47.4
+ ]
+}

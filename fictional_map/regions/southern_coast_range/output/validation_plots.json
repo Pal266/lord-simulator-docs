@@ -19,7 +19,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.144,
+   "value": 0.1498,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -33,7 +33,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y0: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2446,
+   "value": 2.2458,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -47,7 +47,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y0: mean difference from the base model (outside lakes)",
-   "value": -0.6299,
+   "value": -0.5835,
    "reference": 0,
    "band": [
     -3.0,
@@ -89,7 +89,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1247,
+   "value": 0.1384,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -98,12 +98,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 30.0%"
+   "note": "blended vertices 29.6%"
   },
   {
    "kind": "Earth data",
    "name": "tile_x0_y1: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2048,
+   "value": 2.2097,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -117,7 +117,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
-   "value": -0.7994,
+   "value": -0.7107,
    "reference": 0,
    "band": [
     -3.0,
@@ -159,7 +159,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2098,
+   "value": 0.2183,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -168,12 +168,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 17.8%"
+   "note": "blended vertices 17.4%"
   },
   {
    "kind": "Earth data",
    "name": "tile_x0_y2: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.339,
+   "value": 2.3561,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -187,7 +187,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y2: mean difference from the base model (outside lakes)",
-   "value": -0.3208,
+   "value": -0.2826,
    "reference": 0,
    "band": [
     -3.0,
@@ -229,7 +229,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.579,
+   "value": 0.6158,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -238,12 +238,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 7.5%"
+   "note": "blended vertices 7.2%"
   },
   {
    "kind": "Earth data",
    "name": "tile_x0_y3: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2858,
+   "value": 2.2874,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -257,7 +257,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
-   "value": -0.1377,
+   "value": -0.1264,
    "reference": 0,
    "band": [
     -3.0,
@@ -299,7 +299,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.5341,
+   "value": 0.5746,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -308,7 +308,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 2.0%"
+   "note": "blended vertices 1.9%"
   },
   {
    "kind": "Earth data",
@@ -327,7 +327,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y0: mean difference from the base model (outside lakes)",
-   "value": -0.3037,
+   "value": -0.2964,
    "reference": 0,
    "band": [
     -3.0,
@@ -369,7 +369,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.8687,
+   "value": 0.8908,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -383,7 +383,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x1_y1: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.3304,
+   "value": 2.339,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -397,7 +397,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
-   "value": -0.474,
+   "value": -0.4506,
    "reference": 0,
    "band": [
     -3.0,
@@ -439,7 +439,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2183,
+   "value": 0.2285,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -453,7 +453,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x1_y2: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.3146,
+   "value": 2.332,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -467,7 +467,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y2: mean difference from the base model (outside lakes)",
-   "value": -0.7553,
+   "value": -0.7204,
    "reference": 0,
    "band": [
     -3.0,
@@ -509,7 +509,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0966,
+   "value": 0.1007,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -518,12 +518,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 29.1%"
+   "note": "blended vertices 29.0%"
   },
   {
    "kind": "Earth data",
    "name": "tile_x1_y3: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.434,
+   "value": 2.4416,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -537,7 +537,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
-   "value": -0.4712,
+   "value": -0.4036,
    "reference": 0,
    "band": [
     -3.0,
@@ -579,7 +579,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.8907,
+   "value": 0.9701,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -588,12 +588,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.8%"
+   "note": "blended vertices 0.7%"
   },
   {
    "kind": "Earth data",
    "name": "tile_x2_y0: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 1.9788,
+   "value": 1.9791,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -649,7 +649,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.348,
+   "value": 0.3767,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -658,12 +658,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.6%"
+   "note": "blended vertices 3.5%"
   },
   {
    "kind": "Earth data",
    "name": "tile_x2_y1: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.001,
+   "value": 1.9986,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -677,7 +677,7 @@
   {
    "kind": "model",
    "name": "tile_x2_y1: mean difference from the base model (outside lakes)",
-   "value": -0.1538,
+   "value": -0.1548,
    "reference": 0,
    "band": [
     -3.0,
@@ -719,7 +719,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1476,
+   "value": 0.1662,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -733,7 +733,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y2: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.0075,
+   "value": 2.0087,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -747,7 +747,7 @@
   {
    "kind": "model",
    "name": "tile_x2_y2: mean difference from the base model (outside lakes)",
-   "value": -0.0886,
+   "value": -0.0871,
    "reference": 0,
    "band": [
     -3.0,
@@ -789,7 +789,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1357,
+   "value": 0.1447,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -803,7 +803,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y3: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.0905,
+   "value": 2.0912,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -817,7 +817,7 @@
   {
    "kind": "model",
    "name": "tile_x2_y3: mean difference from the base model (outside lakes)",
-   "value": -0.069,
+   "value": -0.0674,
    "reference": 0,
    "band": [
     -3.0,
@@ -859,7 +859,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 3.0699,
+   "value": 3.1774,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -873,7 +873,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y0: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 1.6866,
+   "value": 1.6874,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -887,7 +887,7 @@
   {
    "kind": "model",
    "name": "tile_x3_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0581,
+   "value": -0.0569,
    "reference": 0,
    "band": [
     -3.0,
@@ -929,7 +929,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 2.378,
+   "value": 2.4398,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -943,7 +943,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y1: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.0129,
+   "value": 2.0134,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -957,7 +957,7 @@
   {
    "kind": "model",
    "name": "tile_x3_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0759,
+   "value": -0.075,
    "reference": 0,
    "band": [
     -3.0,
@@ -999,7 +999,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.7508,
+   "value": 0.7619,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1027,7 +1027,7 @@
   {
    "kind": "model",
    "name": "tile_x3_y2: mean difference from the base model (outside lakes)",
-   "value": -0.0081,
+   "value": -0.008,
    "reference": 0,
    "band": [
     -3.0,
@@ -1069,7 +1069,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.4741,
+   "value": 1.6423,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1083,7 +1083,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y3: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 1.7657,
+   "value": 1.7656,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -1097,7 +1097,7 @@
   {
    "kind": "model",
    "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0255,
+   "value": -0.0254,
    "reference": 0,
    "band": [
     -3.0,

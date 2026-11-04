@@ -1,5 +1,5 @@
 {
- "passed": 7,
+ "passed": 8,
  "total": 8,
  "checks": [
   {
@@ -14,12 +14,12 @@
    "unit": "%",
    "source": "model",
    "passed": true,
-   "note": "40131 steps"
+   "note": "40209 steps"
   },
   {
    "kind": "physics",
    "name": "River splines lie in the carved channel: share of points with terrain at or below the water surface",
-   "value": 99.9313,
+   "value": 99.9289,
    "reference": "~100",
    "band": [
     95.0,
@@ -28,12 +28,12 @@
    "unit": "%",
    "source": "model",
    "passed": true,
-   "note": "40728 points"
+   "note": "40811 points"
   },
   {
    "kind": "physics",
    "name": "Water depth over the terrain / Manning depth, median",
-   "value": 0.9416,
+   "value": 0.9411,
    "reference": "~1",
    "band": [
     0.5,
@@ -47,7 +47,7 @@
   {
    "kind": "Earth data",
    "name": "Mean flow velocity v = Q/(w d), median",
-   "value": 1.988,
+   "value": 1.989,
    "reference": "~0.3-2 m/s in natural rivers",
    "band": [
     0.2,
@@ -75,7 +75,7 @@
   {
    "kind": "physics",
    "name": "Lakes cover their basins: median share of terrain below the lake level inside the outline",
-   "value": 79.321,
+   "value": 64.9573,
    "reference": "most of the lake area",
    "band": [
     50.0,
@@ -84,12 +84,12 @@
    "unit": "%",
    "source": "model",
    "passed": true,
-   "note": "3791 lake parts"
+   "note": "3829 lake parts"
   },
   {
    "kind": "physics",
    "name": "No dry hollows next to lakes: dry ground > 0.3 m below the lake level, connected to a lake, as share of lake area",
-   "value": 16.2542,
+   "value": 1.7594,
    "reference": "~0",
    "band": [
     0,
@@ -97,13 +97,13 @@
    ],
    "unit": "%",
    "source": "model",
-   "passed": false,
+   "passed": true,
    "note": ""
   },
   {
    "kind": "Earth data",
    "name": "Lake share of the square",
-   "value": 4.9967,
+   "value": 4.8863,
    "reference": "3.7% of Earth's land; more in formerly glaciated terrain",
    "band": [
     1.0,

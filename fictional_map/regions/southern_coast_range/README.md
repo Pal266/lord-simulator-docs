@@ -40,7 +40,7 @@ mountains rise above 256 m). Neighbouring plots share their edge vertices.
 | 1b. 25 m refinement with cirques and outwash valley trains (`refine_25m.py`, checks `validate_landforms.py`) | Done (v2), 7/7 checks |
 | 2. Plot detailing at ~3 m and export (`detail_plots.py`, checks `validate_plots.py`) | Done (v2), 128/128 checks |
 | 3. Export for Unreal (heightmaps + 8 soft-blended layer weight maps) | Done (v2): generated locally into `export/`, see USAGE.md |
-| 3a. Water bodies for Unreal's Water plugin (`export_water.py`, checks `validate_water.py`, editor script `ue_import_water.py`) | Done (v1), WATER_RESULT checks; editor script not yet tested in the engine |
+| 3a. Water bodies for Unreal's Water plugin (`export_water.py`, checks `validate_water.py`, editor script `ue_import_water.py`) | Done (v1), 8/8 checks; editor script not yet tested in the engine |
 
 Every step must pass scientific validation before it is accepted.
 Regional checks: [VALIDATION.md](VALIDATION.md); landforms: [VALIDATION_LANDFORMS.md](VALIDATION_LANDFORMS.md);

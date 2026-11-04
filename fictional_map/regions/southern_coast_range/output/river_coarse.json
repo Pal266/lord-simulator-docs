@@ -1,0 +1,50 @@
+{
+ "note": "coarse planet-scale course of the square's largest river (one point per planet cell), upstream to mouth",
+ "points": [
+  {
+   "x_m": -68042,
+   "y_m": -3151,
+   "discharge_m3s": 42
+  },
+  {
+   "x_m": -48819,
+   "y_m": 24829,
+   "discharge_m3s": 99
+  },
+  {
+   "x_m": -29291,
+   "y_m": 24950,
+   "discharge_m3s": 110
+  },
+  {
+   "x_m": -9764,
+   "y_m": 25011,
+   "discharge_m3s": 116
+  },
+  {
+   "x_m": 9764,
+   "y_m": 25011,
+   "discharge_m3s": 121
+  },
+  {
+   "x_m": 29291,
+   "y_m": 24950,
+   "discharge_m3s": 126
+  },
+  {
+   "x_m": 48819,
+   "y_m": 24829,
+   "discharge_m3s": 203
+  },
+  {
+   "x_m": 68042,
+   "y_m": -3151,
+   "discharge_m3s": 298
+  }
+ ],
+ "reaches_sea": true,
+ "sea_point": {
+  "x_m": 87091,
+  "y_m": -31190
+ }
+}

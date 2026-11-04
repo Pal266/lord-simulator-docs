@@ -1,0 +1,30 @@
+{
+  "name": "southern_coast_range",
+  "description": "100 x 100 km game region on the south-eastern continent: coastal mountain range, foothills and a river plain; the river reaches the sea ~40 km east of the square. Split into 4 x 4 plots of 25 x 25 km.",
+  "world_seed": 7,
+  "centre_lat_deg": -45.6,
+  "centre_lon_deg": 112.25,
+  "centre_note": "Chosen so the square spans from the coastal range in the west across the foothills to the river plain in the east (world candidate 4 of the mountain search).",
+  "size_km": 100.0,
+  "projection": "local tangent plane (azimuthal equidistant) centred on centre_lat/lon; x = east, y = north, in metres",
+  "tiles": {
+    "count_x": 4,
+    "count_y": 4,
+    "size_km": 25.0,
+    "vertices": 8129,
+    "naming": "tile_x{col}_y{row}; col 0 = west, row 0 = north (Unreal tiled import order)",
+    "shared_edges": "neighbouring tiles share their edge vertices exactly"
+  },
+  "unreal": {
+    "engine": "Unreal Engine 5.8.4",
+    "landscape_size": "8129 x 8129 (1024 components of 254 x 254, 4 sections of 127 quads)",
+    "scale_xy_cm": 307.574,
+    "scale_z": 1000,
+    "height_range_m": [
+      -2560.0,
+      2559.92
+    ],
+    "heightmap_format": "16-bit grayscale PNG, 32768 = 0 m, 12.8 units per metre (Z scale 1000 because the mountains exceed 256 m)"
+  },
+  "model_resolution_m": 100
+}

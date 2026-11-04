@@ -162,7 +162,7 @@ maps and checks use the square only.
 
 | File | Content |
 |---|---|
-| `regional_model.npz` | 100 m grids over the whole domain: `x_m`, `y_m` (axes), `elevation_m`, `pre_delta_m`, masks `sea`, `open_sea`, `lake`, `main_channel`, `distributaries`, `delta_land`, `floodplain`, `rivers`, `shoreface`, `beach`, and `discharge_m3s` |
+| `regional_model.npz` (not stored in Git — tens of MB; run the script to create it) | 100 m grids over the whole domain: `x_m`, `y_m` (axes), `elevation_m`, `pre_delta_m`, masks `sea`, `open_sea`, `lake`, `main_channel`, `distributaries`, `delta_land`, `floodplain`, `rivers`, `shoreface`, `beach`, and `discharge_m3s` |
 | `regional_model.json` | Key numbers: glacial-maximum climate, sediment budget, channel geometry, delta size, square statistics, erosion parameters |
 | `regional_relief.png` | Shaded relief of the 100 km square with the 16 plots |
 | `regional_water.png` | Water map: sea, lakes, main channel, distributaries, rivers ≥ 5 m³/s, floodplain and delta plain |

@@ -157,7 +157,7 @@ which compares the result with `output/region_context.json`.
 
 | File | Content |
 |---|---|
-| `regional_model.npz` | 100 m grids over the domain: `x_m`, `y_m` (axes), `elevation_m` (final), `elevation_fluvial_m` (before the ice ages), masks `sea`, `lake`, `rivers`, `ice_lgm`, `ice_now`, `trough_axis`, `cirque`, `moraine`; fields `discharge_m3s`, `trough_halfwidth_m`, `ela_now_m`, `ela_lgm_m`, `terminus_lgm_m`, `summer_temp_c`, `winter_temp_c`, `precip_mm` |
+| `regional_model.npz` (not stored in Git — tens of MB; run the script to create it) | 100 m grids over the domain: `x_m`, `y_m` (axes), `elevation_m` (final), `elevation_fluvial_m` (before the ice ages), masks `sea`, `lake`, `rivers`, `ice_lgm`, `ice_now`, `trough_axis`, `cirque`, `moraine`; fields `discharge_m3s`, `trough_halfwidth_m`, `ela_now_m`, `ela_lgm_m`, `terminus_lgm_m`, `summer_temp_c`, `winter_temp_c`, `precip_mm` |
 | `regional_model.json` | Key numbers: LGM cooling and ELAs, glacier count and extent, square statistics (heights, shares of mountains/foothills/plain, lakes, slopes, largest river) |
 | `regional_relief.png` | Shaded relief of the 100 km square with lakes, rivers and the 16 plots |
 | `regional_landforms.png` | Landform map: LGM ice extent (light blue), trough axes, cirques, moraines (brown), lakes and rivers |

@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 # Unreal plot heightmaps (~130 MB each) are generated locally, not stored in Git
 regions/*/export/
+# Large regional model grids (tens of MB) are regenerated locally with regional_model.py
+regions/*/output/regional_model.npz

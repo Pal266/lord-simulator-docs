@@ -4,3 +4,5 @@ __pycache__/
 regions/*/export/
 # Large regional model grids (tens of MB) are regenerated locally with regional_model.py
 regions/*/output/regional_model.npz
+regions/*/output/refined_25m.npz
+regions/*/output/detail_prep.npz

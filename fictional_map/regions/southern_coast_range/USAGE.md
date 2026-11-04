@@ -30,7 +30,11 @@ fictional_map/
         │   ├── region_flow.py   flow routing / erosion kernels — not run directly
         │   ├── extract_region.py region step 0: cut the region out of the planet
         │   ├── regional_model.py region step 1: 100 m model (rivers, glaciers, lakes)
-        │   └── validate_region.py scientific checks of the regional model
+        │   ├── validate_region.py scientific checks of the regional model
+        │   ├── refine_25m.py    region step 1b: 25 m refinement (gullies and spurs by erosion)
+        │   ├── detail_plots.py  region step 2: 3 m plots + export for Unreal
+        │   └── validate_plots.py checks of the exported plots (seams, roughness spectrum, fidelity)
+        ├── export/              Unreal heightmaps and layer masks, one folder per plot (not stored in Git)
         └── output/              region results
 ```
 
@@ -44,7 +48,7 @@ fictional_map/
   ```
 
   This installs `numpy`, `scipy`, `pillow` and `numba`.
-- **Disk space:** the planet outputs take about 50 MB, this region's outputs about 60 MB (mostly `regional_model.npz`, which is not stored in Git). The final Unreal heightmaps will take about
+- **Disk space:** planet outputs ~50 MB; this region's outputs ~0.6 GB (`regional_model.npz`, `refined_25m.npz`, `detail_prep.npz`, not stored in Git); the 16 exported plots ~0.6 GB more. The final Unreal heightmaps will take about
   130 MB per plot (about 2 GB for all 16), so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
 
@@ -55,7 +59,8 @@ On Windows use `python`, on Linux/macOS `python3`.
 
 ```
 planet pipeline (once per world seed)          region pipeline (per region)
-plates → heightmap → climate → hydrology  ──►   extract_region → regional_model → validate_region → (next steps, section 8)
+plates → heightmap → climate → hydrology  ──►   extract_region → regional_model → validate_region
+                                                 → refine_25m → detail_plots → validate_plots → Unreal (section 9)
                     validate after each step
 ```
 
@@ -168,14 +173,52 @@ if any check fails. **The regional model is only accepted when every check passe
 To change the model, edit the parameter block at the top of `regional_model.py` (each parameter has a comment),
 record the reason in `MODEL_NOTES.md`, then run both scripts again.
 
-## 8. Next region steps (not written yet)
+## 8. Region step 2 — `refine_25m.py`, `detail_plots.py`, `validate_plots.py`
 
-These scripts do not exist yet. Each will be documented here, with its exact command, when it is added.
+**Purpose:** turn the 100 m model into the 16 Unreal plots (8129 × 8129 vertices, ~3.08 m apart) that join without steps.
 
-1. **Plot detailing at ~3 m** — each 25 km plot refined separately so neighbouring plots match exactly on their shared edges.
-2. **Export for Unreal** — one 16-bit PNG heightmap per plot (8129 × 8129) plus layer masks (forest, meadow, rock, snow, water).
+```
+cd fictional_map/regions/southern_coast_range/scripts
+python refine_25m.py                          # once, ~3-5 minutes, ~3 GB RAM: 25 m erosion refinement
+python detail_plots.py --tiles x2_y1 --preview  # seconds: 1/8-resolution preview of one plot
+python detail_plots.py --tiles x1_y1 x2_y1      # selected plots, full resolution (~1 minute each)
+python detail_plots.py --tiles all              # all 16 plots (~20 minutes, ~0.6 GB on disk)
+python validate_plots.py                        # checks every plot present in export/
+```
 
-## 9. Importing a plot into Unreal Engine 5.8.4 (once heightmaps exist)
+The first run of `detail_plots.py` builds `output/detail_prep.npz` (river courses, lake levels, treeline);
+add `--reprep` to rebuild it after re-running `regional_model.py` or `refine_25m.py`.
+
+**What `refine_25m.py` does:** re-runs the regional erosion physics on a 25 m grid over the square (+2 km margin),
+so slopes get real gullies and spurs instead of random lumps. Areas covered by glaciers in the last ice age are eroded
+only for the ~15 000 years since the ice melted, so troughs and moraines stay fresh. Lakes and the sea are fixed.
+
+**What `detail_plots.py` does for every vertex** (only world coordinates are used, so neighbouring plots share
+exactly the same edge vertices):
+1. cubic interpolation of the 25 m surface;
+2. fine relief below 100 m with Earth-like roughness statistics (Hurst exponent 0.5), stronger on steep and rocky ground,
+   weak on valley floors, plains and soil-covered slopes, none on lake floors;
+3. river channels along the river courses (width = 5·Q^0.5, depth from Manning's equation), banks blending into the terrain;
+4. lake floors below the lake level;
+5. ground layers: rock (slopes > 38°, or steep ground above the treeline), alpine meadow (above the treeline),
+   forest (below it), wet meadow (flat floodplains of larger rivers), riverbed, lakebed. The treeline follows a
+   growing-season mean temperature of 6.7 °C.
+
+**Writes** `export/tile_x{c}_y{r}/` per plot:
+
+| File | Content |
+|---|---|
+| `heightmap.png` | 16-bit grayscale, 8129 × 8129, `value = 32768 + height_m × 12.8` (Z scale 1000) |
+| `layer_rock.png`, `layer_alpine_meadow.png`, `layer_forest.png`, `layer_wet_meadow.png`, `layer_riverbed.png`, `layer_lakebed.png` | 8-bit weight maps (0 or 255) for Unreal landscape layers |
+| `tile.json` | Height range, mean, layer shares, encoding |
+
+and `output/preview_tile_x{c}_y{r}.png` (1016 × 1016 shaded preview coloured by layer).
+
+`validate_plots.py` writes `VALIDATION_PLOTS.md` and `output/validation_plots.json` and exits with code 1 if a check fails:
+shared edges identical (seams), roughness spectrum close to Earth's (~k⁻²), plots faithful to the 25 m base, heights
+within the Unreal range.
+
+## 9. Importing a plot into Unreal Engine 5.8.4
 
 Each plot is its own landscape (the player switches between plots).
 
@@ -186,6 +229,10 @@ Each plot is its own landscape (the player switches between plots).
 5. Location: **0, 0, 0** when every plot is a separate level. If several plots are placed in one world,
    use X = col × 2 500 000 cm and Y = row × 2 500 000 cm so their shared edges meet.
 6. **Import.** Sea level is height 0 m (heightmap value 32768); place the sea or water body at Z = 0.
+7. **Layers:** create landscape layers named `rock`, `alpine_meadow`, `forest`, `wet_meadow`, `riverbed`, `lakebed`
+   in your landscape material, then in Landscape mode → Paint → Layers, right-click each layer → *Import from file*
+   and pick the matching `layer_*.png` from the plot's folder.
+8. Lakes: their water level is in the lake shape; add Water Body Lake actors at the shoreline height where needed.
 
 Height encoding of the heightmaps: `value = 32768 + height_m × 12.8` (16-bit). With Z scale 1000 this covers
 −2560 m … +2559.9 m with about 8 cm precision.

@@ -1,0 +1,104 @@
+{
+ "passed": 5,
+ "total": 7,
+ "checks": [
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 | tile_x2_y1: max height difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    0.08
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y1: spectral exponent beta of height transects (20 m - 2 km)",
+   "value": 3.2676,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": ""
+  },
+  {
+   "kind": "model",
+   "name": "tile_x1_y1: mean difference from the regional model (outside lakes)",
+   "value": -0.3224,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x1_y1: height range fits Unreal Z scale 1000",
+   "value": 1250.4688,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y1: spectral exponent beta of height transects (20 m - 2 km)",
+   "value": 3.3908,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": false,
+   "note": ""
+  },
+  {
+   "kind": "model",
+   "name": "tile_x2_y1: mean difference from the regional model (outside lakes)",
+   "value": -0.0804,
+   "reference": 0,
+   "band": [
+    -3.0,
+    3.0
+   ],
+   "unit": "m",
+   "source": "model",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "tile_x2_y1: height range fits Unreal Z scale 1000",
+   "value": 711.25,
+   "reference": "<= 2559.9",
+   "band": [
+    0,
+    2559.9
+   ],
+   "unit": "m",
+   "source": "ue",
+   "passed": true,
+   "note": ""
+  }
+ ]
+}

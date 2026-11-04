@@ -1,0 +1,342 @@
+"""
+Region step 2: detail every 25 x 25 km plot to ~3 m and export it for Unreal Engine.
+
+For every vertex of a plot (8129 x 8129, spacing 25000/8128 m):
+  1. Regional surface: cubic-spline interpolation of the 100 m regional model.
+  2. Sub-100 m relief: self-affine fractal detail with Hurst exponent H = 0.5 (power spectrum ~ k^-2 along
+     transects, as measured for Earth's topography), with an amplitude that depends on the terrain:
+     rough on steep mountain slopes, smooth on plains and valley floors, none on lake floors.
+  3. River channels cut along smoothed river courses: width w = 5 Q^0.5, depth from Manning's equation with
+     the local channel slope, parabolic cross-section, banks blending into the floodplain.
+  4. Lake floors below the lake level of the regional model.
+  5. Ground layers: rock (steep), alpine meadow (above the treeline), forest (below the treeline),
+     wet meadow (flat river floodplains), riverbed and lakebed. The treeline follows the ~6.7 C growing-season
+     mean temperature found at high-altitude treelines worldwide (Koerner & Paulsen 2004).
+
+Every value depends only on world coordinates, never on the plot, so neighbouring plots share identical edge
+vertices: the plots join without steps.
+
+Usage:
+  python detail_plots.py --tiles all                 # all 16 plots (~5 min each)
+  python detail_plots.py --tiles x2_y1 x3_y1         # selected plots
+  python detail_plots.py --tiles x2_y1 --preview     # quick 1/8-resolution preview only (seconds)
+Outputs: ../export/tile_x{c}_y{r}/ (heightmap.png, layer_*.png, tile.json) and ../output/preview_tile_*.png
+"""
+import argparse, json, math, os, sys
+import numpy as np
+from numba import njit, prange
+from scipy import ndimage
+from scipy.spatial import cKDTree
+from PIL import Image
+from region_common import CFG, HALF_M, REGION_DIR, REGION_OUT
+from region_flow import priority_flood, route, accumulate
+
+DX_REG = float(CFG["model_resolution_m"])
+TILE_M = CFG["tiles"]["size_km"] * 1000.0
+NV = CFG["tiles"]["vertices"]
+SPACING = TILE_M / (NV - 1)
+Z_SCALE = CFG["unreal"]["scale_z"]
+UNITS_PER_M = 128.0 * 100.0 / Z_SCALE           # heightmap units per metre (12.8 for Z scale 1000)
+
+# ---------------- parameters (see MODEL_NOTES.md) ----------------
+HURST = 0.5                     # Earth topography: spectrum ~ k^-2 along transects -> H ~ 0.5
+DETAIL_WAVELENGTHS = [100.0, 50.0, 25.0]        # below the 25 m base grid (the base carries larger scales)
+DETAIL_C = 1.0                  # detail std at 640 m = DETAIL_C x local relief std (2 km) x (640/2000)^H
+FINE_WAVELENGTHS = [12.0, 6.0]   # below ~20 m soil-covered slopes are smooth; only rocky ground stays rough
+SOIL_FINE_FACTOR = 0.25
+AMP_PLAIN, AMP_STEEP, AMP_ALPINE = 0.8, 7.0, 3.0  # metres at the 160 m wavelength
+RIVER_Q_MIN = 1.0               # m3/s: smaller streams stay as fractal relief only
+WIDTH_A, MANNING_N = 5.0, 0.035
+TREELINE_GS_TEMP = 6.7          # C, growing-season mean at the treeline
+GS_THRESHOLD = 0.0              # months with mean temperature above this form the growing season
+LAPSE = 0.0065
+ROCK_SLOPE_DEG = 38.0
+SEED = CFG["world_seed"] * 7919 + 13
+LAYERS = ["rock", "alpine_meadow", "forest", "wet_meadow", "riverbed", "lakebed"]
+
+EXPORT = os.path.join(REGION_DIR, "export")
+PREP = os.path.join(REGION_OUT, "detail_prep.npz")
+
+
+# ---------------- seamless value-noise fBm on world coordinates ----------------
+@njit(cache=True)
+def _hash(ix, iy, o, seed):
+    h = (ix * 374761393 + iy * 668265263 + o * 2147483647 + seed * 1442695041) & 0xFFFFFFFF
+    h = ((h ^ (h >> 13)) * 1274126177) & 0xFFFFFFFF
+    h = h ^ (h >> 16)
+    return (h & 0xFFFFFF) / 16777215.0 * 2.0 - 1.0
+
+
+@njit(parallel=True, cache=True)
+def fbm(xw, yw, amp160, wavelengths, hurst, seed):
+    n0, n1 = xw.shape
+    out = np.zeros((n0, n1))
+    for a in prange(n0):
+        for b in range(n1):
+            s = 0.0
+            for o in range(wavelengths.size):
+                lam = wavelengths[o]
+                u = xw[a, b] / lam + o * 0.37; v = yw[a, b] / lam + o * 0.71
+                iu = math.floor(u); iv = math.floor(v)
+                fu = u - iu; fv = v - iv
+                fu = fu * fu * (3 - 2 * fu); fv = fv * fv * (3 - 2 * fv)
+                c00 = _hash(iu, iv, o, seed); c10 = _hash(iu + 1, iv, o, seed)
+                c01 = _hash(iu, iv + 1, o, seed); c11 = _hash(iu + 1, iv + 1, o, seed)
+                val = (c00 * (1 - fu) + c10 * fu) * (1 - fv) + (c01 * (1 - fu) + c11 * fu) * fv
+                s += val * (lam / wavelengths[0]) ** hurst
+            out[a, b] = s * amp160[a, b]
+    return out
+
+
+# ---------------- preparation (once) ----------------
+def prepare():
+    m = np.load(os.path.join(REGION_OUT, "regional_model.npz"))
+    refined = os.path.join(REGION_OUT, "refined_25m.npz")
+    if os.path.exists(refined):                      # preferred base: the 25 m refinement (refine_25m.py)
+        b = np.load(refined)
+        z = b["elevation_m"].astype(np.float64); xs = b["x_m"].astype(np.float64); ys = b["y_m"].astype(np.float64)
+        sea = b["sea"]; lake = b["lake"]; Q = b["discharge_m3s"].ravel(); rec = b["receiver"].ravel().astype(np.int64)
+    else:                                            # fallback: the 100 m regional model
+        z = m["elevation_m"].astype(np.float64); xs = m["x_m"].astype(np.float64); ys = m["y_m"].astype(np.float64)
+        sea = m["sea"]; lake = m["lake"]; Q = m["discharge_m3s"].ravel()
+        rec = route(z, sea, DX_REG)[1]
+    res = float(xs[1] - xs[0])
+    level = priority_flood(z, sea, 0.0)
+    lake_level = np.where(lake, level, np.nan)
+    # river courses: trace downstream from every channel head, smooth, keep discharge
+    river = (Q >= RIVER_Q_MIN) & ~lake.ravel() & ~sea.ravel()
+    has_up = np.zeros(Q.size, bool)
+    ks = np.nonzero(river)[0]
+    has_up[rec[ks][river[rec[ks]] & (rec[ks] != ks)]] = True
+    heads = ks[~has_up[ks]]
+    visited = np.zeros(Q.size, bool)
+    W = z.shape[1]
+    lines = []
+    for h in heads:
+        k = h; path = []
+        while True:
+            path.append(k)
+            if visited[k]:
+                break
+            visited[k] = True
+            r = rec[k]
+            if r == k or not river[r] and not lake.ravel()[r]:
+                if r != k:
+                    path.append(r)
+                break
+            if lake.ravel()[r]:
+                path.append(r); break
+            k = r
+        if len(path) < 2:
+            continue
+        pj, pi = np.divmod(np.array(path), W)
+        p = np.column_stack([xs[pi], ys[pj]]).astype(float)
+        q = Q[path]
+        for _ in range(3):                                   # Chaikin smoothing (keeps the end points)
+            a_ = 0.75 * p[:-1] + 0.25 * p[1:]; b_ = 0.25 * p[:-1] + 0.75 * p[1:]
+            qa = 0.75 * q[:-1] + 0.25 * q[1:]; qb = 0.25 * q[:-1] + 0.75 * q[1:]
+            p = np.vstack([p[:1], np.column_stack([a_, b_]).reshape(-1, 2), p[-1:]])
+            q = np.r_[q[:1], np.column_stack([qa, qb]).ravel(), q[-1:]]
+        lines.append((p, q))
+    # densify to <= 3 m spacing so distances to the polyline are exact enough at 3 m
+    P, Qp = [], []
+    for p, q in lines:
+        seg = np.hypot(*np.diff(p, axis=0).T)
+        s = np.r_[0, np.cumsum(seg)]
+        t = np.arange(0, s[-1], 2.5)
+        P.append(np.column_stack([np.interp(t, s, p[:, 0]), np.interp(t, s, p[:, 1])]))
+        Qp.append(np.interp(t, s, q))
+    spl = ndimage.spline_filter(z, order=3)
+    # snap every river to the lowest line of the smooth (cubic) valley floor: sample across the river and move
+    # each point to the lowest spot within +-80 m, then smooth again so the channel stays continuous
+    snapped = []
+    for p in P:
+        t = np.gradient(p, axis=0); t /= np.maximum(np.linalg.norm(t, axis=1, keepdims=True), 1e-9)
+        nrm = np.column_stack([-t[:, 1], t[:, 0]])
+        offs = np.arange(-2 * res - 30, 2 * res + 30.1, 10.0)
+        cand = p[:, None, :] + offs[None, :, None] * nrm[:, None, :]
+        zz = ndimage.map_coordinates(spl, [(ys[0] - cand[..., 1]) / res, (cand[..., 0] - xs[0]) / res],
+                                     order=3, prefilter=False)
+        best = offs[np.argmin(zz, axis=1)]
+        best = ndimage.gaussian_filter1d(best, 40, mode="nearest")      # ~100 m smoothing along the river
+        snapped.append(p + best[:, None] * nrm)
+    P = np.vstack(snapped); Qp = np.concatenate(Qp)
+    ws = ndimage.map_coordinates(spl, [(ys[0] - P[:, 1]) / res, (P[:, 0] - xs[0]) / res], order=3, prefilter=False)
+    # local channel slope from the base surface along each river (smoothed over ~200 m), for Manning depth
+    gy, gx = np.gradient(ndimage.gaussian_filter(z, 200.0 / res), res)
+    slope_reg = np.hypot(gx, gy)
+    Sp = ndimage.map_coordinates(slope_reg, [(ys[0] - P[:, 1]) / res, (P[:, 0] - xs[0]) / res], order=1)
+    Sp = np.clip(Sp, 2e-4, 0.05)
+    width = WIDTH_A * Qp ** 0.5
+    depth = (Qp * MANNING_N / (width * Sp ** 0.5)) ** 0.6
+    # treeline height: growing-season mean temperature = 6.7 C (monthly sinusoid from summer / winter)
+    Ts, Tw = m["summer_temp_c"].astype(float), m["winter_temp_c"].astype(float)
+    months = [(Ts + Tw) / 2 + (Ts - Tw) / 2 * math.cos(2 * math.pi * k / 12) for k in range(12)]
+
+    def gs_mean(dz):
+        tm = [t - LAPSE * dz for t in months]
+        num = sum(np.where(t > GS_THRESHOLD, t, 0) for t in tm); den = sum((t > GS_THRESHOLD).astype(float) for t in tm)
+        return np.where(den > 0, num / np.maximum(den, 1), -10)
+    z100 = m["elevation_m"].astype(np.float64)
+    lo = np.full(z100.shape, -1000.0); hi = np.full(z100.shape, 4000.0)
+    for _ in range(25):
+        mid = (lo + hi) / 2
+        warm = gs_mean(mid) > TREELINE_GS_TEMP
+        lo = np.where(warm, mid, lo); hi = np.where(warm, hi, mid)
+    treeline100 = ndimage.gaussian_filter(z100 + (lo + hi) / 2, 5)
+    XB, YB = np.meshgrid(xs, ys)
+    treeline = ndimage.map_coordinates(treeline100, [(m["y_m"][0] - YB) / 100.0, (XB - m["x_m"][0]) / 100.0], order=1)
+    del XB, YB
+    gyz, gxz = np.gradient(z, res)
+    slope_deg = np.degrees(np.arctan(np.hypot(gxz, gyz)))
+    win = int(round(2000.0 / res)) | 1
+    mz = ndimage.uniform_filter(z, win); mz2 = ndimage.uniform_filter(z * z, win)
+    relief_std = np.sqrt(np.clip(mz2 - mz * mz, 0, None))                     # relief std in a ~2 km window
+    np.savez_compressed(PREP, spline=spl, z=z, x0=xs[0], y0=ys[0], res=res, lake_level=np.nan_to_num(lake_level, nan=-9999.0),
+                        lake=lake, sea=sea, river_pts=P, river_q=Qp, river_ws=ws, river_w=width, river_d=depth,
+                        treeline=treeline, slope_deg=slope_deg, relief_std=relief_std, river_mask=river.reshape(z.shape),
+                        river_near=ndimage.binary_dilation(river.reshape(z.shape), iterations=int(math.ceil(250.0 / res))))
+    return dict(rivers=len(lines), river_points=int(P.shape[0]),
+                treeline_m=round(float(np.median(treeline[(np.abs(xs)[None, :] <= HALF_M) & (np.abs(ys)[:, None] <= HALF_M)])), 0))
+
+
+# ---------------- one plot ----------------
+def build_tile(col, row, prep, step=1, out_dir=None, window=None):
+    """window = (row0, row1, col0, col1) in vertex indices, for testing a part of a plot."""
+    x0 = -HALF_M + col * TILE_M; y0 = HALF_M - row * TILE_M
+    idx = np.arange(0, NV, step)
+    if window:
+        xv = x0 + np.arange(window[2], window[3], step) * SPACING; yv = y0 - np.arange(window[0], window[1], step) * SPACING
+    else:
+        xv = x0 + idx * SPACING; yv = y0 - idx * SPACING
+    Xw, Yw = np.meshgrid(xv, yv)
+    res = float(prep["res"])
+    fi = (Xw - prep["x0"]) / res; fj = (prep["y0"] - Yw) / res
+    base = ndimage.map_coordinates(prep["spline"], [fj, fi], order=3, prefilter=False)
+    slope100 = ndimage.map_coordinates(prep["slope_deg"], [fj, fi], order=1)
+    tl = ndimage.map_coordinates(prep["treeline"], [fj, fi], order=1)
+    lake_f = ndimage.map_coordinates(prep["lake"].astype(float), [fj, fi], order=1)
+    lake_lv = ndimage.map_coordinates(prep["lake_level"], [fj, fi], order=0)
+    steep = np.clip((slope100 - 3.0) / 25.0, 0, 1)
+    alpine = np.clip((base - tl) / 200.0, 0, 1)
+    # continue the regional relief spectrum to smaller scales with the same self-affine law (beta ~ 2):
+    # detail amplitude scales with the local relief of the regional model
+    rstd = ndimage.map_coordinates(prep["relief_std"], [fj, fi], order=1)
+    # valley floors, floodplains and plains stay smooth: damp the detail where the regional surface is gentle
+    gentle = np.clip(slope100 / 10.0, 0.12, 1.0)
+    amp = DETAIL_C * rstd * gentle * (DETAIL_WAVELENGTHS[0] / 2000.0) ** HURST + AMP_PLAIN * 0.3
+    amp = np.where(lake_f > 0.5, 0.0, amp)
+    rocky = np.clip((slope100 - 25.0) / 10.0, 0, 1) + alpine * 0.5
+    amp_fine = amp * (FINE_WAVELENGTHS[0] / DETAIL_WAVELENGTHS[0]) ** HURST * \
+        (SOIL_FINE_FACTOR + (1 - SOIL_FINE_FACTOR) * np.clip(rocky, 0, 1))
+    z = base + fbm(Xw, Yw, amp, np.array(DETAIL_WAVELENGTHS), HURST, SEED) \
+             + fbm(Xw, Yw, amp_fine, np.array(FINE_WAVELENGTHS), HURST, SEED + 1)
+    # rivers
+    near = ndimage.map_coordinates(prep["river_near"].astype(float), [fj, fi], order=0) > 0.5
+    riverbed = np.zeros(z.shape, bool); wet = np.zeros(z.shape, bool)
+    P = prep["river_pts"]
+    sel = (P[:, 0] > xv[0] - 600) & (P[:, 0] < xv[-1] + 600) & (P[:, 1] < yv[0] + 600) & (P[:, 1] > yv[-1] - 600)
+    if sel.any() and near.any():
+        tr = cKDTree(P[sel])
+        qj, qi = np.nonzero(near)
+        d, ix = tr.query(np.column_stack([Xw[qj, qi], Yw[qj, qi]]))
+        hw = prep["river_w"][sel][ix] / 2; dep = prep["river_d"][sel][ix]; ws = prep["river_ws"][sel][ix] - 0.3
+        zc = z[qj, qi]
+        inch = d < hw
+        bed = ws - dep * (1 - (d / hw) ** 2)
+        reach = 3.0 * hw + 30.0                                # banks blend back into the terrain within ~3 widths
+        target = ws + 0.8 + 0.15 * np.clip(d - hw, 0, None)  # banks rise ~15% from the water's edge
+        t = np.clip((d - hw) / reach, 0, 1)
+        wgt = 1 - t * t * (3 - 2 * t)                          # smooth fade, zero at the edge of the bank zone
+        cut = np.where(zc > target, (zc - target) * wgt, 0.0)
+        zc = np.where(inch, bed, zc - cut)
+        z[qj, qi] = zc
+        riverbed[qj[inch], qi[inch]] = True
+        big = prep["river_q"][sel][ix] >= 20.0
+        wet[qj, qi] = big & (d >= hw) & (d < hw + 400.0)
+    # lakes
+    lk = (lake_f > 0.5) & (lake_lv > -9000)            # nearest regional cell must itself be lake
+    z = np.where(lk, np.minimum(z, lake_lv - 1.5), z)
+    z = np.clip(z, -2559.9, 2559.9)
+    # layers
+    gy, gx = np.gradient(ndimage.uniform_filter(z, 3) if step == 1 else z, SPACING * step)
+    slope = np.degrees(np.arctan(np.hypot(gx, gy)))             # slope over ~9 m (ignores single-vertex bumps)
+    layer = np.full(z.shape, 2, np.uint8)                        # forest
+    layer[z > tl] = 1                                            # alpine meadow
+    layer[wet & (slope < 3)] = 3                                 # wet meadow on floodplains
+    layer[slope > ROCK_SLOPE_DEG] = 0                            # rock
+    layer[(z > tl + 150) & (slope > 25)] = 0
+    layer[riverbed] = 4
+    layer[lk] = 5
+    stats = dict(tile=f"tile_x{col}_y{row}", step=step, min_m=round(float(z.min()), 2), max_m=round(float(z.max()), 2),
+                 mean_m=round(float(z.mean()), 2),
+                 layers_pct={n: round(float((layer == k).mean() * 100), 2) for k, n in enumerate(LAYERS)})
+    return z, layer, stats
+
+
+def export_tile(col, row, prep, out_dir, strip=1024):
+    """Full-resolution plot, built in strips of rows so memory stays below ~3 GB."""
+    os.makedirs(out_dir, exist_ok=True)
+    h16 = np.empty((NV, NV), np.uint16)
+    lay = np.empty((NV, NV), np.uint8)
+    zsum, zmin, zmax = 0.0, 1e9, -1e9
+    for r0 in range(0, NV, strip):
+        r1 = min(NV, r0 + strip)
+        a0, a1 = max(0, r0 - 3), min(NV, r1 + 3)                # overlap so slopes match across strips
+        z, layer, _ = build_tile(col, row, prep, step=1, window=(a0, a1, 0, NV))
+        z = z[r0 - a0:r0 - a0 + (r1 - r0)]; layer = layer[r0 - a0:r0 - a0 + (r1 - r0)]
+        h16[r0:r1] = np.clip(np.round(32768 + z * UNITS_PER_M), 0, 65535).astype(np.uint16)
+        lay[r0:r1] = layer
+        zsum += float(z.sum()); zmin = min(zmin, float(z.min())); zmax = max(zmax, float(z.max()))
+    Image.fromarray(h16).save(os.path.join(out_dir, "heightmap.png"))
+    for k, n in enumerate(LAYERS):
+        Image.fromarray(((lay == k) * 255).astype(np.uint8)).save(os.path.join(out_dir, f"layer_{n}.png"), optimize=True)
+    stats = dict(tile=f"tile_x{col}_y{row}", vertices=NV, spacing_m=round(SPACING, 4),
+                 min_m=round(zmin, 2), max_m=round(zmax, 2), mean_m=round(zsum / NV / NV, 2),
+                 layers_pct={n: round(float((lay == k).mean() * 100), 2) for k, n in enumerate(LAYERS)},
+                 heightmap_encoding=f"value = 32768 + height_m * {UNITS_PER_M} (Unreal Z scale {Z_SCALE})")
+    json.dump(stats, open(os.path.join(out_dir, "tile.json"), "w"), indent=1)
+    z_prev = (h16[::8, ::8].astype(np.float64) - 32768) / UNITS_PER_M
+    return z_prev, lay[::8, ::8], stats
+
+
+def preview(z, layer, path, step):
+    pal = np.array([[150, 140, 130], [175, 190, 120], [70, 115, 65], [140, 175, 110], [180, 165, 130], [80, 130, 190]], float)
+    gy, gx = np.gradient(z, SPACING * step)
+    nx, ny = -gx * 2, gy * 2
+    sh = np.clip((nx * -0.6 + ny * 0.6 + 0.6) / np.sqrt(nx ** 2 + ny ** 2 + 1) / 0.6, 0.3, 1.5)
+    rgb = pal[layer] * sh[..., None]
+    img = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8))
+    if img.width > 1100:
+        img = img.resize((1016, 1016), Image.LANCZOS)
+    img.save(path, optimize=True)
+
+
+def parse_tiles(arg):
+    if arg == ["all"]:
+        return [(c, r) for r in range(CFG["tiles"]["count_y"]) for c in range(CFG["tiles"]["count_x"])]
+    out = []
+    for t in arg:
+        t = t.replace("tile_", "")
+        c, r = t.split("_")
+        out.append((int(c[1:]), int(r[1:])))
+    return out
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--tiles", nargs="+", default=["all"], help="'all' or names like x2_y1 (tile_x2_y1 also works)")
+    ap.add_argument("--preview", action="store_true", help="only a 1/8-resolution preview image, no export")
+    ap.add_argument("--reprep", action="store_true", help="rebuild the river / lake / treeline preparation file")
+    args = ap.parse_args()
+    if args.reprep or not os.path.exists(PREP):
+        print("preparing rivers, lakes and treeline ...", prepare())
+    prep = dict(np.load(PREP))
+    for col, row in parse_tiles(args.tiles):
+        name = f"tile_x{col}_y{row}"
+        if args.preview:
+            z, layer, st = build_tile(col, row, prep, step=8)
+        else:
+            z, layer, st = export_tile(col, row, prep, os.path.join(EXPORT, name))
+        preview(z, layer, os.path.join(REGION_OUT, f"preview_{name}.png"), 8)
+        print(json.dumps(st))

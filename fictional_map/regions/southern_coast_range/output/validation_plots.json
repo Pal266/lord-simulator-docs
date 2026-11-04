@@ -1,11 +1,39 @@
 {
- "passed": 72,
- "total": 72,
+ "passed": 119,
+ "total": 128,
  "checks": [
+  {
+   "kind": "layers",
+   "name": "tile_x0_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 2.2042,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 29.8%"
+  },
   {
    "kind": "Earth data",
    "name": "tile_x0_y0: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2413,
+   "value": 2.244,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -19,7 +47,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y0: mean difference from the base model (outside lakes)",
-   "value": -0.4163,
+   "value": -0.4206,
    "reference": 0,
    "band": [
     -3.0,
@@ -33,7 +61,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y0: height range fits Unreal Z scale 1000",
-   "value": 1459.2969,
+   "value": 1459.2188,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -45,9 +73,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x0_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 4.6268,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 28.3%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x0_y1: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2077,
+   "value": 2.2029,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -61,7 +117,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
-   "value": -0.6435,
+   "value": -0.6247,
    "reference": 0,
    "band": [
     -3.0,
@@ -75,7 +131,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y1: height range fits Unreal Z scale 1000",
-   "value": 1802.5,
+   "value": 1794.375,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -87,9 +143,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x0_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 9.4253,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 16.1%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x0_y2: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.4712,
+   "value": 2.3368,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -103,7 +187,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y2: mean difference from the base model (outside lakes)",
-   "value": -0.1629,
+   "value": -0.1433,
    "reference": 0,
    "band": [
     -3.0,
@@ -129,9 +213,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x0_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x0_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 12.1455,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 6.6%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x0_y3: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.4338,
+   "value": 2.2858,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -145,7 +257,7 @@
   {
    "kind": "model",
    "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
-   "value": 0.0515,
+   "value": 0.0297,
    "reference": 0,
    "band": [
     -3.0,
@@ -171,9 +283,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x1_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 7.0347,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 1.6%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x1_y0: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2994,
+   "value": 2.299,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -187,7 +327,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y0: mean difference from the base model (outside lakes)",
-   "value": -0.2366,
+   "value": -0.2392,
    "reference": 0,
    "band": [
     -3.0,
@@ -213,9 +353,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x1_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 7.7713,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 5.2%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x1_y1: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.317,
+   "value": 2.3245,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -229,7 +397,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
-   "value": -0.1952,
+   "value": -0.193,
    "reference": 0,
    "band": [
     -3.0,
@@ -255,9 +423,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x1_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 3.8909,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 19.4%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x1_y2: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.2977,
+   "value": 2.3147,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -271,7 +467,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y2: mean difference from the base model (outside lakes)",
-   "value": -0.5213,
+   "value": -0.5215,
    "reference": 0,
    "band": [
     -3.0,
@@ -297,9 +493,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x1_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x1_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 3.6482,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 27.2%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x1_y3: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.422,
+   "value": 2.4258,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -313,7 +537,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
-   "value": -0.2939,
+   "value": -0.2956,
    "reference": 0,
    "band": [
     -3.0,
@@ -337,6 +561,34 @@
    "source": "ue",
    "passed": true,
    "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 3.4534,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.7%"
   },
   {
    "kind": "Earth data",
@@ -381,6 +633,34 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x2_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 8.4592,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 2.5%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x2_y1: spectral exponent beta of height transects (500 m - 10 km)",
    "value": 1.9927,
@@ -423,9 +703,37 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x2_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 7.808,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 2.2%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x2_y2: spectral exponent beta of height transects (500 m - 10 km)",
-   "value": 2.0034,
+   "value": 2.0033,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -453,7 +761,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y2: height range fits Unreal Z scale 1000",
-   "value": 848.5938,
+   "value": 848.2031,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -463,6 +771,34 @@
    "source": "ue",
    "passed": true,
    "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x2_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 8.1476,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 2.8%"
   },
   {
    "kind": "Earth data",
@@ -507,6 +843,34 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x3_y0: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 5.9326,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 0.3%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x3_y0: spectral exponent beta of height transects (500 m - 10 km)",
    "value": 1.6365,
@@ -547,6 +911,34 @@
    "source": "ue",
    "passed": true,
    "note": ""
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y1: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 3.6848,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.7%"
   },
   {
    "kind": "Earth data",
@@ -591,6 +983,34 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x3_y2: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 4.3283,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "blended vertices 0.3%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x3_y2: spectral exponent beta of height transects (500 m - 10 km)",
    "value": 1.7218,
@@ -633,6 +1053,34 @@
    "note": ""
   },
   {
+   "kind": "layers",
+   "name": "tile_x3_y3: layer weights add up to 255 at every vertex (min, max)",
+   "value": 1.0,
+   "reference": "1 = yes",
+   "band": [
+    1,
+    1
+   ],
+   "unit": "",
+   "source": "ue_layers",
+   "passed": true,
+   "note": "min 255, max 255"
+  },
+  {
+   "kind": "layers",
+   "name": "tile_x3_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+   "value": 5.5374,
+   "reference": "~0 (soft transitions)",
+   "band": [
+    0,
+    5.0
+   ],
+   "unit": "%",
+   "source": "ue_layers",
+   "passed": false,
+   "note": "blended vertices 0.3%"
+  },
+  {
    "kind": "Earth data",
    "name": "tile_x3_y3: spectral exponent beta of height transects (500 m - 10 km)",
    "value": 1.7032,
@@ -649,7 +1097,7 @@
   {
    "kind": "model",
    "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0119,
+   "value": -0.0118,
    "reference": 0,
    "band": [
     -3.0,
@@ -690,6 +1138,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x0_y0 | tile_x1_y0: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x0_y0 / tile_x0_y1: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -701,6 +1163,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y0 / tile_x0_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -718,6 +1194,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x0_y1 | tile_x1_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x0_y1 / tile_x0_y2: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -729,6 +1219,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y1 / tile_x0_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -746,6 +1250,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x0_y2 | tile_x1_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x0_y2 / tile_x0_y3: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -757,6 +1275,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x0_y2 / tile_x0_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -774,6 +1306,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x0_y3 | tile_x1_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x1_y0 | tile_x2_y0: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -785,6 +1331,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y0 | tile_x2_y0: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -802,6 +1362,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x1_y0 / tile_x1_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x1_y1 | tile_x2_y1: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -813,6 +1387,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y1 | tile_x2_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -830,6 +1418,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x1_y1 / tile_x1_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x1_y2 | tile_x2_y2: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -841,6 +1443,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y2 | tile_x2_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -858,6 +1474,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x1_y2 / tile_x1_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x1_y3 | tile_x2_y3: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -869,6 +1499,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x1_y3 | tile_x2_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -886,6 +1530,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x2_y0 | tile_x3_y0: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x2_y0 / tile_x2_y1: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -897,6 +1555,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y0 / tile_x2_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -914,6 +1586,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x2_y1 | tile_x3_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x2_y1 / tile_x2_y2: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -925,6 +1611,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y1 / tile_x2_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -942,6 +1642,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x2_y2 | tile_x3_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x2_y2 / tile_x2_y3: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -953,6 +1667,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x2_y2 / tile_x2_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -970,6 +1698,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x2_y3 | tile_x3_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x3_y0 / tile_x3_y1: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -981,6 +1723,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y0 / tile_x3_y1: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   },
   {
    "kind": "seams",
@@ -998,6 +1754,20 @@
   },
   {
    "kind": "seams",
+   "name": "tile_x3_y1 / tile_x3_y2: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "kind": "seams",
    "name": "tile_x3_y2 / tile_x3_y3: max height difference on the shared edge",
    "value": 0.0,
    "reference": 0,
@@ -1009,6 +1779,20 @@
    "source": "ue",
    "passed": true,
    "note": "one 16-bit step is 0.078 m"
+  },
+  {
+   "kind": "seams",
+   "name": "tile_x3_y2 / tile_x3_y3: max layer-weight difference on the shared edge",
+   "value": 0.0,
+   "reference": 0,
+   "band": [
+    0,
+    2
+   ],
+   "unit": "of 255",
+   "source": "ue_layers",
+   "passed": true,
+   "note": ""
   }
  ]
 }

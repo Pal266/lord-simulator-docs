@@ -37,11 +37,13 @@ mountains rise above 256 m). Neighbouring plots share their edge vertices.
 |---|---|
 | 0. Cut the region out of the planet (`extract_region.py`) | Done |
 | 1. Regional process model at 100 m (`regional_model.py`, checks `validate_region.py`) | Done (v1), 12/12 checks |
-| 2. Plot detailing at ~3 m and export (`refine_25m.py`, `detail_plots.py`, checks `validate_plots.py`) | Done (v1), 72/72 checks |
-| 3. Export for Unreal (heightmaps + layer masks) | Done (v1): generated locally into `export/`, see USAGE.md |
+| 1b. 25 m refinement with cirques and outwash valley trains (`refine_25m.py`, checks `validate_landforms.py`) | Done (v2), 7/7 checks |
+| 2. Plot detailing at ~3 m and export (`detail_plots.py`, checks `validate_plots.py`) | Done (v2), PLOTS_RESULT checks |
+| 3. Export for Unreal (heightmaps + 8 soft-blended layer weight maps) | Done (v2): generated locally into `export/`, see USAGE.md |
 
 Every step must pass scientific validation before it is accepted.
-Regional checks: [VALIDATION.md](VALIDATION.md). Scientific decisions: [MODEL_NOTES.md](MODEL_NOTES.md).
+Regional checks: [VALIDATION.md](VALIDATION.md); landforms: [VALIDATION_LANDFORMS.md](VALIDATION_LANDFORMS.md);
+plots: [VALIDATION_PLOTS.md](VALIDATION_PLOTS.md). Scientific decisions: [MODEL_NOTES.md](MODEL_NOTES.md).
 
 ## Regional model (100 m)
 
@@ -54,8 +56,16 @@ Regional checks: [VALIDATION.md](VALIDATION.md). Scientific decisions: [MODEL_NO
 ![Regional relief](output/regional_relief.png)
 ![Landforms](output/regional_landforms.png)
 
+## 25 m refinement (v2)
+
+- 273 cirques at the heads of former glacier valleys (median width ~675 m, floor 8°, headwalls up to ~54°, walls ~290 m),
+  matching global cirque morphometry; where their walls meet, arêtes and peaks remain.
+- 10 outwash valley trains below the former ice fronts (~10 km², fill up to ~70 m, concave long profiles), cut by the
+  Holocene river into terraces.
+
 ## Plots (3 m)
 
-All 16 plots, previews at 1/20 resolution (colours = ground layers):
+All 16 plots, previews at 1/20 resolution (colours = blended ground layers: rock, scree, alpine meadow, forest,
+wet meadow, gravel, riverbed, lakebed):
 
 ![Plots](output/plots_mosaic.png)

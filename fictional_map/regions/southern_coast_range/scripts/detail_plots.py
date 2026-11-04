@@ -279,10 +279,10 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
         zc = np.where(inch, bed, zc - cut)
         z[qj, qi] = zc
         qq = prep["river_q"][sel][ix]
-        riverbed[qj, qi] = 1 - smoothstep(hw - 1.5, hw + 0.5, d)            # wet channel, soft water's edge
+        riverbed[qj, qi] = 1 - smoothstep(hw - 3.0, hw + 1.0, d)            # wet channel, soft water's edge
         bar = np.maximum(2.0, 0.4 * hw)                                      # gravel bars along the banks
-        gravel[qj, qi] = np.where(qq >= 3.0, smoothstep(hw - 1.0, hw, d) * (1 - smoothstep(hw + 0.5 * bar, hw + bar, d)), 0.0)
-        wet[qj, qi] = np.where(qq >= 20.0, smoothstep(hw, hw + 15.0, d) * (1 - smoothstep(hw + 300.0, hw + 400.0, d)), 0.0)
+        gravel[qj, qi] = np.where(qq >= 3.0, smoothstep(hw - 3.0, hw, d) * (1 - smoothstep(hw + 0.3 * bar, hw + bar + 3.0, d)), 0.0)
+        wet[qj, qi] = np.where(qq >= 20.0, smoothstep(hw, hw + 15.0, d) * (1 - smoothstep(hw + 150.0, hw + 230.0, d)), 0.0)  # inside river_near (250 m)
     # lakes
     lk = (lake_f > 0.5) & (lake_lv > -9000)            # nearest regional cell must itself be lake
     z = np.where(lk, np.minimum(z, lake_lv - 1.5), z)
@@ -292,6 +292,8 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     # layers
     gy, gx = np.gradient(ndimage.uniform_filter(z, 3) if step == 1 else z, SPACING * step)
     slope = np.degrees(np.arctan(np.hypot(gx, gy)))             # slope over ~9 m (ignores single-vertex bumps)
+    if step == 1:
+        slope = ndimage.gaussian_filter(slope, 2.0)                 # ~15 m: layer patches, not vertex-by-vertex flicker
     # soft layers, painted bottom to top: each layer covers the ones below by its weight ("over" blending),
     # so the weights always add up to 1
     ones = np.ones(z.shape)
@@ -310,7 +312,7 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     over("gravel", np.maximum(gravel, 0.6 * smoothstep(0.3, 0.7, ow) * (1 - smoothstep(3.0, 8.0, slope))))
     # scree accumulates below rock walls near and above the treeline
     over("scree", smoothstep(*SCREE_SLOPE_DEG, slope) * smoothstep(tl - 250.0, tl - 50.0, z))
-    over("rock", np.maximum(smoothstep(ROCK_SLOPE_DEG - 4.0, ROCK_SLOPE_DEG + 2.0, slope),
+    over("rock", np.maximum(smoothstep(ROCK_SLOPE_DEG - 5.0, ROCK_SLOPE_DEG + 3.0, slope),
                             smoothstep(tl + 100.0, tl + 250.0, z) * smoothstep(22.0, 28.0, slope)))
     over("riverbed", riverbed)
     over("lakebed", lakebed)
@@ -330,11 +332,12 @@ def export_tile(col, row, prep, out_dir, strip=512):
     zsum, zmin, zmax = 0.0, 1e9, -1e9
     for r0 in range(0, NV, strip):
         r1 = min(NV, r0 + strip)
-        # 3-vertex halo on every side (also beyond the plot edge): slopes, and so the layer weights, are then
+        # HALO-vertex margin on every side (also beyond the plot edge): slopes, and so the layer weights, are then
         # identical on both sides of a strip boundary and of a plot seam
-        a0, a1 = r0 - 3, r1 + 3
-        z, layer, _ = build_tile(col, row, prep, step=1, window=(a0, a1, -3, NV + 3))
-        z = z[3:3 + (r1 - r0), 3:3 + NV]; layer = layer[3:3 + (r1 - r0), 3:3 + NV]
+        HALO = 12
+        a0, a1 = r0 - HALO, r1 + HALO
+        z, layer, _ = build_tile(col, row, prep, step=1, window=(a0, a1, -HALO, NV + HALO))
+        z = z[HALO:HALO + (r1 - r0), HALO:HALO + NV]; layer = layer[HALO:HALO + (r1 - r0), HALO:HALO + NV]
         h16[r0:r1] = np.clip(np.round(32768 + z * UNITS_PER_M), 0, 65535).astype(np.uint16)
         lay[r0:r1] = layer
         zsum += float(z.sum()); zmin = min(zmin, float(z.min())); zmax = max(zmax, float(z.max()))

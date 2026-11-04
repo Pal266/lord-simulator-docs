@@ -56,19 +56,24 @@ for t, (c, r) in have.items():
     z = load_h(t)
     EDGES[t] = dict(w=z[:, 0].copy(), e=z[:, -1].copy(), n=z[0, :].copy(), s=z[-1, :].copy())
     # --- soft layers ---
-    tot = None; blended = None; LEDGE = {}
+    tot = None; blended = None; LEDGE = {}; jumps = 0; changes = 0
     for n_ in dp.LAYERS:
         a = np.array(Image.open(os.path.join(REGION_DIR, "export", t, f"layer_{n_}.png")))
         tot = a.astype(np.uint16) if tot is None else tot + a
         part = (a > 0) & (a < 255)
+        d_ = np.abs(np.diff(a.astype(np.int16), axis=1))          # neighbouring vertices along rows
+        changes += int((d_ > 0).sum()); jumps += int((d_ == 255).sum())
+        del d_
         blended = part if blended is None else blended | part
         LEDGE[n_] = dict(w=a[:, 0].astype(np.int16), e=a[:, -1].astype(np.int16), n=a[0, :].astype(np.int16), s=a[-1, :].astype(np.int16))
         del a
     EDGES[t]["layers"] = LEDGE
     check("layers", f"{t}: layer weights add up to 255 at every vertex (min, max)", float(tot.min() == 255 and tot.max() == 255),
           "1 = yes", 1, 1, "", "ue_layers", f"min {int(tot.min())}, max {int(tot.max())}")
-    check("layers", f"{t}: share of vertices with blended (partial) weights", float(blended.mean() * 100), "> 0 (soft transitions)",
-          0.5, 100, "%", "ue_layers")
+    # soft transitions: where a layer weight changes between neighbouring vertices, it almost never jumps 0 <-> 255
+    check("layers", f"{t}: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
+          100.0 * jumps / max(changes, 1), "~0 (soft transitions)", 0, 5.0, "%", "ue_layers",
+          f"blended vertices {blended.mean() * 100:.1f}%")
     del tot, blended
     # --- spectrum of height along rows (transects), wavelengths 20 m - 2 km ---
     rows = z[::512, :]

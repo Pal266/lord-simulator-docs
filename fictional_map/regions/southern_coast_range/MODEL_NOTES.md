@@ -94,8 +94,10 @@ This file records every scientific decision, why it was made and what it rests o
   blending). Layers are painted bottom to top, each covering the ones below by its weight: forest / alpine meadow,
   wet meadow, gravel (bars along rivers ≥ 3 m³/s and the floodplain inside outwash terraces), scree (28–34° fading in;
   talus stands at ~30–38°, near and above the treeline), rock (above ~36–40°, or > 25° well above the treeline),
-  riverbed (soft water's edge), lakebed (soft shoreline). Slopes are computed with a 3-vertex halo beyond every plot edge,
-  so weights match exactly across seams.
+  riverbed (soft water's edge), lakebed (soft shoreline). The slope that drives the layers is smoothed over ~15 m, so
+  layers form patches instead of flickering vertex by vertex on rough rock (with the 9 m slope alone 2–12% of all weight
+  changes between neighbouring vertices were hard 0↔255 jumps). Slopes are computed with a 12-vertex halo beyond every
+  plot edge, so weights match exactly across seams.
 - **Seams:** every vertex is computed from world coordinates only; neighbouring plots share identical edge vertices.
 
 ## Known limitations (v2)

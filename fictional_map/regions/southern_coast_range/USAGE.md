@@ -44,7 +44,7 @@ fictional_map/
   ```
 
   This installs `numpy`, `scipy`, `pillow` and `numba`.
-- **Disk space:** the planet outputs take about 50 MB, this region's outputs about 25 MB. The final Unreal heightmaps will take about
+- **Disk space:** the planet outputs take about 50 MB, this region's outputs about 60 MB (mostly `regional_model.npz`, which is not stored in Git). The final Unreal heightmaps will take about
   130 MB per plot (about 2 GB for all 16), so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
 

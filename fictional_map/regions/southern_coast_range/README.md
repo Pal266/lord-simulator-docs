@@ -37,7 +37,7 @@ mountains rise above 256 m). Neighbouring plots share their edge vertices.
 |---|---|
 | 0. Cut the region out of the planet (`extract_region.py`) | Done |
 | 1. Regional process model at 100 m (`regional_model.py`, checks `validate_region.py`) | Done (v1), 12/12 checks |
-| 2. Plot detailing at ~3 m and export (`refine_25m.py`, `detail_plots.py`, checks `validate_plots.py`) | v1: 67/72 checks — plain plots too smooth, being fixed |
+| 2. Plot detailing at ~3 m and export (`refine_25m.py`, `detail_plots.py`, checks `validate_plots.py`) | Done (v1), 72/72 checks |
 | 3. Export for Unreal (heightmaps + layer masks) | Done (v1): generated locally into `export/`, see USAGE.md |
 
 Every step must pass scientific validation before it is accepted.

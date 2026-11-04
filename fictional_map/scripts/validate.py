@@ -22,6 +22,13 @@ SOURCES = {
              "https://cisess.umd.edu/assets/1/7/GPCPsummary2017Adler.pdf"),
     "peel": ("Peel, Finlayson & McMahon 2007, Updated world map of the Koppen-Geiger climate classification, HESS 11:1633",
              "https://hess.copernicus.org/articles/11/1633/2007/"),
+    "trenberth": ("Trenberth et al. 2007, Estimates of the global water budget and its annual cycle, J. Hydrometeorology 8",
+                  "https://acomstaff.acom.ucar.edu/lsmith/GEWEX-JHydroMet8.pdf"),
+    "basins": ("Drainage basin (Wikipedia): endorheic basins cover about 18% of land", "https://en.wikipedia.org/wiki/Drainage_basin"),
+    "glowabo": ("Verpoorter et al. 2014 (GLOWABO lake inventory), summarised by EARTH Magazine",
+                "https://www.earthmagazine.org/article/scientists-complete-global-inventory-lakes"),
+    "hack": ("Hack's law (Wikipedia, after Hack 1957)", "https://en.wikipedia.org/wiki/Hack%27s_law"),
+    "strahler": ("Strahler number and bifurcation ratio (Wikipedia)", "https://en.wikipedia.org/wiki/Strahler_number"),
     "britannica": ("Encyclopaedia Britannica, Koppen climate classification: world distribution of major climatic types",
                    "https://www.britannica.com/science/Koppen-climate-classification/World-distribution-of-major-climatic-types"),
 }
@@ -84,6 +91,24 @@ if os.path.exists(f"{OUT}/world_climate.npz"):
     check("4 Climate", "Arid + semi-arid climates (Koppen B), share of land", B, "about a quarter", 20, 35, "%", "britannica")
     check("4 Climate", "Hot desert (BWh), share of land", ks["BWh"], 14.2, 10, 20, "%", "peel")
     check("4 Climate", "Tropical savanna (Aw), share of land", ks["Aw"], 11.5, 8, 15, "%", "peel")
+
+# ---------- step 5: hydrology ----------
+if os.path.exists(f"{OUT}/world_hydrology.json"):
+    hy = json.load(open(f"{OUT}/world_hydrology.json"))
+    hn = np.load(f"{OUT}/world_hydrology.npz")
+    ze = hn["elevation_eroded_m"]
+    landh = np.load(f"{OUT}/world_height.npz")["land"]
+    A = area_weights(ze.shape)
+    check("5 Hydrology", "River discharge to the ocean", hy["runoff_to_ocean_km3"], "40 000", 28000, 52000, "km3/yr", "trenberth")
+    check("5 Hydrology", "Runoff ratio over land (runoff / precipitation)", hy["runoff_ratio"], "0.355 (40.0 / 112.6)", 0.28, 0.45, "", "trenberth")
+    check("5 Hydrology", "Endorheic (closed) basins, share of land", hy["endorheic_share_of_land_pct"], 18, 12, 24, "%", "basins")
+    check("5 Hydrology", "Lake area, share of land", hy["lake_share_of_land_pct"], "3.7 (all lakes > 0.002 km2)", 0.5, 3.7, "%", "glowabo",
+          "the 28 km grid only resolves large lakes, so the value must stay below the all-lakes total")
+    check("5 Hydrology", "Hack's law exponent h (L ~ A^h)", hy["hack_exponent"], "slightly below 0.6", 0.45, 0.65, "", "hack")
+    check("5 Hydrology", "Horton bifurcation ratio", hy["bifurcation_ratio"], "3-5", 3.0, 5.0, "", "strahler",
+          "fitted over Strahler orders, highest order excluded")
+    check("5 Hydrology", "Mean land elevation after erosion", (ze * A)[landh].sum() / A[landh].sum(), 840, 600, 1100, "m", "segar")
+    check("5 Hydrology", "Highest point after erosion", ze.max(), 8848, 7000, 9500, "m", "segar")
 
 # ---------- report ----------
 passed = sum(c["passed"] for c in checks)

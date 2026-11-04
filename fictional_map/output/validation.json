@@ -1,6 +1,6 @@
 {
- "passed": 15,
- "total": 15,
+ "passed": 23,
+ "total": 23,
  "checks": [
   {
    "step": "2 Plates",
@@ -209,6 +209,118 @@
    ],
    "unit": "%",
    "source": "peel",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "River discharge to the ocean",
+   "value": 47312.0,
+   "earth": "40 000",
+   "band": [
+    28000,
+    52000
+   ],
+   "unit": "km3/yr",
+   "source": "trenberth",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Runoff ratio over land (runoff / precipitation)",
+   "value": 0.41,
+   "earth": "0.355 (40.0 / 112.6)",
+   "band": [
+    0.28,
+    0.45
+   ],
+   "unit": "",
+   "source": "trenberth",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Endorheic (closed) basins, share of land",
+   "value": 18.8,
+   "earth": 18,
+   "band": [
+    12,
+    24
+   ],
+   "unit": "%",
+   "source": "basins",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Lake area, share of land",
+   "value": 2.56,
+   "earth": "3.7 (all lakes > 0.002 km2)",
+   "band": [
+    0.5,
+    3.7
+   ],
+   "unit": "%",
+   "source": "glowabo",
+   "passed": true,
+   "note": "the 28 km grid only resolves large lakes, so the value must stay below the all-lakes total"
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Hack's law exponent h (L ~ A^h)",
+   "value": 0.5,
+   "earth": "slightly below 0.6",
+   "band": [
+    0.45,
+    0.65
+   ],
+   "unit": "",
+   "source": "hack",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Horton bifurcation ratio",
+   "value": 4.6,
+   "earth": "3-5",
+   "band": [
+    3.0,
+    5.0
+   ],
+   "unit": "",
+   "source": "strahler",
+   "passed": true,
+   "note": "fitted over Strahler orders, highest order excluded"
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Mean land elevation after erosion",
+   "value": 1013.64,
+   "earth": 840,
+   "band": [
+    600,
+    1100
+   ],
+   "unit": "m",
+   "source": "segar",
+   "passed": true,
+   "note": ""
+  },
+  {
+   "step": "5 Hydrology",
+   "name": "Highest point after erosion",
+   "value": 8950.01,
+   "earth": 8848,
+   "band": [
+    7000,
+    9500
+   ],
+   "unit": "m",
+   "source": "segar",
    "passed": true,
    "note": ""
   }

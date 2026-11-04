@@ -1,0 +1,133 @@
+{
+ "erosion_myr": 5.0,
+ "k_stream_power": 2.5e-08,
+ "m": 0.5,
+ "n": 1,
+ "fu_w": 2.6,
+ "land_precip_km3": 124814,
+ "land_runoff_km3": 50969,
+ "runoff_to_ocean_km3": 47312,
+ "runoff_ratio": 0.408,
+ "endorheic_share_of_land_pct": 18.8,
+ "noncontributing_share_of_land_pct": 27.9,
+ "lake_area_km2": 3791055,
+ "lake_share_of_land_pct": 2.56,
+ "salt_lakes": 329,
+ "open_lakes": 805,
+ "hack_exponent": 0.501,
+ "hack_coefficient_km": 2.091,
+ "strahler_max_order": 5,
+ "stream_segments_per_order": {
+  "1": 2046,
+  "2": 469,
+  "3": 103,
+  "4": 21,
+  "5": 2
+ },
+ "bifurcation_ratio": 4.6,
+ "mean_erosion_land_m": 20,
+ "max_incision_m": 4003,
+ "highest_after_erosion_m": 8950,
+ "largest_rivers": [
+  {
+   "rank": 1,
+   "discharge_m3s": 68103,
+   "basin_km2": 4315817,
+   "length_km": 4461,
+   "mouth_latlon": [
+    11.4,
+    -148.1
+   ]
+  },
+  {
+   "rank": 2,
+   "discharge_m3s": 52376,
+   "basin_km2": 6716693,
+   "length_km": 7163,
+   "mouth_latlon": [
+    -32.9,
+    121.6
+   ]
+  },
+  {
+   "rank": 3,
+   "discharge_m3s": 49472,
+   "basin_km2": 2369666,
+   "length_km": 3179,
+   "mouth_latlon": [
+    -12.9,
+    95.9
+   ]
+  },
+  {
+   "rank": 4,
+   "discharge_m3s": 47813,
+   "basin_km2": 5836973,
+   "length_km": 6533,
+   "mouth_latlon": [
+    -24.4,
+    149.6
+   ]
+  },
+  {
+   "rank": 5,
+   "discharge_m3s": 35161,
+   "basin_km2": 3530304,
+   "length_km": 4833,
+   "mouth_latlon": [
+    -61.1,
+    9.1
+   ]
+  },
+  {
+   "rank": 6,
+   "discharge_m3s": 24848,
+   "basin_km2": 2887293,
+   "length_km": 3905,
+   "mouth_latlon": [
+    -38.9,
+    4.1
+   ]
+  },
+  {
+   "rank": 7,
+   "discharge_m3s": 22555,
+   "basin_km2": 3515873,
+   "length_km": 3773,
+   "mouth_latlon": [
+    54.9,
+    126.1
+   ]
+  },
+  {
+   "rank": 8,
+   "discharge_m3s": 22388,
+   "basin_km2": 1488463,
+   "length_km": 3183,
+   "mouth_latlon": [
+    -57.4,
+    71.6
+   ]
+  },
+  {
+   "rank": 9,
+   "discharge_m3s": 21657,
+   "basin_km2": 2041709,
+   "length_km": 3120,
+   "mouth_latlon": [
+    39.6,
+    96.9
+   ]
+  },
+  {
+   "rank": 10,
+   "discharge_m3s": 21176,
+   "basin_km2": 2054836,
+   "length_km": 3511,
+   "mouth_latlon": [
+    -8.1,
+    27.1
+   ]
+  }
+ ]
+}

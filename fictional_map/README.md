@@ -71,18 +71,29 @@ Two seasons are modelled (northern July and northern January), axial tilt 23°.
 - **Rain belts**: ITCZ pulled poleward over large continents in summer (monsoons), dry subtropical highs, wet storm tracks, dry poles.
 - **Moisture transport**: moisture evaporates over the ocean (more over warm currents), moves downwind, rains out over land,
   gets extra rain on windward slopes, leaves rain shadows behind ranges, and is partly recycled by vegetation.
-- **Biomes**: Köppen/Whittaker-style classification from annual and seasonal temperature and precipitation.
+- **Subtropical highs**: no convection and descending dry air that dilutes moisture; land under them is warmer than the
+  ocean at the same latitude (less evaporative cooling, clear skies).
+- **Climate classes**: Köppen-Geiger rules as used by Peel et al. (2007), approximated from the two modelled seasons;
+  biomes are derived from the Köppen class.
 
-Calibrated to an Earth-like global mean precipitation of 1000 mm/yr.
+Calibration: the sea-level temperature profile is fitted to Earth's zonal-mean temperatures, global mean precipitation is
+set to the GPCP value (982 mm/yr). Moisture-transport coefficients were tuned until the climate passed the checks in
+[VALIDATION.md](VALIDATION.md); the physics stayed the same, only the strengths were adjusted.
 
-Result (seed 7): mean land temperature 6.1 °C, mean land precipitation ~830 mm/yr.
-Largest biomes by land area: temperate broadleaf and mixed forest (20%), steppe (19%), humid subtropical forest (17%), taiga (14%).
+Result (seed 7): mean land temperature 8.0 °C, mean land precipitation ~844 mm/yr.
+Köppen groups by land area: A 19%, B 22%, C 12%, D 34%, E 13%; hot desert 11%, savanna 11%.
 
-Known limitations of v1: winds are modelled along latitude only, so belt edges are still fairly straight;
-hot deserts cover less land than on Earth (~1%, plus ~2% cold desert).
+Known limitations of v1: winds are modelled along latitude only, so climate-belt edges are still fairly straight;
+two seasons approximate the monthly Köppen criteria.
 
 ![Biomes](output/biome_map.png)
 ![Temperature and precipitation](output/climate_maps.png)
+
+## Scientific validation
+
+Realism comes first: every step must pass `scripts/validate.py`, which compares the planet's statistics with published
+Earth data (plates, hypsometry, precipitation, Köppen climate shares). Results and sources: [VALIDATION.md](VALIDATION.md).
+A step is not done until all checks pass.
 
 ## Output files
 
@@ -101,7 +112,8 @@ All maps are equirectangular, 1440 × 720 px (~27.8 km/px at the equator).
 | `biome_map.png` | Biomes with hillshade and legend |
 | `climate_maps.png` | Annual mean temperature and annual precipitation |
 | `world_climate.npz` | July/January/annual temperature, half-year and annual precipitation, biome id, SST anomaly |
-| `world_climate.json` | Climate statistics, biome shares and biome legend |
+| `world_climate.json` | Climate statistics, Köppen and biome shares, legends |
+| `validation.json` | Machine-readable validation results |
 
 ## How to regenerate
 
@@ -112,6 +124,7 @@ cd fictional_map/scripts
 python plates.py 7      # 7 = world seed
 python heightmap.py     # reads the plates output
 python climate.py       # reads the relief output
+python validate.py      # checks every step against Earth data, writes VALIDATION.md
 ```
 
 A different seed produces a completely different planet. Steps must run in order.

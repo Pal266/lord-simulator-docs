@@ -30,7 +30,7 @@ H, W = elev.shape
 R = META["radius_km"]
 TILT = 23.0
 SEASON_SHIFT = 5.0                       # degrees the wind/rain belts move with the seasons
-GLOBAL_MEAN_PRECIP = 1000.0              # mm/yr, Earth-like calibration
+GLOBAL_MEAN_PRECIP = 982.0               # mm/yr, GPCP 1979-2016 global mean (2.69 mm/day)
 
 jj, ii = np.mgrid[0:H, 0:W]
 LATd = 90 - (jj + 0.5) / H * 180
@@ -92,7 +92,7 @@ def upwind_land(shift):
 
 
 # ---------- temperature ----------
-T_mean_sl = -22 + 49 * np.cos(LAT) ** 1.3
+T_mean_sl = -24 + 51 * np.cos(LAT) ** 1.15          # fitted to Earth's zonal-mean sea-level temperature profile
 lapse = -6.5 * elev_land / 1000.0
 temps = {}
 ups = {}
@@ -105,7 +105,11 @@ for name, shift in (("jul", SEASON_SHIFT), ("jan", -SEASON_SHIFT)):
     amp = (2 + 22 * np.abs(np.sin(LAT)) ** 1.2) * cont_f
     sign = np.sign(LATd) * (1 if name == "jul" else -1)
     coast_mod = np.where(land, a_up * np.exp(-d_up / 500), sst_anom)
-    T = T_mean_sl + sign * amp + lapse + coast_mod
+    # land in the tropics/subtropics is warmer than the ocean at the same latitude
+    # (less evaporative cooling, clear skies under the subtropical highs)
+    sub_band = np.clip(bump(np.abs(LATd), 24, 10), 0, 1)
+    land_warm = np.where(land, (1.5 + 2.5 * sub_band) * np.clip(np.cos(LAT) * 1.5 - 0.5, 0, 1), 0)
+    T = T_mean_sl + sign * amp + lapse + coast_mod + land_warm
     # sea ice dampens the coldest ocean
     T = np.where(~land, np.maximum(T, -30), T)
     temps[name] = np.maximum(ndimage.gaussian_filter(T, 0.7, mode="wrap"), -75)
@@ -127,14 +131,17 @@ for name, shift in (("jul", SEASON_SHIFT), ("jan", -SEASON_SHIFT)):
     T = temps[name]
     cap = np.exp(0.045 * (np.clip(T, -40, 35) - 27))          # moisture capacity (Clausius-Clapeyron-like)
     if name == "jul":
-        itcz = 5 + 16 * land_band_fraction(5, 35)[None, :]       # monsoon pull over northern continents
+        itcz = 4 + 9 * land_band_fraction(5, 35)[None, :]        # monsoon pull over northern continents
     else:
-        itcz = -5 - 16 * land_band_fraction(-35, -5)[None, :]
+        itcz = -4 - 9 * land_band_fraction(-35, -5)[None, :]
     ls = LATd - shift + BELT_WOBBLE                            # belts meander, not ruler-straight
-    conv = (0.065 * bump(LATd, itcz, 9)                        # ITCZ convection
+    conv = (0.075 * bump(LATd, itcz, 7)                        # ITCZ convection
             + 0.045 * (bump(ls, 50, 12) + bump(ls, -50, 12))   # mid-latitude storm tracks
             + 0.012)
-    conv *= 1 - 0.95 * np.clip(bump(ls, 27, 9) + bump(ls, -27, 9), 0, 1)     # subtropical highs
+    lss = LATd - 0.5 * shift + BELT_WOBBLE                   # subtropical highs move less than the ITCZ
+    sub = np.clip(bump(lss, 25, 8) + bump(lss, -25, 8), 0, 1)
+    conv *= 1 - 0.97 * sub                                       # subtropical highs: no convection
+    subsid = 0.08 * sub                                         # descending dry air dilutes moisture
     conv *= np.where(np.abs(LATd) > 70, 0.5, 1.0)
     evap = np.where(land, 0.010 * np.clip(conv / 0.03, 0.1, 1.6), 0.06 * np.clip(1 + sst_anom / 10, 0.3, 1.5))   # land = evapotranspiration
     u = wind_u(LATd[:, 0], shift)
@@ -146,13 +153,15 @@ for name, shift in (("jul", SEASON_SHIFT), ("jan", -SEASON_SHIFT)):
     for k in range(3 * W):
         c = np.where(u > 0, k % W, (W - 1 - k % W))
         cp = cap[rows, c]
+        q = q * (1 - subsid[rows, c] * step)
         q = q + evap[rows, c] * step * np.maximum(cp - q, 0)
         h = elev_land[rows, c] / 1000.0
         dh = np.maximum(h - prevh, 0)
         rain = q * np.clip(conv[rows, c] * step + 0.22 * dh, 0, 0.5)
         over = 0.3 * np.maximum(q - cp * 1.05, 0)                # supersaturation rains out gradually
         rain = np.minimum(rain + over, q)
-        q = q - rain + np.where(land[rows, c], 0.4 * rain, 0)    # land recycles part of the rain
+        rec = 0.22 + 0.33 * np.clip(conv[rows, c] / 0.07, 0, 1)    # wet regions recycle more (evapotranspiration)
+        q = q - rain + np.where(land[rows, c], rec * rain, 0)
         prevh = h
         if k >= 2 * W:
             P[rows, c] = rain / np.maximum(step, 0.05)
@@ -192,29 +201,56 @@ BIOMES = [
     (14, "tropical_seasonal", "Тропічні сезонні ліси", (110, 160, 50)),
     (15, "tropical_rainforest", "Тропічні дощові ліси", (20, 110, 40)),
 ]
-biome = np.zeros((H, W), np.int8)
-Pth = 20 * T_ann + 280 + np.where(P_summer > 0.7 * P_ann, 140, np.where(P_winter > 0.7 * P_ann, -140, 0))
-Pth = np.maximum(Pth, 120)
-dry_summer = P_summer < 0.4 * P_winter
+# --- Koppen-Geiger classification (Peel et al. 2007 rules, two-season approximation) ---
+# The two modelled seasons stand for the warmest / coldest month; monthly extremes of precipitation
+# are approximated from the half-year totals (driest month ~ 0.6 x half-year mean month).
+KOPPEN = ["Af", "Am", "Aw", "BWh", "BWk", "BSh", "BSk", "Cs", "Cw", "Cf", "Ds", "Dw", "Df", "ET", "EF"]
+K = {k: i for i, k in enumerate(KOPPEN)}
+summer_share = P_summer / np.maximum(P_ann, 1e-6)
+Pth = 20 * T_ann + np.where(summer_share >= 0.7, 280, np.where(summer_share >= 0.3, 140, 0))
+P_dry_month = 0.6 * np.minimum(P_summer, P_winter) / 6
+P_dry_summer_month = 0.6 * P_summer / 6
+P_wet_winter_month = 1.4 * P_winter / 6
+P_dry_winter_month = 0.6 * P_winter / 6
+P_wet_summer_month = 1.4 * P_summer / 6
 
-b = np.full((H, W), -1)
-b = np.where(T_warm < 0, 2, b)
-b = np.where((b < 0) & (T_warm < 10), np.where((elev_land > 2200) & (np.abs(LATd) < 60), 4, 3), b)
-desert = (b < 0) & (P_ann < 0.5 * Pth)
-b = np.where(desert, np.where(T_ann >= 16, 12, 11), b)
-b = np.where((b < 0) & (P_ann < Pth), 10, b)
-trop = (b < 0) & (T_cold >= 18)
-b = np.where(trop & (P_ann >= 1800) & (P_winter > 0.3 * P_summer), 15, b)
-b = np.where(trop & (b < 0) & (P_ann >= 1150), 14, b)
-b = np.where(trop & (b < 0), 13, b)
-temp_zone = (b < 0) & (T_cold > -3)
-b = np.where(temp_zone & dry_summer & (T_warm > 16), 8, b)
-b = np.where(temp_zone & (b < 0) & (P_ann > 1700) & (T_ann < 14), 7, b)
-b = np.where(temp_zone & (b < 0) & (T_ann >= 15), 9, b)
-b = np.where(temp_zone & (b < 0), 6, b)
-cold_zone = b < 0
-b = np.where(cold_zone & (T_warm >= 19), 6, b)
-b = np.where(b < 0, 5, b)
+kg = np.full((H, W), -1)
+E = T_warm < 10
+kg = np.where(E, np.where(T_warm < 0, K["EF"], K["ET"]), kg)
+B = (kg < 0) & (P_ann < Pth)
+desert = P_ann < 0.5 * Pth
+hot = T_ann >= 18
+kg = np.where(B, np.where(desert, np.where(hot, K["BWh"], K["BWk"]), np.where(hot, K["BSh"], K["BSk"])), kg)
+A = (kg < 0) & (T_cold >= 18)
+kg = np.where(A & (P_dry_month >= 60), K["Af"], kg)
+kg = np.where(A & (kg < 0) & (P_dry_month >= 100 - P_ann / 25), K["Am"], kg)
+kg = np.where(A & (kg < 0), K["Aw"], kg)
+dry_s = (P_dry_summer_month < 40) & (P_dry_summer_month < P_wet_winter_month / 3)
+dry_w = P_dry_winter_month < P_wet_summer_month / 10
+C = (kg < 0) & (T_cold > 0)
+kg = np.where(C, np.where(dry_s, K["Cs"], np.where(dry_w, K["Cw"], K["Cf"])), kg)
+Dz = kg < 0
+kg = np.where(Dz, np.where(dry_s, K["Ds"], np.where(dry_w, K["Dw"], K["Df"])), kg)
+koppen = np.where(land, kg, -1).astype(np.int8)
+
+# --- biomes derived from the Koppen class ---
+b = np.full((H, W), 6)
+b = np.where(koppen == K["EF"], 2, b)
+b = np.where(koppen == K["ET"], np.where((elev_land > 2200) & (np.abs(LATd) < 60), 4, 3), b)
+b = np.where(koppen == K["BWh"], 12, b)
+b = np.where(koppen == K["BWk"], 11, b)
+b = np.where((koppen == K["BSh"]) | (koppen == K["BSk"]), 10, b)
+b = np.where(koppen == K["Af"], 15, b)
+b = np.where(koppen == K["Am"], 14, b)
+b = np.where(koppen == K["Aw"], 13, b)
+b = np.where(koppen == K["Cs"], 8, b)
+cfw = (koppen == K["Cf"]) | (koppen == K["Cw"])
+b = np.where(cfw & (T_warm >= 22), 9, b)                                   # Cfa / Cwa
+b = np.where(cfw & (T_warm < 22) & (P_ann > 1700), 7, b)                  # wet Cfb / Cfc
+b = np.where(cfw & (T_warm < 22) & (P_ann <= 1700), 6, b)                 # Cfb / Cfc
+dz = (koppen == K["Df"]) | (koppen == K["Dw"]) | (koppen == K["Ds"])
+b = np.where(dz & (T_warm >= 18), 6, b)                                    # Dfa / Dfb: mixed forest
+b = np.where(dz & (T_warm < 18), 5, b)                                     # Dfc / Dfd: taiga
 biome = np.where(land, b, np.where(T_cold < -4, 1, 0)).astype(np.int8)
 # remove single-pixel speckle
 biome = np.where(land, ndimage.median_filter(biome, size=3, mode="wrap"), biome).astype(np.int8)
@@ -310,7 +346,7 @@ np.savez_compressed(f"{OUT}/world_climate.npz",
                     temp_annual_c=T_ann.astype(np.float32),
                     precip_jul_half_mm=precip["jul"].astype(np.float32),
                     precip_jan_half_mm=precip["jan"].astype(np.float32),
-                    precip_annual_mm=P_ann.astype(np.float32), biome=biome, sst_anomaly_c=sst_anom.astype(np.float32))
+                    precip_annual_mm=P_ann.astype(np.float32), biome=biome, koppen=koppen, sst_anomaly_c=sst_anom.astype(np.float32))
 land_area = AREA[land].sum()
 share = {key: round(float(AREA[land & (biome == i)].sum() / land_area * 100), 1) for i, key, _, _ in BIOMES if i >= 2}
 stats = dict(axial_tilt_deg=TILT, season_shift_deg=SEASON_SHIFT, global_mean_precip_mm=GLOBAL_MEAN_PRECIP,
@@ -319,6 +355,8 @@ stats = dict(axial_tilt_deg=TILT, season_shift_deg=SEASON_SHIFT, global_mean_pre
              hottest_c=round(float(T_warm[land].max()), 1), coldest_c=round(float(T_cold[land].min()), 1),
              wettest_mm=round(float(P_ann[land].max())), driest_mm=round(float(P_ann[land].min())),
              biome_share_of_land_pct=dict(sorted(share.items(), key=lambda kv: -kv[1])),
+             koppen_share_of_land_pct={k: round(float(AREA[land & (koppen == i)].sum() / land_area * 100), 1) for i, k in enumerate(KOPPEN)},
+             koppen_codes=KOPPEN,
              biome_legend={key: name for _, key, name, _ in BIOMES})
 json.dump(stats, open(f"{OUT}/world_climate.json", "w"), ensure_ascii=False, indent=1)
 print(json.dumps(stats, ensure_ascii=False))

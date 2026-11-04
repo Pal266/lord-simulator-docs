@@ -20,11 +20,11 @@ from region_flow import accumulate, diffuse, route, stream_power
 
 DX = 25.0
 MARGIN_M = 2000.0                 # beyond the square, so the plots' edges are not at the model edge
-ERODE_YR, DT = 3.0e5, 2.0e4
+ERODE_YR, DT = 1.0e6, 5.0e4      # most of the late Quaternary: long enough for small valleys to form
 K_SP, M_SP = 1.0e-6, 0.5          # same as the regional model
-D_HILL = 0.01
+D_HILL = 0.002                    # m2/yr, soil-mantled hillslopes (typical range ~0.001-0.01): lets small valleys survive
 POSTGLACIAL_YR = 1.5e4
-SEED_RELIEF_M = 6.0               # sub-100 m roughness from which gullies start
+SEED_RELIEF_M = 8.0               # sub-100 m roughness from which gullies start
 
 t0 = time.time()
 m = np.load(os.path.join(REGION_OUT, "regional_model.npz"))

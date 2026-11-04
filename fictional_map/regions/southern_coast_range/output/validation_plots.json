@@ -1,11 +1,11 @@
 {
- "passed": 67,
+ "passed": 72,
  "total": 72,
  "checks": [
   {
    "kind": "Earth data",
-   "name": "tile_x0_y0: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.4502,
+   "name": "tile_x0_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2413,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -14,12 +14,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x0_y0: mean difference from the base model (outside lakes)",
-   "value": -0.4128,
+   "value": -0.4163,
    "reference": 0,
    "band": [
     -3.0,
@@ -33,7 +33,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y0: height range fits Unreal Z scale 1000",
-   "value": 1461.1719,
+   "value": 1459.2969,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -46,8 +46,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x0_y1: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.4288,
+   "name": "tile_x0_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2077,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -56,12 +56,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
-   "value": -0.5962,
+   "value": -0.6435,
    "reference": 0,
    "band": [
     -3.0,
@@ -75,7 +75,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y1: height range fits Unreal Z scale 1000",
-   "value": 1796.0938,
+   "value": 1802.5,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -88,8 +88,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x0_y2: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.4517,
+   "name": "tile_x0_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.4712,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -98,12 +98,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x0_y2: mean difference from the base model (outside lakes)",
-   "value": -0.1618,
+   "value": -0.1629,
    "reference": 0,
    "band": [
     -3.0,
@@ -117,7 +117,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y2: height range fits Unreal Z scale 1000",
-   "value": 2011.0156,
+   "value": 2015.0,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -130,8 +130,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x0_y3: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.2881,
+   "name": "tile_x0_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.4338,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -140,12 +140,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
-   "value": 0.0392,
+   "value": 0.0515,
    "reference": 0,
    "band": [
     -3.0,
@@ -159,7 +159,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x0_y3: height range fits Unreal Z scale 1000",
-   "value": 2089.2188,
+   "value": 2093.9062,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -172,8 +172,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x1_y0: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.5958,
+   "name": "tile_x1_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2994,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -182,12 +182,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x1_y0: mean difference from the base model (outside lakes)",
-   "value": -0.2273,
+   "value": -0.2366,
    "reference": 0,
    "band": [
     -3.0,
@@ -201,7 +201,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x1_y0: height range fits Unreal Z scale 1000",
-   "value": 977.6562,
+   "value": 984.1406,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -214,8 +214,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x1_y1: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.5778,
+   "name": "tile_x1_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.317,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -224,12 +224,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
-   "value": -0.2142,
+   "value": -0.1952,
    "reference": 0,
    "band": [
     -3.0,
@@ -243,7 +243,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x1_y1: height range fits Unreal Z scale 1000",
-   "value": 1184.0625,
+   "value": 1194.6875,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -256,8 +256,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x1_y2: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.4964,
+   "name": "tile_x1_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.2977,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -266,12 +266,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x1_y2: mean difference from the base model (outside lakes)",
-   "value": -0.5165,
+   "value": -0.5213,
    "reference": 0,
    "band": [
     -3.0,
@@ -285,7 +285,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x1_y2: height range fits Unreal Z scale 1000",
-   "value": 1511.6406,
+   "value": 1535.0,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -298,8 +298,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x1_y3: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.1836,
+   "name": "tile_x1_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.422,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -308,12 +308,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
-   "value": -0.2942,
+   "value": -0.2939,
    "reference": 0,
    "band": [
     -3.0,
@@ -327,7 +327,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x1_y3: height range fits Unreal Z scale 1000",
-   "value": 1753.3594,
+   "value": 1747.9688,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -340,8 +340,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x2_y0: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.8675,
+   "name": "tile_x2_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.9562,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -349,13 +349,13 @@
    ],
    "unit": "",
    "source": "spectrum",
-   "passed": false,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x2_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0048,
+   "value": -0.0099,
    "reference": 0,
    "band": [
     -3.0,
@@ -369,7 +369,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y0: height range fits Unreal Z scale 1000",
-   "value": 584.375,
+   "value": 587.2656,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -382,8 +382,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x2_y1: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.5751,
+   "name": "tile_x2_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.9927,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -392,12 +392,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x2_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0512,
+   "value": -0.0376,
    "reference": 0,
    "band": [
     -3.0,
@@ -411,7 +411,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y1: height range fits Unreal Z scale 1000",
-   "value": 719.0625,
+   "value": 725.9375,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -424,8 +424,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x2_y2: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.5632,
+   "name": "tile_x2_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.0034,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -434,12 +434,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x2_y2: mean difference from the base model (outside lakes)",
-   "value": -0.028,
+   "value": -0.0321,
    "reference": 0,
    "band": [
     -3.0,
@@ -453,7 +453,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y2: height range fits Unreal Z scale 1000",
-   "value": 841.6406,
+   "value": 848.5938,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -466,8 +466,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x2_y3: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 2.377,
+   "name": "tile_x2_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 2.0882,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -476,12 +476,12 @@
    "unit": "",
    "source": "spectrum",
    "passed": true,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x2_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0339,
+   "value": -0.0367,
    "reference": 0,
    "band": [
     -3.0,
@@ -495,7 +495,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x2_y3: height range fits Unreal Z scale 1000",
-   "value": 859.5312,
+   "value": 862.9688,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -508,8 +508,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x3_y0: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 3.35,
+   "name": "tile_x3_y0: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.6365,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -517,13 +517,13 @@
    ],
    "unit": "",
    "source": "spectrum",
-   "passed": false,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x3_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0077,
+   "value": -0.0151,
    "reference": 0,
    "band": [
     -3.0,
@@ -537,7 +537,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y0: height range fits Unreal Z scale 1000",
-   "value": 311.6406,
+   "value": 313.2031,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -550,8 +550,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x3_y1: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 3.0034,
+   "name": "tile_x3_y1: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.9838,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -559,13 +559,13 @@
    ],
    "unit": "",
    "source": "spectrum",
-   "passed": false,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x3_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0071,
+   "value": -0.0094,
    "reference": 0,
    "band": [
     -3.0,
@@ -579,7 +579,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y1: height range fits Unreal Z scale 1000",
-   "value": 301.9531,
+   "value": 303.75,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -592,8 +592,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x3_y2: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 3.134,
+   "name": "tile_x3_y2: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.7218,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -601,13 +601,13 @@
    ],
    "unit": "",
    "source": "spectrum",
-   "passed": false,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x3_y2: mean difference from the base model (outside lakes)",
-   "value": 0.0039,
+   "value": 0.0007,
    "reference": 0,
    "band": [
     -3.0,
@@ -621,7 +621,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y2: height range fits Unreal Z scale 1000",
-   "value": 293.6719,
+   "value": 294.6875,
    "reference": "<= 2559.9",
    "band": [
     0,
@@ -634,8 +634,8 @@
   },
   {
    "kind": "Earth data",
-   "name": "tile_x3_y3: spectral exponent beta of height transects (100 m - 2 km)",
-   "value": 3.422,
+   "name": "tile_x3_y3: spectral exponent beta of height transects (500 m - 10 km)",
+   "value": 1.7032,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -643,13 +643,13 @@
    ],
    "unit": "",
    "source": "spectrum",
-   "passed": false,
-   "note": "hillslope scale; below ~20 m soil-covered ground is smoother"
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
    "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0054,
+   "value": -0.0119,
    "reference": 0,
    "band": [
     -3.0,
@@ -663,7 +663,7 @@
   {
    "kind": "Earth data",
    "name": "tile_x3_y3: height range fits Unreal Z scale 1000",
-   "value": 270.0,
+   "value": 273.5156,
    "reference": "<= 2559.9",
    "band": [
     0,

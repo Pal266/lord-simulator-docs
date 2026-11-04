@@ -68,7 +68,7 @@ def smoothstep(a, b, x):
 
 def to_weights255(wf):
     """float weights (..., L) summing to 1 -> uint8 weights summing exactly to 255 (remainder to the largest)."""
-    w8 = np.floor(wf * 255.0).astype(np.int16)
+    w8 = np.floor(wf * np.float32(255.0)).astype(np.int16)
     rem = 255 - w8.sum(axis=-1)
     top = np.argmax(wf, axis=-1)
     np.put_along_axis(w8, top[..., None], np.take_along_axis(w8, top[..., None], -1) + rem[..., None], -1)
@@ -297,12 +297,12 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     ones = np.ones(z.shape)
     tl_n = tl + TREELINE_NOISE_M * fbm(Xw, Yw, ones, np.array([400.0, 200.0, 100.0]), HURST, SEED + 2) / 1.6
     alp = smoothstep(tl_n - TREELINE_ECOTONE_M / 2, tl_n + TREELINE_ECOTONE_M / 2, z)
-    wf = np.zeros(z.shape + (len(LAYERS),))
+    wf = np.zeros(z.shape + (len(LAYERS),), np.float32)
     wf[..., L_["forest"]] = 1 - alp
     wf[..., L_["alpine_meadow"]] = alp
 
     def over(name, a):
-        a = np.clip(a, 0, 1)
+        a = np.clip(a, 0, 1).astype(np.float32)
         wf[...] *= (1 - a)[..., None]
         wf[..., L_[name]] += a
     over("wet_meadow", wet * (1 - smoothstep(2.0, 5.0, slope)))
@@ -321,8 +321,9 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     return z, w8, stats
 
 
-def export_tile(col, row, prep, out_dir, strip=1024):
-    """Full-resolution plot, built in strips of rows so memory stays below ~3 GB."""
+def export_tile(col, row, prep, out_dir, strip=512):
+    """Full-resolution plot, built in strips of rows so memory stays below ~3 GB (run one plot per process on
+    machines with less than ~8 GB: python detail_plots.py --tiles x0_y0, then the next)."""
     os.makedirs(out_dir, exist_ok=True)
     h16 = np.empty((NV, NV), np.uint16)
     lay = np.empty((NV, NV, len(LAYERS)), np.uint8)

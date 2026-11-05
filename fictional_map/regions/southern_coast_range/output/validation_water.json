@@ -14,7 +14,7 @@
    "unit": "%",
    "source": "model",
    "passed": true,
-   "note": "40551 steps"
+   "note": "40549 steps"
   },
   {
    "kind": "physics",
@@ -28,7 +28,7 @@
    "unit": "%",
    "source": "model",
    "passed": true,
-   "note": "40857 points"
+   "note": "40855 points"
   },
   {
    "kind": "physics",

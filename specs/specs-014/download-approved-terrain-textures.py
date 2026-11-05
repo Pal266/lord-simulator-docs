@@ -85,9 +85,13 @@ def main():
                     elif isinstance(obj, str):
                         if obj.startswith("https://dl.polyhaven.org/") and obj.split("?")[0].endswith("/" + filename_upstream):
                             candidates.append(obj)
-                scan(files)
+                root_key = {"diff": "Diffuse", "nor_dx": "nor_dx", "rough": "Rough"}[name]
+                if root_key not in files:
+                    raise RuntimeError(f"Missing Poly Haven channel {root_key} for {asset_id}; keys: {list(files)}")
+                scan(files[root_key])
+                candidates = sorted(set(candidates))
                 if len(candidates) != 1:
-                    raise RuntimeError(f"Expected exactly one 2K source URL for {filename_upstream}; got {len(candidates)}. API top-level keys: {list(files)}")
+                    raise RuntimeError(f"Expected exactly one 2K source URL for {filename_upstream}; got {candidates}")
                 url = candidates[0]
                 if not url.startswith("https://dl.polyhaven.org/"):
                     raise RuntimeError("Unexpected URL " + url)

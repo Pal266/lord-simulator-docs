@@ -43,3 +43,5 @@ jobs:
           git push origin HEAD:feature/spec-014-terrain-textures-approved
 
 # Exact source URL discovery for Poly Haven file API.
+
+# Source channels: Diffuse, nor_dx, Rough.

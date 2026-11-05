@@ -1,9 +1,9 @@
 {
  "rivers": 885,
- "river_points": 41436,
+ "river_points": 41434,
  "river_km": 1146.5,
  "lakes": 4004,
- "lake_points": 84278,
+ "lake_points": 84274,
  "plots": {
   "tile_x0_y0": {
    "rivers": 3,

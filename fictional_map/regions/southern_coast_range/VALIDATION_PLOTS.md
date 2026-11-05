@@ -76,7 +76,7 @@ Hillslope-scale spectral exponents (100 m - 2 km), reported only: landscapes are
 | Earth data | tile_x1_y5: height range fits Unreal Z scale 1000 | 1677.5 m | <= 2559.9 | 0–2559.9 m | PASS | ue |
 | layers | tile_x1_y6: layer weights add up to 255 at every vertex (min, max) (min 255, max 255) | 1.0 | 1 = yes | 1–1 | PASS | ue_layers |
 | layers | tile_x1_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices (blended vertices 12.9%) | 0.0242 % | ~0 (soft transitions) | 0–5.0 % | PASS | ue_layers |
-| model | tile_x1_y6: mean difference from the base model (outside lakes) | -0.1024 m | 0 | -3.0–3.0 m | PASS | model |
+| model | tile_x1_y6: mean difference from the base model (outside lakes) | -0.1025 m | 0 | -3.0–3.0 m | PASS | model |
 | Earth data | tile_x1_y6: height range fits Unreal Z scale 1000 | 1822.5781 m | <= 2559.9 | 0–2559.9 m | PASS | ue |
 | layers | tile_x1_y7: layer weights add up to 255 at every vertex (min, max) (min 255, max 255) | 1.0 | 1 = yes | 1–1 | PASS | ue_layers |
 | layers | tile_x1_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices (blended vertices 11.4%) | 0.0223 % | ~0 (soft transitions) | 0–5.0 % | PASS | ue_layers |

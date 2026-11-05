@@ -1180,7 +1180,21 @@ Future production UI specifications must supply or identify required visual and 
 
 The technical primary root itself establishes no player-facing text, placeholder production art, HUD, feature panels, or final visual/audio design. Production screens, including the initial main menu, are feature content attached through the canonical layers and own their specification-supplied presentation and localization inputs.
 
-## 11. Change Control
+## 11. Region Selection and Rendering Levels
+
+The Southern Coast Range geographic region is one 100 × 100 km world, partitioned into a north-up 10 × 10 grid of 10 × 10 km plots. Its stable technical plot identifier is `tile_x{col}_y{row}`, with columns increasing eastward and rows increasing southward. Plot identity is independent of Unreal actor and streaming-level lifetime. This rendering test establishes no gameplay eligibility or simulation ownership.
+
+Separately loadable rendering levels use `/Game/Maps/SouthernCoastRange/tile_x{col}_y{row}`. Local Unreal X points east and Y points south, in centimetres. Shared geographic coordinates in metres are `(-50000 + col*10000 + localX/100, 50000 - row*10000 - localY/100, localZ/100)`. Loading and unloading these levels is a content/rendering operation, not a simulation start/stop signal.
+
+The local-player `ULordSimulatorRegionSubsystem` owns region-selection state, the current rendering level, an asynchronous destination and an independent non-colliding camera actor. The initial New Game action opens the selection screen in the existing CommonUI Menu layer. M or Escape opens it from a loaded plot. Dismissal and reselecting the current plot preserve its level instance and camera. Selection is locked during transitions. The destination's Landscape and centre height are checked before the previous level is unloaded; unsuccessful requests retain or restore the previous content and expose the canonical localized failure text.
+
+The selection Widget Blueprint and derived overview texture live under `/Game/UI/Screens/RegionSelection`. The Blueprint owns screen layout and font references. C++ handles commands, geographic mapping, state changes and a single Slate overview surface with event-driven selection/hover state. It does not poll simulation state or construct one hundred feature widgets. New region-selection text uses the canonical Lord Simulator String Table and its en/cs/uk localization resources.
+
+Terrain and water preparation is offline. The authoritative documentation-repository seed-7 configuration, scientific generators and all applicable validators must pass before import. The game repository's preparation scripts record source/output hashes and derive the full-region grayscale overview. The editor-only `LordSimulatorEditor` module imports the actual 4033-vertex heightmaps at XY `1000000/4032` cm and Z `1000`, verifies every encoded vertex before/after water placement, and places complete exported native Water rivers/lakes without landscape deformation or filtering. Lake boundary traversal is normalized to the native Water positive fill rule without removing or moving vertices. Every water body must produce a nonempty native surface mesh before saving; a separate editor verification reloads all saved levels and checks surface meshes and complete source counts. Per-plot success reports follow asset saving. Generated source data and Python are not runtime dependencies. All one hundred map paths and selection content are explicitly included in packaging configuration; Shipping cooking and installed rendering must still be verified for each accepted content revision.
+
+No global simulation manager, economic state, resource eligibility rules, gameplay entities or saved-game infrastructure is established by this architecture. Future simulation identity must not be inferred from the currently visible plot.
+
+## 12. Change Control
 
 The project-wide architecture, canonical identifiers, paths, runtime contracts, and invariants defined in this file remain authoritative until intentionally changed.
 

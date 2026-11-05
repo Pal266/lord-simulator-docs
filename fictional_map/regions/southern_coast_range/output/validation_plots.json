@@ -929,7 +929,7 @@
   {
    "kind": "model",
    "name": "tile_x1_y6: mean difference from the base model (outside lakes)",
-   "value": -0.1024,
+   "value": -0.1025,
    "reference": 0,
    "band": [
     -3.0,

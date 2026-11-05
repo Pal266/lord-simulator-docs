@@ -4,7 +4,7 @@ water bodies in the currently open level. Runs INSIDE Unreal Engine, not in the 
 
 Before running:
   * Plugins: enable "Water" and "Python Editor Script Plugin", restart the editor.
-  * Open the plot's level; its landscape must be imported at location (0, 0, 0) with scale 307.574 / 307.574 / 1000
+  * Open the plot's level; its landscape must be imported at location (0, 0, 0) with scale 248.016 / 248.016 / 1000
     (USAGE.md, section 9). The water positions in water.json are in that landscape's frame.
 
 Run (Output Log, "Python" command line, or Tools > Execute Python Script with the path edited below):
@@ -106,8 +106,9 @@ def main():
     for a in actors.get_all_level_actors():
         if str(a.get_folder_path()) == folder:
             actors.destroy_actor(a)
-    zone = actors.spawn_actor_from_class(unreal.WaterZone, unreal.Vector(1250000.0, 1250000.0, 0.0))
-    if try_set(zone, ["zone_extent"], unreal.Vector2D(2500000.0 + 20000.0, 2500000.0 + 20000.0)) is None:
+    size = float(data.get("plot_size_cm", 1000000.0))
+    zone = actors.spawn_actor_from_class(unreal.WaterZone, unreal.Vector(size / 2, size / 2, 0.0))
+    if try_set(zone, ["zone_extent"], unreal.Vector2D(size + 20000.0, size + 20000.0)) is None:
         warn("could not set the WaterZone extent; scale the WaterZone to cover the whole plot by hand")
     zone.set_folder_path(folder)
     n_r = n_l = per_point = 0

@@ -49,6 +49,7 @@ if not tiles:
     raise SystemExit("No exported plots in ../export - run detail_plots.py first.")
 have = {t: tuple(int(v[1:]) for v in t.replace("tile_", "").split("_")) for t in tiles}
 INFO = []             # hillslope-scale spectral exponents (reported, not checked)
+ROWS = {}             # sample rows of every plot, joined into full-width transects
 EDGES = {}            # only the four edges of each plot are kept in memory (a full plot is 0.5 GB as float64)
 
 prep = dict(np.load(dp.PREP))
@@ -75,19 +76,13 @@ for t, (c, r) in have.items():
           100.0 * jumps / max(changes, 1), "~0 (soft transitions)", 0, 5.0, "%", "ue_layers",
           f"blended vertices {blended.mean() * 100:.1f}%")
     del tot, blended
-    # --- spectrum of height along rows (transects), wavelengths 20 m - 2 km ---
-    rows = z[::512, :]
-    rows = rows - rows.mean(axis=1, keepdims=True)
-    win = np.hanning(rows.shape[1])
-    ps = np.mean(np.abs(np.fft.rfft(rows * win, axis=1)) ** 2, axis=0)
-    k = np.fft.rfftfreq(rows.shape[1], d=dp.SPACING)
-    xs_ = np.arange(rows.shape[1])
-    rows2 = z[::256, :] - np.array([np.polyval(np.polyfit(xs_, r, 1), xs_) for r in z[::256, :]])
+    # --- spectra: sample rows are kept and joined across the plots of a plot row into 100 km transects below; the
+    # landscape-scale spectrum is a property of the terrain, not of how it is cut into plots ---
+    ROWS[(c, r)] = z[::256, :].astype(np.float32)
+    xs_ = np.arange(z.shape[1]); win = np.hanning(z.shape[1])
+    rows2 = z[::256, :] - np.array([np.polyval(np.polyfit(xs_, r_, 1), xs_) for r_ in z[::256, :]])
     ps = np.mean(np.abs(np.fft.rfft(rows2 * win, axis=1)) ** 2, axis=0)
-    band = (k > 1 / 10000.0) & (k < 1 / 500.0)
-    beta = -np.polyfit(np.log(k[band]), np.log(ps[band]), 1)[0]
-    check("Earth data", f"{t}: spectral exponent beta of height transects (500 m - 10 km)", beta, "~2 (1.8-2.1 reported)",
-          1.6, 2.6, "", "spectrum", "landscape scale, where topography behaves as a fractal")
+    k = np.fft.rfftfreq(z.shape[1], d=dp.SPACING)
     hb = (k > 1 / 2000.0) & (k < 1 / 100.0)
     INFO.append((t, round(float(-np.polyfit(np.log(k[hb]), np.log(ps[hb]), 1)[0]), 2)))
     # --- faithful to the regional model (100 m averages) ---
@@ -102,6 +97,21 @@ for t, (c, r) in have.items():
     check("model", f"{t}: mean difference from the base model (outside lakes)", float(np.mean(diff[~lake])), 0, -3.0, 3.0, "m", "model")
     check("Earth data", f"{t}: height range fits Unreal Z scale {dp.Z_SCALE}", float(np.abs(z).max()), "<= 2559.9", 0, 2559.9, "m", "ue")
     del z, sub
+
+# --- landscape-scale spectrum on full-width transects (all plots of a plot row joined: 100 km) ---
+NX, NY = CFG["tiles"]["count_x"], CFG["tiles"]["count_y"]
+for r in range(NY):
+    if not all((c, r) in ROWS for c in range(NX)):
+        continue
+    tr = np.concatenate([ROWS[(c, r)][:, :-1] for c in range(NX - 1)] + [ROWS[(NX - 1, r)]], axis=1).astype(np.float64)
+    xs_ = np.arange(tr.shape[1]); win = np.hanning(tr.shape[1])
+    tr = tr - np.array([np.polyval(np.polyfit(xs_, r_, 1), xs_) for r_ in tr])
+    ps = np.mean(np.abs(np.fft.rfft(tr * win, axis=1)) ** 2, axis=0)
+    k = np.fft.rfftfreq(tr.shape[1], d=dp.SPACING)
+    band = (k > 1 / 10000.0) & (k < 1 / 500.0)
+    beta = -np.polyfit(np.log(k[band]), np.log(ps[band]), 1)[0]
+    check("Earth data", f"plot row y{r}: spectral exponent beta of {tr.shape[1] * dp.SPACING / 1000:.0f} km height transects (500 m - 10 km)",
+          beta, "~2 (1.8-2.1 reported)", 1.6, 2.6, "", "spectrum", "landscape scale, where topography behaves as a fractal")
 
 # --- seams ---
 pairs = 0

@@ -14,7 +14,7 @@ heightmap), X = east, Y = south (heightmap rows), Z = height above sea level - e
 imported at location (0, 0, 0) with Z scale 1000 (see USAGE.md, section 9).
 
 Usage:  python export_water.py          (needs ../output/detail_prep.npz from detail_plots.py)
-Writes: ../export/tile_x{c}_y{r}/water.json, ../output/water_summary.json, ../output/water_overview.png
+Writes: ../export/tile_x{c}_y{r}/water.json, ../output/water_summary.json, ../output/water_overview.jpg
 """
 import json, math, os
 import numpy as np
@@ -119,6 +119,7 @@ def main():
         name = f"tile_x{c}_y{r}"
         out = dict(plot=name, units="cm", frame="landscape origin = north-west corner vertex; X east, Y south, Z height above sea level",
                    landscape_scale=[CFG["unreal"]["scale_xy_cm"], CFG["unreal"]["scale_xy_cm"], CFG["unreal"]["scale_z"]],
+                   plot_size_cm=dp.TILE_M * 100.0,
                    rivers=rivers, lakes=lakes)
         os.makedirs(os.path.join(dp.EXPORT, name), exist_ok=True)
         json.dump(out, open(os.path.join(dp.EXPORT, name, "water.json"), "w"))
@@ -135,9 +136,9 @@ def main():
 
 
 def overview(summary):
-    """Water bodies drawn over the plot previews (one 406 px square per plot)."""
-    T = 406
-    img = Image.open(os.path.join(REGION_OUT, "plots_mosaic.png")).convert("RGB")
+    """Water bodies drawn over the mosaic of plot previews."""
+    img = Image.open(dp.MOSAIC).convert("RGB")
+    T = img.width // CFG["tiles"]["count_x"]
     dr = ImageDraw.Draw(img)
     s = T / (dp.TILE_M * 100.0)
     for name in summary["plots"]:
@@ -149,7 +150,7 @@ def overview(summary):
             pts = [(c * T + u * s, r * T + v * s) for u, v, _ in rv["points_cm"]]
             q = max(rv["discharge_m3s"])
             dr.line(pts, fill=(0, 90, 255), width=1 if q < 20 else 2 if q < 80 else 3)
-    img.save(os.path.join(REGION_OUT, "water_overview.png"), optimize=True)
+    img.save(os.path.join(REGION_OUT, "water_overview.jpg"), quality=88)
 
 
 if __name__ == "__main__":

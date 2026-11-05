@@ -47,7 +47,7 @@ This file records every scientific decision, why it was made and what it rests o
 - Discharge from the planet's runoff routed over the final terrain. The square's largest river (~130 m³/s at the
   square's edge in this model) drains east towards the sea.
 
-## 6. From 100 m to the 3 m plots
+## 6. From 100 m to the 2.5 m plots
 
 - **25 m refinement (`refine_25m.py`).** Interpolated 100 m terrain plus random noise had the right roughness statistics
   but the wrong shapes (lumps instead of gullies and spurs). Instead, the same stream-power erosion runs again on a
@@ -82,7 +82,10 @@ This file records every scientific decision, why it was made and what it rests o
   does not: landscapes have characteristic spatial scales and non-fractal structure there (Perron, Kirchner & Dietrich 2008).
   The first version checked 100 m – 2 km; the eastern plain plots failed it (exponent 2.9–3.4), and further tuning only
   traded one band against another, i.e. it was fitting a number that has no single Earth value at those scales. The check
-  now uses 500 m – 10 km, where the fractal description applies; the 100 m – 2 km exponents are still reported in
+  now uses 500 m – 10 km, where the fractal description applies (with 10 km plots the check runs on 100 km
+  transects joined across each plot row: a single 10 km plot resolves too few long waves, and its exponent swung between
+  1.5 and 3.2 from one plot to the next although the terrain was unchanged; the spectrum is a property of the landscape,
+  not of how it is cut into plots); the 100 m – 2 km exponents are still reported in
   VALIDATION_PLOTS.md. Honest reading: the plain is gently rolling (local relief ~25 m per km, median slope ~1.6°) and
   smoother at hillslope scale than the mountains.
 - **Rivers:** courses from the 25 m drainage network (≥ 1 m³/s), smoothed and snapped to the lowest line of the valley floor;
@@ -108,10 +111,14 @@ This file records every scientific decision, why it was made and what it rests o
 - **Lake shores.** The fine relief fades out within ~150 m of a lake (shores are smoothed by waves and shore ice), and
   hollows up to 2 m below the level within 100 m of a lake become shore flats 0.2 m above the water; otherwise the fine
   relief dug dry hollows below the water level right beside the lakes (ground no water body would cover).
+  Lake floors deepen gradually from the shore to at least 1.5 m below the water (before, the floor dropped 1.5 m in one
+  step at the edge of the 25 m lake cells, a small cliff along every shore).
 - **River water surfaces** never rise downstream: along each river the water surface is the closest non-rising profile
   to the valley floor (isotonic regression), so channels cut through small bumps instead of holding water uphill.
 - **Water bodies for Unreal (`export_water.py`).** Rivers are exported as splines on the water surface with width
   5·Q^0.5, Manning depth and mean velocity Q/(w·d); lakes as outlines at their spill level, 25 m beyond the shoreline.
+- **Plots:** 10 × 10 plots of 10 × 10 km (4033 × 4033 vertices, 2.48 m apart). The plot size changes only how the
+  terrain is cut: every value is computed from world coordinates, so the terrain is the same for any plot grid.
 - **Seams:** every vertex is computed from world coordinates only; neighbouring plots share identical edge vertices.
 
 ## Known limitations (v2)

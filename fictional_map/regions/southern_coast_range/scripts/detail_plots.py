@@ -1,7 +1,7 @@
 """
 Region step 2: detail every 25 x 25 km plot to ~3 m and export it for Unreal Engine.
 
-For every vertex of a plot (8129 x 8129, spacing 25000/8128 m):
+For every vertex of a plot (4033 x 4033 for 10 x 10 km, spacing 10000/4032 = 2.48 m; set in region.json):
   1. Regional surface: cubic-spline interpolation of the 100 m regional model.
   2. Sub-100 m relief: self-affine fractal detail with Hurst exponent H = 0.5 (power spectrum ~ k^-2 along
      transects, as measured for Earth's topography), with an amplitude that depends on the terrain:
@@ -19,10 +19,12 @@ Every value depends only on world coordinates, never on the plot, so neighbourin
 vertices: the plots join without steps.
 
 Usage:
-  python detail_plots.py --tiles all                 # all 16 plots (~5 min each)
+  python detail_plots.py --tiles all                 # all 100 plots (~25 s each), then the mosaic
+  python detail_plots.py --mosaic                    # only rebuild ../output/plots_mosaic.jpg from the previews
   python detail_plots.py --tiles x2_y1 x3_y1         # selected plots
   python detail_plots.py --tiles x2_y1 --preview     # quick 1/8-resolution preview only (seconds)
-Outputs: ../export/tile_x{c}_y{r}/ (heightmap.png, layer_*.png, tile.json) and ../output/preview_tile_*.png
+Outputs: ../export/tile_x{c}_y{r}/ (heightmap.png, layer_*.png, tile.json), ../output/previews/preview_tile_*.png
+(not in Git) and ../output/plots_mosaic.jpg
 """
 import argparse, json, math, os, sys
 import numpy as np
@@ -80,6 +82,9 @@ def to_weights255(wf):
 
 EXPORT = os.path.join(REGION_DIR, "export")
 PREP = os.path.join(REGION_OUT, "detail_prep.npz")
+PREVIEWS = os.path.join(REGION_OUT, "previews")
+MOSAIC = os.path.join(REGION_OUT, "plots_mosaic.jpg")
+MOSAIC_PX = 1600
 
 
 # ---------------- seamless value-noise fBm on world coordinates ----------------
@@ -297,7 +302,6 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     slope100 = ndimage.map_coordinates(prep["slope_deg"], [fj, fi], order=1)
     tl = ndimage.map_coordinates(prep["treeline"], [fj, fi], order=1)
     lake_f = ndimage.map_coordinates(prep["lake"].astype(float), [fj, fi], order=1)
-    lake_lv = ndimage.map_coordinates(prep["lake_level"], [fj, fi], order=0)
     steep = np.clip((slope100 - 3.0) / 25.0, 0, 1)
     alpine = np.clip((base - tl) / 200.0, 0, 1)
     # continue the regional relief spectrum to smaller scales with the same self-affine law (beta ~ 2):
@@ -321,7 +325,7 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     # lake, shallow hollows below the level (up to SHORE_PIT_M deep: the scale of the fine relief) become flats just
     # above the water, like the wet shore flats of real lakes; deeper ground (e.g. below a moraine dam) is left as it is.
     shore = (sd < SHORE_M) & (sl_ > -9000) & (z < sl_ + SHORE_FLAT_M) & (z > sl_ - SHORE_PIT_M)
-    z = np.where(shore & ~((lake_f > 0.5) & (lake_lv > -9000)), sl_ + SHORE_FLAT_M, z)
+    z = np.where(shore & ~((lake_f > 0.5) & (sl_ > -9000)), sl_ + SHORE_FLAT_M, z)
     # rivers
     near = ndimage.map_coordinates(prep["river_near"].astype(float), [fj, fi], order=0) > 0.5
     riverbed = np.zeros(z.shape); wet = np.zeros(z.shape); gravel = np.zeros(z.shape)
@@ -348,10 +352,12 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
         gravel[qj, qi] = np.where(qq >= 3.0, smoothstep(hw - 3.0, hw, d) * (1 - smoothstep(hw + 0.3 * bar, hw + bar + 3.0, d)), 0.0)
         wet[qj, qi] = np.where(qq >= 20.0, smoothstep(hw, hw + 15.0, d) * (1 - smoothstep(hw + 150.0, hw + 230.0, d)), 0.0)  # inside river_near (250 m)
     # lakes
-    lk = (lake_f > 0.5) & (lake_lv > -9000)            # nearest regional cell must itself be lake
-    z = np.where(lk, np.minimum(z, lake_lv - 1.5), z)
-    # lakebed weight: under water, with a soft shoreline (the lake surface is lake_lv)
-    lakebed = np.where(lake_lv > -9000, smoothstep(-0.5, 0.5, lake_lv - z) * smoothstep(0.3, 0.6, lake_f), 0.0)
+    # lake floors: at least 1.5 m below the water, deepening gradually from the shore (no step at the 25 m cell edges)
+    lk = (lake_f > 0.5) & (sl_ > -9000)
+    z = np.where(lk, np.minimum(z, sl_ - 1.5 * smoothstep(0.5, 0.9, lake_f)), z)
+    # lakebed weight: under water, with a soft shoreline
+    # (uses the nearest lake's level, defined everywhere near a lake, so the weight has no step at the 25 m cell edges)
+    lakebed = np.where(sl_ > -9000, smoothstep(-0.5, 0.5, sl_ - z) * (1 - smoothstep(25.0, 50.0, sd)), 0.0)
     z = np.clip(z, -2559.9, 2559.9)
     # layers
     gy, gx = np.gradient(ndimage.uniform_filter(z, 3) if step == 1 else z, SPACING * step)
@@ -431,6 +437,20 @@ def preview(z, layer, path, step):
     img.save(path, optimize=True)
 
 
+def mosaic():
+    """All plot previews side by side (MOSAIC_PX wide), north up."""
+    nx, ny = CFG["tiles"]["count_x"], CFG["tiles"]["count_y"]
+    t = MOSAIC_PX // nx
+    img = Image.new("RGB", (t * nx, t * ny), (255, 255, 255))
+    for r in range(ny):
+        for c in range(nx):
+            p = os.path.join(PREVIEWS, f"preview_tile_x{c}_y{r}.png")
+            if os.path.exists(p):
+                img.paste(Image.open(p).convert("RGB").resize((t, t), Image.LANCZOS), (c * t, r * t))
+    img.save(MOSAIC, quality=88)
+    return MOSAIC
+
+
 def parse_tiles(arg):
     if arg == ["all"]:
         return [(c, r) for r in range(CFG["tiles"]["count_y"]) for c in range(CFG["tiles"]["count_x"])]
@@ -447,7 +467,10 @@ if __name__ == "__main__":
     ap.add_argument("--tiles", nargs="+", default=["all"], help="'all' or names like x2_y1 (tile_x2_y1 also works)")
     ap.add_argument("--preview", action="store_true", help="only a 1/8-resolution preview image, no export")
     ap.add_argument("--reprep", action="store_true", help="rebuild the river / lake / treeline preparation file")
+    ap.add_argument("--mosaic", action="store_true", help="only rebuild the mosaic of all plot previews")
     args = ap.parse_args()
+    if args.mosaic:
+        print(mosaic()); sys.exit(0)
     if args.reprep or not os.path.exists(PREP):
         print("preparing rivers, lakes and treeline ...", prepare())
     prep = dict(np.load(PREP))
@@ -457,5 +480,8 @@ if __name__ == "__main__":
             z, layer, st = build_tile(col, row, prep, step=8)
         else:
             z, layer, st = export_tile(col, row, prep, os.path.join(EXPORT, name))
-        preview(z, layer, os.path.join(REGION_OUT, f"preview_{name}.png"), 8)
+        os.makedirs(PREVIEWS, exist_ok=True)
+        preview(z, layer, os.path.join(PREVIEWS, f"preview_{name}.png"), 8)
         print(json.dumps(st))
+    if args.tiles == ["all"]:
+        print(mosaic())

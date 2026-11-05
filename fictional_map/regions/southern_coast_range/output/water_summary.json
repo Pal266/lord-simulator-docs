@@ -1,73 +1,409 @@
 {
- "rivers": 791,
- "river_points": 41000,
- "river_km": 1138.4,
- "lakes": 3854,
- "lake_points": 82630,
+ "rivers": 885,
+ "river_points": 41436,
+ "river_km": 1146.5,
+ "lakes": 4004,
+ "lake_points": 84278,
  "plots": {
   "tile_x0_y0": {
-   "rivers": 69,
-   "lakes": 415
+   "rivers": 3,
+   "lakes": 73
   },
   "tile_x1_y0": {
+   "rivers": 13,
+   "lakes": 91
+  },
+  "tile_x2_y0": {
+   "rivers": 1,
+   "lakes": 33
+  },
+  "tile_x3_y0": {
+   "rivers": 4,
+   "lakes": 2
+  },
+  "tile_x4_y0": {
+   "rivers": 3,
+   "lakes": 0
+  },
+  "tile_x5_y0": {
+   "rivers": 2,
+   "lakes": 0
+  },
+  "tile_x6_y0": {
+   "rivers": 3,
+   "lakes": 0
+  },
+  "tile_x7_y0": {
+   "rivers": 1,
+   "lakes": 0
+  },
+  "tile_x8_y0": {
+   "rivers": 1,
+   "lakes": 7
+  },
+  "tile_x9_y0": {
+   "rivers": 2,
+   "lakes": 5
+  },
+  "tile_x0_y1": {
+   "rivers": 6,
+   "lakes": 71
+  },
+  "tile_x1_y1": {
+   "rivers": 12,
+   "lakes": 60
+  },
+  "tile_x2_y1": {
+   "rivers": 4,
+   "lakes": 27
+  },
+  "tile_x3_y1": {
+   "rivers": 1,
+   "lakes": 1
+  },
+  "tile_x4_y1": {
+   "rivers": 4,
+   "lakes": 16
+  },
+  "tile_x5_y1": {
+   "rivers": 2,
+   "lakes": 8
+  },
+  "tile_x6_y1": {
+   "rivers": 2,
+   "lakes": 0
+  },
+  "tile_x7_y1": {
+   "rivers": 1,
+   "lakes": 0
+  },
+  "tile_x8_y1": {
+   "rivers": 2,
+   "lakes": 0
+  },
+  "tile_x9_y1": {
+   "rivers": 2,
+   "lakes": 2
+  },
+  "tile_x0_y2": {
+   "rivers": 29,
+   "lakes": 93
+  },
+  "tile_x1_y2": {
+   "rivers": 31,
+   "lakes": 85
+  },
+  "tile_x2_y2": {
+   "rivers": 15,
+   "lakes": 60
+  },
+  "tile_x3_y2": {
+   "rivers": 13,
+   "lakes": 72
+  },
+  "tile_x4_y2": {
+   "rivers": 11,
+   "lakes": 158
+  },
+  "tile_x5_y2": {
+   "rivers": 6,
+   "lakes": 92
+  },
+  "tile_x6_y2": {
+   "rivers": 3,
+   "lakes": 3
+  },
+  "tile_x7_y2": {
+   "rivers": 1,
+   "lakes": 0
+  },
+  "tile_x8_y2": {
+   "rivers": 2,
+   "lakes": 4
+  },
+  "tile_x9_y2": {
+   "rivers": 2,
+   "lakes": 3
+  },
+  "tile_x0_y3": {
+   "rivers": 20,
+   "lakes": 81
+  },
+  "tile_x1_y3": {
+   "rivers": 21,
+   "lakes": 80
+  },
+  "tile_x2_y3": {
+   "rivers": 4,
+   "lakes": 59
+  },
+  "tile_x3_y3": {
+   "rivers": 14,
+   "lakes": 99
+  },
+  "tile_x4_y3": {
+   "rivers": 24,
+   "lakes": 101
+  },
+  "tile_x5_y3": {
+   "rivers": 18,
+   "lakes": 21
+  },
+  "tile_x6_y3": {
+   "rivers": 4,
+   "lakes": 5
+  },
+  "tile_x7_y3": {
+   "rivers": 3,
+   "lakes": 4
+  },
+  "tile_x8_y3": {
+   "rivers": 4,
+   "lakes": 3
+  },
+  "tile_x9_y3": {
+   "rivers": 5,
+   "lakes": 2
+  },
+  "tile_x0_y4": {
+   "rivers": 26,
+   "lakes": 91
+  },
+  "tile_x1_y4": {
+   "rivers": 13,
+   "lakes": 64
+  },
+  "tile_x2_y4": {
+   "rivers": 1,
+   "lakes": 55
+  },
+  "tile_x3_y4": {
+   "rivers": 22,
+   "lakes": 90
+  },
+  "tile_x4_y4": {
+   "rivers": 8,
+   "lakes": 114
+  },
+  "tile_x5_y4": {
+   "rivers": 6,
+   "lakes": 11
+  },
+  "tile_x6_y4": {
+   "rivers": 7,
+   "lakes": 6
+  },
+  "tile_x7_y4": {
+   "rivers": 3,
+   "lakes": 1
+  },
+  "tile_x8_y4": {
+   "rivers": 4,
+   "lakes": 1
+  },
+  "tile_x9_y4": {
+   "rivers": 2,
+   "lakes": 5
+  },
+  "tile_x0_y5": {
+   "rivers": 15,
+   "lakes": 92
+  },
+  "tile_x1_y5": {
+   "rivers": 15,
+   "lakes": 79
+  },
+  "tile_x2_y5": {
+   "rivers": 25,
+   "lakes": 71
+  },
+  "tile_x3_y5": {
+   "rivers": 8,
+   "lakes": 94
+  },
+  "tile_x4_y5": {
+   "rivers": 21,
+   "lakes": 81
+  },
+  "tile_x5_y5": {
+   "rivers": 3,
+   "lakes": 14
+  },
+  "tile_x6_y5": {
+   "rivers": 5,
+   "lakes": 4
+  },
+  "tile_x7_y5": {
+   "rivers": 2,
+   "lakes": 1
+  },
+  "tile_x8_y5": {
+   "rivers": 3,
+   "lakes": 0
+  },
+  "tile_x9_y5": {
+   "rivers": 1,
+   "lakes": 2
+  },
+  "tile_x0_y6": {
+   "rivers": 24,
+   "lakes": 102
+  },
+  "tile_x1_y6": {
+   "rivers": 25,
+   "lakes": 91
+  },
+  "tile_x2_y6": {
+   "rivers": 19,
+   "lakes": 64
+  },
+  "tile_x3_y6": {
+   "rivers": 11,
+   "lakes": 74
+  },
+  "tile_x4_y6": {
+   "rivers": 10,
+   "lakes": 92
+  },
+  "tile_x5_y6": {
+   "rivers": 9,
+   "lakes": 7
+  },
+  "tile_x6_y6": {
+   "rivers": 2,
+   "lakes": 1
+  },
+  "tile_x7_y6": {
+   "rivers": 2,
+   "lakes": 0
+  },
+  "tile_x8_y6": {
+   "rivers": 5,
+   "lakes": 0
+  },
+  "tile_x9_y6": {
+   "rivers": 3,
+   "lakes": 1
+  },
+  "tile_x0_y7": {
+   "rivers": 17,
+   "lakes": 92
+  },
+  "tile_x1_y7": {
    "rivers": 25,
    "lakes": 116
   },
-  "tile_x2_y0": {
-   "rivers": 13,
-   "lakes": 48
-  },
-  "tile_x3_y0": {
+  "tile_x2_y7": {
    "rivers": 6,
-   "lakes": 12
+   "lakes": 60
   },
-  "tile_x0_y1": {
-   "rivers": 117,
-   "lakes": 465
+  "tile_x3_y7": {
+   "rivers": 10,
+   "lakes": 76
   },
-  "tile_x1_y1": {
-   "rivers": 74,
-   "lakes": 609
-  },
-  "tile_x2_y1": {
-   "rivers": 36,
-   "lakes": 96
-  },
-  "tile_x3_y1": {
-   "rivers": 12,
+  "tile_x4_y7": {
+   "rivers": 1,
    "lakes": 14
   },
-  "tile_x0_y2": {
-   "rivers": 114,
-   "lakes": 542
+  "tile_x5_y7": {
+   "rivers": 2,
+   "lakes": 0
   },
-  "tile_x1_y2": {
-   "rivers": 75,
-   "lakes": 442
+  "tile_x6_y7": {
+   "rivers": 3,
+   "lakes": 1
   },
-  "tile_x2_y2": {
-   "rivers": 21,
-   "lakes": 27
-  },
-  "tile_x3_y2": {
+  "tile_x7_y7": {
    "rivers": 4,
-   "lakes": 6
+   "lakes": 1
   },
-  "tile_x0_y3": {
-   "rivers": 148,
-   "lakes": 683
+  "tile_x8_y7": {
+   "rivers": 2,
+   "lakes": 1
   },
-  "tile_x1_y3": {
-   "rivers": 56,
-   "lakes": 315
+  "tile_x9_y7": {
+   "rivers": 3,
+   "lakes": 5
   },
-  "tile_x2_y3": {
+  "tile_x0_y8": {
+   "rivers": 32,
+   "lakes": 106
+  },
+  "tile_x1_y8": {
+   "rivers": 20,
+   "lakes": 130
+  },
+  "tile_x2_y8": {
    "rivers": 17,
-   "lakes": 57
+   "lakes": 104
   },
-  "tile_x3_y3": {
+  "tile_x3_y8": {
+   "rivers": 12,
+   "lakes": 75
+  },
+  "tile_x4_y8": {
+   "rivers": 16,
+   "lakes": 50
+  },
+  "tile_x5_y8": {
+   "rivers": 8,
+   "lakes": 18
+  },
+  "tile_x6_y8": {
+   "rivers": 2,
+   "lakes": 1
+  },
+  "tile_x7_y8": {
+   "rivers": 3,
+   "lakes": 0
+  },
+  "tile_x8_y8": {
+   "rivers": 2,
+   "lakes": 0
+  },
+  "tile_x9_y8": {
+   "rivers": 1,
+   "lakes": 2
+  },
+  "tile_x0_y9": {
+   "rivers": 32,
+   "lakes": 140
+  },
+  "tile_x1_y9": {
+   "rivers": 24,
+   "lakes": 74
+  },
+  "tile_x2_y9": {
+   "rivers": 12,
+   "lakes": 82
+  },
+  "tile_x3_y9": {
+   "rivers": 9,
+   "lakes": 36
+  },
+  "tile_x4_y9": {
+   "rivers": 8,
+   "lakes": 48
+  },
+  "tile_x5_y9": {
+   "rivers": 7,
+   "lakes": 40
+  },
+  "tile_x6_y9": {
    "rivers": 4,
-   "lakes": 7
+   "lakes": 2
+  },
+  "tile_x7_y9": {
+   "rivers": 1,
+   "lakes": 0
+  },
+  "tile_x8_y9": {
+   "rivers": 2,
+   "lakes": 0
+  },
+  "tile_x9_y9": {
+   "rivers": 1,
+   "lakes": 1
   }
  }
 }

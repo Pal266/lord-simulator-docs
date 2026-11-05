@@ -1,5 +1,5 @@
 {
- "passed": 767,
+ "passed": 768,
  "total": 770,
  "checks": [
   {
@@ -19,7 +19,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0449,
+   "value": 0.0519,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -28,7 +28,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 56.4%"
+   "note": "blended vertices 56.5%"
   },
   {
    "kind": "model",
@@ -75,7 +75,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0558,
+   "value": 0.0703,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -84,7 +84,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 45.6%"
+   "note": "blended vertices 45.8%"
   },
   {
    "kind": "model",
@@ -131,7 +131,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0743,
+   "value": 0.0706,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -140,7 +140,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 28.2%"
+   "note": "blended vertices 28.7%"
   },
   {
    "kind": "model",
@@ -187,7 +187,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1131,
+   "value": 0.0979,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -196,7 +196,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 18.5%"
+   "note": "blended vertices 19.0%"
   },
   {
    "kind": "model",
@@ -243,7 +243,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1674,
+   "value": 0.1501,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -252,7 +252,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 16.0%"
+   "note": "blended vertices 16.7%"
   },
   {
    "kind": "model",
@@ -299,7 +299,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2234,
+   "value": 0.1979,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -308,7 +308,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 9.3%"
+   "note": "blended vertices 10.0%"
   },
   {
    "kind": "model",
@@ -355,7 +355,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3108,
+   "value": 0.2535,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -364,7 +364,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.9%"
+   "note": "blended vertices 9.8%"
   },
   {
    "kind": "model",
@@ -411,7 +411,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2318,
+   "value": 0.1921,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -420,7 +420,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.7%"
+   "note": "blended vertices 9.4%"
   },
   {
    "kind": "model",
@@ -467,7 +467,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3531,
+   "value": 0.2312,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -476,7 +476,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 7.7%"
+   "note": "blended vertices 8.5%"
   },
   {
    "kind": "model",
@@ -523,7 +523,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.684,
+   "value": 0.4576,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -532,7 +532,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.0%"
+   "note": "blended vertices 6.0%"
   },
   {
    "kind": "model",
@@ -579,7 +579,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2722,
+   "value": 0.2387,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -588,7 +588,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 12.3%"
+   "note": "blended vertices 12.9%"
   },
   {
    "kind": "model",
@@ -635,7 +635,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1022,
+   "value": 0.1059,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -644,7 +644,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 29.1%"
+   "note": "blended vertices 29.5%"
   },
   {
    "kind": "model",
@@ -691,7 +691,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0669,
+   "value": 0.0699,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -700,7 +700,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 42.6%"
+   "note": "blended vertices 42.9%"
   },
   {
    "kind": "model",
@@ -747,7 +747,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.05,
+   "value": 0.0587,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -756,7 +756,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 49.2%"
+   "note": "blended vertices 49.5%"
   },
   {
    "kind": "model",
@@ -803,7 +803,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0743,
+   "value": 0.0964,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -812,7 +812,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 28.3%"
+   "note": "blended vertices 28.6%"
   },
   {
    "kind": "model",
@@ -859,7 +859,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1093,
+   "value": 0.1115,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -868,7 +868,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 20.9%"
+   "note": "blended vertices 21.4%"
   },
   {
    "kind": "model",
@@ -915,7 +915,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1854,
+   "value": 0.1664,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -924,7 +924,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 12.2%"
+   "note": "blended vertices 12.8%"
   },
   {
    "kind": "model",
@@ -971,7 +971,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2645,
+   "value": 0.2491,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -980,7 +980,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.4%"
+   "note": "blended vertices 11.3%"
   },
   {
    "kind": "model",
@@ -1027,7 +1027,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.6189,
+   "value": 0.4836,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1036,7 +1036,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 4.6%"
+   "note": "blended vertices 5.5%"
   },
   {
    "kind": "model",
@@ -1083,7 +1083,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.162,
+   "value": 0.1619,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1092,7 +1092,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.8%"
+   "note": "blended vertices 11.3%"
   },
   {
    "kind": "model",
@@ -1139,7 +1139,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.1188,
+   "value": 0.6033,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1148,7 +1148,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 1.5%"
+   "note": "blended vertices 1.9%"
   },
   {
    "kind": "model",
@@ -1195,7 +1195,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1796,
+   "value": 0.1775,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1204,7 +1204,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.1%"
+   "note": "blended vertices 6.3%"
   },
   {
    "kind": "model",
@@ -1251,7 +1251,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2464,
+   "value": 0.3167,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1260,7 +1260,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.5%"
+   "note": "blended vertices 11.1%"
   },
   {
    "kind": "model",
@@ -1307,7 +1307,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.176,
+   "value": 0.2142,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1316,7 +1316,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 18.5%"
+   "note": "blended vertices 18.9%"
   },
   {
    "kind": "model",
@@ -1363,7 +1363,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.103,
+   "value": 0.1589,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1372,7 +1372,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 29.3%"
+   "note": "blended vertices 29.6%"
   },
   {
    "kind": "model",
@@ -1419,7 +1419,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0413,
+   "value": 0.0445,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1428,7 +1428,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 55.0%"
+   "note": "blended vertices 55.2%"
   },
   {
    "kind": "model",
@@ -1475,7 +1475,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0746,
+   "value": 0.0911,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1484,7 +1484,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 33.3%"
+   "note": "blended vertices 33.6%"
   },
   {
    "kind": "model",
@@ -1531,7 +1531,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1256,
+   "value": 0.1644,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1540,7 +1540,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 18.1%"
+   "note": "blended vertices 18.6%"
   },
   {
    "kind": "model",
@@ -1587,7 +1587,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1842,
+   "value": 0.1363,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1596,7 +1596,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 15.5%"
+   "note": "blended vertices 16.2%"
   },
   {
    "kind": "model",
@@ -1643,7 +1643,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1896,
+   "value": 0.1578,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1652,7 +1652,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.9%"
+   "note": "blended vertices 11.5%"
   },
   {
    "kind": "model",
@@ -1699,7 +1699,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0932,
+   "value": 0.1097,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1708,7 +1708,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 1.6%"
+   "note": "blended vertices 1.7%"
   },
   {
    "kind": "model",
@@ -1755,7 +1755,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2448,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1811,7 +1811,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.35,
+   "value": 0.3945,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1820,7 +1820,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.9%"
+   "note": "blended vertices 6.4%"
   },
   {
    "kind": "model",
@@ -1867,7 +1867,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.8195,
+   "value": 0.6706,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1876,7 +1876,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 4.3%"
+   "note": "blended vertices 5.1%"
   },
   {
    "kind": "model",
@@ -1923,7 +1923,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3657,
+   "value": 0.3101,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1932,7 +1932,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.1%"
+   "note": "blended vertices 8.8%"
   },
   {
    "kind": "model",
@@ -1979,7 +1979,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3058,
+   "value": 0.2605,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1988,7 +1988,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.2%"
+   "note": "blended vertices 10.9%"
   },
   {
    "kind": "model",
@@ -2035,7 +2035,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0964,
+   "value": 0.08,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2044,7 +2044,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 31.0%"
+   "note": "blended vertices 31.5%"
   },
   {
    "kind": "model",
@@ -2091,7 +2091,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.073,
+   "value": 0.0641,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2100,7 +2100,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 47.4%"
+   "note": "blended vertices 47.8%"
   },
   {
    "kind": "model",
@@ -2147,7 +2147,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0378,
+   "value": 0.0336,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2156,7 +2156,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 61.1%"
+   "note": "blended vertices 61.2%"
   },
   {
    "kind": "model",
@@ -2203,7 +2203,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0302,
+   "value": 0.0405,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2315,7 +2315,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.9313,
+   "value": 0.5981,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2324,7 +2324,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.6%"
+   "note": "blended vertices 0.7%"
   },
   {
    "kind": "model",
@@ -2371,7 +2371,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.495,
+   "value": 0.871,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2380,7 +2380,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.0%"
+   "note": "blended vertices 4.3%"
   },
   {
    "kind": "model",
@@ -2427,7 +2427,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.4087,
+   "value": 0.3295,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2436,7 +2436,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.2%"
+   "note": "blended vertices 9.0%"
   },
   {
    "kind": "model",
@@ -2483,7 +2483,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.9058,
+   "value": 1.0069,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2492,7 +2492,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 2.2%"
+   "note": "blended vertices 3.2%"
   },
   {
    "kind": "model",
@@ -2539,7 +2539,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.4138,
+   "value": 0.3704,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2548,7 +2548,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.9%"
+   "note": "blended vertices 6.5%"
   },
   {
    "kind": "model",
@@ -2595,7 +2595,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.632,
+   "value": 0.4254,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2604,7 +2604,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.1%"
+   "note": "blended vertices 5.9%"
   },
   {
    "kind": "model",
@@ -2651,7 +2651,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0745,
+   "value": 0.0509,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2660,7 +2660,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.3%"
+   "note": "blended vertices 6.4%"
   },
   {
    "kind": "model",
@@ -2707,7 +2707,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2447,
+   "value": 0.1953,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2716,7 +2716,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.7%"
+   "note": "blended vertices 7.2%"
   },
   {
    "kind": "model",
@@ -2763,7 +2763,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1187,
+   "value": 0.1117,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2772,7 +2772,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.4%"
+   "note": "blended vertices 10.7%"
   },
   {
    "kind": "model",
@@ -2875,7 +2875,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.602,
+   "value": 0.7687,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2884,7 +2884,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.2%"
+   "note": "blended vertices 0.3%"
   },
   {
    "kind": "model",
@@ -2931,7 +2931,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.3674,
+   "value": 0.8348,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2940,7 +2940,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.0%"
+   "note": "blended vertices 3.9%"
   },
   {
    "kind": "model",
@@ -2987,7 +2987,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1323,
+   "value": 0.1605,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2996,7 +2996,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.9%"
+   "note": "blended vertices 9.0%"
   },
   {
    "kind": "model",
@@ -3043,7 +3043,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1051,
+   "value": 0.1044,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3099,7 +3099,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3068,
+   "value": 0.2256,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3108,7 +3108,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 2.3%"
+   "note": "blended vertices 2.5%"
   },
   {
    "kind": "model",
@@ -3155,7 +3155,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0647,
+   "value": 0.0861,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3267,7 +3267,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0947,
+   "value": 0.0841,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3276,7 +3276,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 7.5%"
+   "note": "blended vertices 7.6%"
   },
   {
    "kind": "model",
@@ -3323,7 +3323,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1848,
+   "value": 0.1572,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3332,7 +3332,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.9%"
+   "note": "blended vertices 6.2%"
   },
   {
    "kind": "model",
@@ -3491,7 +3491,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3982,
+   "value": 0.4262,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3547,7 +3547,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1644,
+   "value": 0.2504,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3556,7 +3556,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.3%"
+   "note": "blended vertices 3.4%"
   },
   {
    "kind": "model",
@@ -3603,7 +3603,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1539,
+   "value": 0.1906,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3659,7 +3659,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1121,
+   "value": 0.1081,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3668,7 +3668,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.3%"
+   "note": "blended vertices 3.4%"
   },
   {
    "kind": "model",
@@ -3715,7 +3715,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0113,
+   "value": 0.0285,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3771,7 +3771,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0616,
+   "value": 0.0662,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3883,7 +3883,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0585,
+   "value": 0.0838,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3892,7 +3892,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 4.4%"
+   "note": "blended vertices 4.5%"
   },
   {
    "kind": "model",
@@ -4107,7 +4107,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2674,
+   "value": 0.2972,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4116,7 +4116,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 1.5%"
+   "note": "blended vertices 1.6%"
   },
   {
    "kind": "model",
@@ -4163,7 +4163,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3823,
+   "value": 0.3849,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4219,7 +4219,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0966,
+   "value": 0.1015,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4331,7 +4331,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.6736,
+   "value": 0.7067,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4499,7 +4499,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 6.3524,
+   "value": 2.3041,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4507,8 +4507,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 0.2%"
+   "passed": true,
+   "note": "blended vertices 0.7%"
   },
   {
    "kind": "model",
@@ -4611,7 +4611,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.8083,
+   "value": 1.8886,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4620,7 +4620,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.1%"
+   "note": "blended vertices 0.2%"
   },
   {
    "kind": "model",
@@ -4667,7 +4667,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.5927,
+   "value": 1.0211,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4676,7 +4676,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.9%"
+   "note": "blended vertices 1.2%"
   },
   {
    "kind": "model",
@@ -4723,7 +4723,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.5631,
+   "value": 0.2656,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4732,7 +4732,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.9%"
+   "note": "blended vertices 1.0%"
   },
   {
    "kind": "model",
@@ -4891,7 +4891,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0236,
+   "value": 0.0892,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5059,7 +5059,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 2.0119,
+   "value": 0.9709,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5068,7 +5068,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.6%"
+   "note": "blended vertices 0.8%"
   },
   {
    "kind": "model",
@@ -5115,7 +5115,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 4.1736,
+   "value": 0.8762,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5124,7 +5124,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.2%"
+   "note": "blended vertices 0.5%"
   },
   {
    "kind": "model",
@@ -5171,7 +5171,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 5.6742,
+   "value": 5.173,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5180,7 +5180,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": false,
-   "note": "blended vertices 0.2%"
+   "note": "blended vertices 0.4%"
   },
   {
    "kind": "model",
@@ -5227,7 +5227,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 4.7256,
+   "value": 5.0257,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5235,8 +5235,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": true,
-   "note": "blended vertices 0.3%"
+   "passed": false,
+   "note": "blended vertices 0.5%"
   },
   {
    "kind": "model",
@@ -5283,7 +5283,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.0411,
+   "value": 0.9824,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5292,7 +5292,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.9%"
+   "note": "blended vertices 1.1%"
   },
   {
    "kind": "model",
@@ -5339,7 +5339,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 7.2405,
+   "value": 2.8071,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5347,8 +5347,8 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 0.1%"
+   "passed": true,
+   "note": "blended vertices 0.3%"
   },
   {
    "kind": "model",
@@ -5395,7 +5395,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2328,
+   "value": 0.1119,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5451,7 +5451,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 4.4571,
+   "value": 1.3605,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5460,7 +5460,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.3%"
+   "note": "blended vertices 0.6%"
   },
   {
    "kind": "model",
@@ -5507,7 +5507,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.495,
+   "value": 0.1498,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5563,7 +5563,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 4.6623,
+   "value": 1.3718,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5572,7 +5572,7 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.2%"
+   "note": "blended vertices 0.4%"
   },
   {
    "kind": "model",

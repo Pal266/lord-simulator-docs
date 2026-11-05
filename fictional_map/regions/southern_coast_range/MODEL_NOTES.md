@@ -111,6 +111,8 @@ This file records every scientific decision, why it was made and what it rests o
 - **Lake shores.** The fine relief fades out within ~150 m of a lake (shores are smoothed by waves and shore ice), and
   hollows up to 2 m below the level within 100 m of a lake become shore flats 0.2 m above the water; otherwise the fine
   relief dug dry hollows below the water level right beside the lakes (ground no water body would cover).
+  Lake floors deepen gradually from the shore to at least 1.5 m below the water (before, the floor dropped 1.5 m in one
+  step at the edge of the 25 m lake cells, a small cliff along every shore).
 - **River water surfaces** never rise downstream: along each river the water surface is the closest non-rising profile
   to the valley floor (isotonic regression), so channels cut through small bumps instead of holding water uphill.
 - **Water bodies for Unreal (`export_water.py`).** Rivers are exported as splines on the water surface with width

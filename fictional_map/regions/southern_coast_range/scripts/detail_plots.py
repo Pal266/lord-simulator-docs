@@ -302,7 +302,6 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     slope100 = ndimage.map_coordinates(prep["slope_deg"], [fj, fi], order=1)
     tl = ndimage.map_coordinates(prep["treeline"], [fj, fi], order=1)
     lake_f = ndimage.map_coordinates(prep["lake"].astype(float), [fj, fi], order=1)
-    lake_lv = ndimage.map_coordinates(prep["lake_level"], [fj, fi], order=0)
     steep = np.clip((slope100 - 3.0) / 25.0, 0, 1)
     alpine = np.clip((base - tl) / 200.0, 0, 1)
     # continue the regional relief spectrum to smaller scales with the same self-affine law (beta ~ 2):
@@ -326,7 +325,7 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     # lake, shallow hollows below the level (up to SHORE_PIT_M deep: the scale of the fine relief) become flats just
     # above the water, like the wet shore flats of real lakes; deeper ground (e.g. below a moraine dam) is left as it is.
     shore = (sd < SHORE_M) & (sl_ > -9000) & (z < sl_ + SHORE_FLAT_M) & (z > sl_ - SHORE_PIT_M)
-    z = np.where(shore & ~((lake_f > 0.5) & (lake_lv > -9000)), sl_ + SHORE_FLAT_M, z)
+    z = np.where(shore & ~((lake_f > 0.5) & (sl_ > -9000)), sl_ + SHORE_FLAT_M, z)
     # rivers
     near = ndimage.map_coordinates(prep["river_near"].astype(float), [fj, fi], order=0) > 0.5
     riverbed = np.zeros(z.shape); wet = np.zeros(z.shape); gravel = np.zeros(z.shape)
@@ -353,9 +352,10 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
         gravel[qj, qi] = np.where(qq >= 3.0, smoothstep(hw - 3.0, hw, d) * (1 - smoothstep(hw + 0.3 * bar, hw + bar + 3.0, d)), 0.0)
         wet[qj, qi] = np.where(qq >= 20.0, smoothstep(hw, hw + 15.0, d) * (1 - smoothstep(hw + 150.0, hw + 230.0, d)), 0.0)  # inside river_near (250 m)
     # lakes
-    lk = (lake_f > 0.5) & (lake_lv > -9000)            # nearest regional cell must itself be lake
-    z = np.where(lk, np.minimum(z, lake_lv - 1.5), z)
-    # lakebed weight: under water, with a soft shoreline (the lake surface is lake_lv)
+    # lake floors: at least 1.5 m below the water, deepening gradually from the shore (no step at the 25 m cell edges)
+    lk = (lake_f > 0.5) & (sl_ > -9000)
+    z = np.where(lk, np.minimum(z, sl_ - 1.5 * smoothstep(0.5, 0.9, lake_f)), z)
+    # lakebed weight: under water, with a soft shoreline
     # (uses the nearest lake's level, defined everywhere near a lake, so the weight has no step at the 25 m cell edges)
     lakebed = np.where(sl_ > -9000, smoothstep(-0.5, 0.5, sl_ - z) * (1 - smoothstep(25.0, 50.0, sd)), 0.0)
     z = np.clip(z, -2559.9, 2559.9)

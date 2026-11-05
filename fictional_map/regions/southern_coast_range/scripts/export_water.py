@@ -21,6 +21,8 @@ import numpy as np
 from PIL import Image, ImageDraw
 from scipy import ndimage
 from skimage.measure import approximate_polygon, find_contours
+from shapely.geometry import Polygon, box
+from shapely.validation import make_valid
 from region_common import CFG, HALF_M, REGION_OUT
 import detail_plots as dp
 
@@ -31,11 +33,37 @@ WATER_BELOW_BANK_M = 0.3  # water surface below the spline-sampled valley floor,
 LAKE_MARGIN_CELLS = 1     # lake outline drawn one 25 m cell beyond the lake mask
 LAKE_SIMPLIFY_M = 3.0
 MIN_LAKE_M2 = 2 * 625.0   # smaller ponds are left out
+MIN_EDGE_M = 1.0          # lake outline edges at least this long ...
+MIN_TURN_AREA_M2 = 1.0    # ... and no vertex whose triangle with its neighbours is smaller (no collinear vertices)
 
 
 def to_local(x, y, col, row):
     x0 = -HALF_M + col * dp.TILE_M; y0 = HALF_M - row * dp.TILE_M
     return (x - x0) * 100.0, (y0 - y) * 100.0
+
+
+def clean_ring(xy, col, row):
+    """Lake outline in plot centimetres (rounded to 1 mm) with no duplicate, too-close or collinear vertices and no
+    self-intersection; None if nothing valid is left. Such vertices give zero-area triangles in Unreal's lake
+    collision ("Convex hull generation produced zero convex particles")."""
+    X, Y = to_local(xy[:, 0], xy[:, 1], col, row)
+    p = np.round(np.column_stack([X, Y]), 1)
+    changed = True
+    while changed and len(p) >= 3:
+        changed = False
+        a = p; b = np.roll(p, -1, 0); c = np.roll(p, -2, 0)
+        edge = np.hypot(*(b - a).T)
+        turn = 0.5 * np.abs((b - a)[:, 0] * (c - b)[:, 1] - (b - a)[:, 1] * (c - b)[:, 0])
+        bad = (edge < MIN_EDGE_M * 100.0) | (turn < MIN_TURN_AREA_M2 * 1e4)
+        if bad.any():
+            k = (int(np.argmax(bad)) + 1) % len(p)          # drop the middle vertex of the first bad corner
+            p = np.delete(p, k, axis=0); changed = True
+    if len(p) < 3:
+        return None
+    g = Polygon(p)
+    if not g.is_valid or g.area / 1e4 < MIN_LAKE_M2:
+        return None
+    return [[float(u), float(v)] for u, v in p]
 
 
 def simplify_line(p):
@@ -103,19 +131,24 @@ def main():
                 continue
             m = ndimage.binary_fill_holes(sub_lab == lid)
             m = ndimage.binary_dilation(m, iterations=LAKE_MARGIN_CELLS)
+            rect = box(xa, ya, xb, yb)
             for cont in find_contours(np.pad(m, 1).astype(float), 0.5):
-                cont = approximate_polygon(cont - 1, LAKE_SIMPLIFY_M / res)
                 if len(cont) < 4:
                     continue
-                xs = x0g + (cont[:, 1] + ia) * res; ys = y0g - (cont[:, 0] + ja) * res
-                xs = np.clip(xs, xa, xb); ys = np.clip(ys, ya, yb)        # outline closes along the plot edge
-                X, Y = to_local(xs, ys, c, r)
-                # outer outlines only (holes were filled); drop degenerate ones squeezed onto the plot edge
-                a2 = 0.5 * abs(np.dot(X, np.roll(Y, 1)) - np.dot(Y, np.roll(X, 1))) / 1e4
-                if a2 < MIN_LAKE_M2:
-                    continue
-                lakes.append(dict(id=f"lake_{lid:04d}", level_m=round(float(level[lid - 1]), 2),
-                                  area_m2=round(float(area[lid - 1])), outline_cm=[[round(float(u), 1), round(float(v), 1)] for u, v in zip(X[:-1], Y[:-1])]))
+                xs = x0g + (cont[:, 1] - 1 + ia) * res; ys = y0g - (cont[:, 0] - 1 + ja) * res
+                # clip to the extended plot as a polygon operation (clamping coordinates onto the edge left duplicate
+                # and collinear vertices, which Unreal turns into zero-area collision triangles)
+                poly = make_valid(Polygon(np.column_stack([xs, ys]))).intersection(rect)
+                parts = [g for g in getattr(poly, "geoms", [poly]) if g.geom_type == "Polygon"]
+                for g in parts:
+                    g = Polygon(g.exterior).simplify(LAKE_SIMPLIFY_M, preserve_topology=True)
+                    if g.is_empty or g.geom_type != "Polygon" or g.area < MIN_LAKE_M2:
+                        continue
+                    ring = clean_ring(np.array(g.exterior.coords)[:-1], c, r)
+                    if ring is None:
+                        continue
+                    lakes.append(dict(id=f"lake_{lid:04d}", level_m=round(float(level[lid - 1]), 2),
+                                      area_m2=round(float(area[lid - 1])), outline_cm=ring))
         name = f"tile_x{c}_y{r}"
         out = dict(plot=name, units="cm", frame="landscape origin = north-west corner vertex; X east, Y south, Z height above sea level",
                    landscape_scale=[CFG["unreal"]["scale_xy_cm"], CFG["unreal"]["scale_xy_cm"], CFG["unreal"]["scale_z"]],

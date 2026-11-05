@@ -14,6 +14,7 @@ from PIL import Image
 from scipy import ndimage
 from matplotlib.path import Path
 from scipy.spatial import cKDTree
+from shapely.geometry import Polygon as ShapelyPolygon
 from region_common import REGION_DIR, REGION_OUT
 import detail_plots as dp
 
@@ -35,7 +36,7 @@ def check(kind, name, value, ref, lo, hi, unit, src, note=""):
 SP = dp.SPACING * 100.0
 rises = steps = 0
 in_channel = []; depth_ratio = []; vel = []
-lake_wet_in = []; dry_cells = [0, 0]
+lake_wet_in = []; dry_cells = [0, 0]; geom_bad = 0; geom_n = 0
 from region_common import CFG
 for c_ in range(CFG["tiles"]["count_x"]):
     for r_ in range(CFG["tiles"]["count_y"]):
@@ -75,6 +76,11 @@ for c_ in range(CFG["tiles"]["count_x"]):
         # union of all lake outlines of the plot (a lake can be split into several outlines at the plot edge)
         cover = np.zeros(sub.shape, bool); parts = {}
         for lk in w["lakes"]:
+            # outline geometry: a simple polygon without duplicate, too-close or collinear vertices (those become
+            # zero-area triangles in Unreal's lake collision)
+            q = np.array(lk["outline_cm"]); a_ = q; b_ = np.roll(q, -1, 0); c2 = np.roll(q, -2, 0)
+            e_ = np.hypot(*(b_ - a_).T); t_ = 0.5 * np.abs((b_ - a_)[:, 0] * (c2 - b_)[:, 1] - (b_ - a_)[:, 1] * (c2 - b_)[:, 0])
+            geom_n += 1; geom_bad += int((e_ < 100.0).any() or (t_ < 1e4).any() or not ShapelyPolygon(q).is_valid)
             poly = np.array(lk["outline_cm"]) / (4 * SP)                 # in sub-grid cells (x = col, y = row)
             i0, j0 = np.maximum(np.floor(poly.min(0)).astype(int), 0)
             i1, j1 = np.minimum(np.ceil(poly.max(0)).astype(int) + 1, [sub.shape[1], sub.shape[0]])
@@ -119,6 +125,8 @@ check("physics", "Lakes cover their basins: median share of terrain below the la
 check("physics", "No dry hollows next to lakes: dry ground > 0.3 m below the lake level, connected to a lake, as share of lake area",
       100.0 * dry_cells[0] / max(dry_cells[1], 1), "~0", 0, 5.0, "%", "model")
 
+check("physics", "Lake outlines are simple polygons with no duplicate (< 1 m apart) or collinear vertices: lakes failing",
+      geom_bad, 0, 0, 0, "lakes", "model", f"{geom_n} outlines; degenerate vertices give zero-area collision triangles in Unreal")
 prep = np.load(dp.PREP)
 res = float(prep["res"]); n_ = prep["lake"].shape
 xs = float(prep["x0"]) + np.arange(n_[1]) * res; ys = float(prep["y0"]) - np.arange(n_[0]) * res

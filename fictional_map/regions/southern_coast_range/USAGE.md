@@ -54,7 +54,7 @@ fictional_map/
   pip install -r fictional_map/requirements.txt
   ```
 
-  This installs `numpy`, `scipy`, `pillow`, `numba`, `scikit-image` and `matplotlib`.
+  This installs `numpy`, `scipy`, `pillow`, `numba`, `scikit-image`, `matplotlib` and `shapely`.
 - **Disk space:** planet outputs ~50 MB; this region's outputs ~0.6 GB (`regional_model.npz`, `refined_25m.npz`, `eroded_25m.npz`, `detail_prep.npz`, not stored in Git). The exported plots
   take ~20 MB each (heightmap ~13 MB plus eight layer maps), ~2 GB for all 100, so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
@@ -271,13 +271,14 @@ python validate_water.py     # ~3 minutes; needs the exported heightmaps
 | Key | Content |
 |---|---|
 | `rivers[]` | `id`, `length_m`, `points_cm` (spline points on the water surface, ≤ 50 m apart), and per point `width_m` (5·Q^0.5), `depth_m` (Manning), `discharge_m3s`, `velocity_ms` (Q / (width · depth)) |
-| `lakes[]` | `id`, `level_m` (water level), `area_m2`, `outline_cm` (closed outline 25 m beyond the shoreline, closed along the plot edge where the lake continues into the next plot) |
+| `lakes[]` | `id`, `level_m` (water level), `area_m2`, `outline_cm` (closed outline 25 m beyond the shoreline, clipped to the plot (+30 m) where the lake continues into the next plot; always a simple polygon with no two vertices closer than 1 m and no collinear vertices) |
 
 Rivers and lakes continue 30 m beyond each plot edge, so the water joins without gaps when plots are shown side by side.
 
 `validate_water.py` writes `VALIDATION_WATER.md` and `output/validation_water.json` (exit code 1 on failure): water
 surfaces fall downstream, the splines run inside the carved channels, depths match the channels, flow velocities lie in
-the range of natural rivers, lakes fill their basins with no dry hollows beside them, lake share of the square.
+the range of natural rivers, lakes fill their basins with no dry hollows beside them, lake outlines are clean simple
+polygons (no duplicate or collinear vertices), lake share of the square.
 
 ## 9. Importing a plot into Unreal Engine 5.8.4
 
@@ -336,5 +337,6 @@ Height encoding of the heightmaps: `value = 32768 + height_m × 12.8` (16-bit). 
 | `validate.py` or `validate_region.py` reports FAIL | The result is not accepted. Do not use it; the model has to be fixed first. |
 | `validate_region.py` says `region_context.json` is missing | Run `extract_region.py` first. |
 | `ue_import_water.py`: `AttributeError: module 'unreal' has no attribute 'WaterBodyRiver'` | The Water plugin is not enabled (section 9a, step 1). |
+| Cooking logs `Convex hull generation produced zero convex particles` / `LakeCollisionComponent ... has no Geometry` | Lake outlines from `export_water.py` before 2026-11-05 had duplicate and collinear vertices where lakes were cut at a plot edge; Unreal turned them into zero-area collision triangles. Re-run `export_water.py` and `validate_water.py`, then re-import the water. |
 | Water bodies are invisible in Unreal | They render only inside a WaterZone; check that the WaterZone of the plot exists and covers the plot. |
 | `No suitable font found for map labels` | Labels need DejaVu Sans or Arial (Cyrillic). Windows and macOS have Arial; on Linux install DejaVu (`fonts-dejavu`). The lookup is in `fictional_map/scripts/fonts.py`. |

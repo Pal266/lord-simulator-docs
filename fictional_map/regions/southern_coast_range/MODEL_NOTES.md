@@ -117,6 +117,11 @@ This file records every scientific decision, why it was made and what it rests o
   to the valley floor (isotonic regression), so channels cut through small bumps instead of holding water uphill.
 - **Water bodies for Unreal (`export_water.py`).** Rivers are exported as splines on the water surface with width
   5·Q^0.5, Manning depth and mean velocity Q/(w·d); lakes as outlines at their spill level, 25 m beyond the shoreline.
+- **Lake outlines for Unreal.** Where a lake continues into the next plot, its outline is clipped to the plot (+30 m) as
+  a polygon intersection, then cleaned: no vertices closer than 1 m, none whose triangle with its neighbours is under
+  1 m² (collinear), always a valid simple polygon. The first version clamped the coordinates onto the plot edge instead,
+  which left duplicate and collinear vertices in 673 of 4 004 outlines; Unreal's lake collision turned them into
+  zero-area triangles and logged "Convex hull generation produced zero convex particles" while cooking.
 - **Plots:** 10 × 10 plots of 10 × 10 km (4033 × 4033 vertices, 2.48 m apart). The plot size changes only how the
   terrain is cut: every value is computed from world coordinates, so the terrain is the same for any plot grid.
 - **Seams:** every vertex is computed from world coordinates only; neighbouring plots share identical edge vertices.

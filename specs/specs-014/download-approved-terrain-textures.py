@@ -75,9 +75,20 @@ def main():
             if not authors: raise RuntimeError("Author metadata missing: " + asset_id)
             row = {"layer": layer, "id": asset_id, "authors": authors, "files": []}
             for channel, (name, ext, fmt) in MAPS.items():
-                try: url = files[name]["2k"][ext]["url"]
-                except (KeyError, TypeError):
-                    raise RuntimeError(f"Missing exact 2K {name}/{ext} for {asset_id}")
+                filename_upstream = f"{asset_id}_{name}_2k.{ext}"
+                candidates = []
+                def scan(obj):
+                    if isinstance(obj, dict):
+                        for v in obj.values(): scan(v)
+                    elif isinstance(obj, list):
+                        for v in obj: scan(v)
+                    elif isinstance(obj, str):
+                        if obj.startswith("https://dl.polyhaven.org/") and obj.split("?")[0].endswith("/" + filename_upstream):
+                            candidates.append(obj)
+                scan(files)
+                if len(candidates) != 1:
+                    raise RuntimeError(f"Expected exactly one 2K source URL for {filename_upstream}; got {len(candidates)}. API top-level keys: {list(files)}")
+                url = candidates[0]
                 if not url.startswith("https://dl.polyhaven.org/"):
                     raise RuntimeError("Unexpected URL " + url)
                 payload = get(url)

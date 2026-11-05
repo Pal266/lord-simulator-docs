@@ -249,7 +249,8 @@ and `output/previews/preview_tile_x{c}_y{r}.png` (505 × 505 shaded preview colo
 `--tiles all` (or with `--mosaic`) all previews are combined into `output/plots_mosaic.jpg`.
 
 `validate_plots.py` writes `VALIDATION_PLOTS.md` and `output/validation_plots.json` and exits with code 1 if a check fails:
-shared edges identical (seams, heights and layer weights), roughness spectrum close to Earth's (~k⁻²), plots faithful to
+shared edges identical (seams, heights and layer weights), roughness spectrum close to Earth's (~k⁻², measured on 100 km
+transects joined across each plot row), plots faithful to
 the 25 m base, heights within the Unreal range, layer weights adding up to 255 everywhere with soft transitions.
 
 ## 8a. Region step 3 — `export_water.py`, `validate_water.py`

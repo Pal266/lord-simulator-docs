@@ -356,7 +356,8 @@ def build_tile(col, row, prep, step=1, out_dir=None, window=None):
     lk = (lake_f > 0.5) & (lake_lv > -9000)            # nearest regional cell must itself be lake
     z = np.where(lk, np.minimum(z, lake_lv - 1.5), z)
     # lakebed weight: under water, with a soft shoreline (the lake surface is lake_lv)
-    lakebed = np.where(lake_lv > -9000, smoothstep(-0.5, 0.5, lake_lv - z) * smoothstep(0.3, 0.6, lake_f), 0.0)
+    # (uses the nearest lake's level, defined everywhere near a lake, so the weight has no step at the 25 m cell edges)
+    lakebed = np.where(sl_ > -9000, smoothstep(-0.5, 0.5, sl_ - z) * (1 - smoothstep(25.0, 50.0, sd)), 0.0)
     z = np.clip(z, -2559.9, 2559.9)
     # layers
     gy, gx = np.gradient(ndimage.uniform_filter(z, 3) if step == 1 else z, SPACING * step)

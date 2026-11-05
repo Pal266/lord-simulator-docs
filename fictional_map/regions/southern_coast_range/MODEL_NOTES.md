@@ -82,8 +82,10 @@ This file records every scientific decision, why it was made and what it rests o
   does not: landscapes have characteristic spatial scales and non-fractal structure there (Perron, Kirchner & Dietrich 2008).
   The first version checked 100 m – 2 km; the eastern plain plots failed it (exponent 2.9–3.4), and further tuning only
   traded one band against another, i.e. it was fitting a number that has no single Earth value at those scales. The check
-  now uses 500 m – 10 km, where the fractal description applies (with 10 km plots: 500 m – 5 km, since a plot
-  resolves waves only up to about half its width); the 100 m – 2 km exponents are still reported in
+  now uses 500 m – 10 km, where the fractal description applies (with 10 km plots the check runs on 100 km
+  transects joined across each plot row: a single 10 km plot resolves too few long waves, and its exponent swung between
+  1.5 and 3.2 from one plot to the next although the terrain was unchanged; the spectrum is a property of the landscape,
+  not of how it is cut into plots); the 100 m – 2 km exponents are still reported in
   VALIDATION_PLOTS.md. Honest reading: the plain is gently rolling (local relief ~25 m per km, median slope ~1.6°) and
   smoother at hillslope scale than the mountains.
 - **Rivers:** courses from the 25 m drainage network (≥ 1 m³/s), smoothed and snapped to the lowest line of the valley floor;

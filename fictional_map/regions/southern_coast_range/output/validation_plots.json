@@ -1,6 +1,6 @@
 {
- "passed": 834,
- "total": 860,
+ "passed": 767,
+ "total": 770,
  "checks": [
   {
    "kind": "layers",
@@ -29,20 +29,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 56.4%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x0_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6521,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -101,20 +87,6 @@
    "note": "blended vertices 45.6%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x0_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4452,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
    "value": -0.6659,
@@ -169,20 +141,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 28.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x0_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6428,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -241,20 +199,6 @@
    "note": "blended vertices 18.5%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x0_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6693,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
    "value": -0.0997,
@@ -309,20 +253,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 16.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x0_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1761,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -381,20 +311,6 @@
    "note": "blended vertices 9.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x0_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4237,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x0_y5: mean difference from the base model (outside lakes)",
    "value": -0.3923,
@@ -449,20 +365,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 8.9%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x0_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3139,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -521,20 +423,6 @@
    "note": "blended vertices 8.7%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x0_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5928,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x0_y7: mean difference from the base model (outside lakes)",
    "value": -0.0019,
@@ -589,20 +477,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 7.7%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x0_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4686,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -661,20 +535,6 @@
    "note": "blended vertices 5.0%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x0_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4941,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x0_y9: mean difference from the base model (outside lakes)",
    "value": -0.1747,
@@ -729,20 +589,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 12.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x1_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 3.1176,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -801,20 +647,6 @@
    "note": "blended vertices 29.1%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x1_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4713,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
    "value": -0.295,
@@ -869,20 +701,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 42.6%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x1_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3759,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -941,20 +759,6 @@
    "note": "blended vertices 49.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x1_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3642,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
    "value": -0.605,
@@ -1009,20 +813,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 28.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x1_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2664,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1081,20 +871,6 @@
    "note": "blended vertices 20.9%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x1_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3855,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x1_y5: mean difference from the base model (outside lakes)",
    "value": -0.4651,
@@ -1149,20 +925,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 12.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x1_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4937,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1221,20 +983,6 @@
    "note": "blended vertices 10.4%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x1_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6466,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x1_y7: mean difference from the base model (outside lakes)",
    "value": 0.0893,
@@ -1289,20 +1037,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 4.6%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x1_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.7085,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1361,20 +1095,6 @@
    "note": "blended vertices 10.8%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x1_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3447,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x1_y9: mean difference from the base model (outside lakes)",
    "value": -0.0204,
@@ -1429,20 +1149,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 1.5%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x2_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.5714,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1501,20 +1207,6 @@
    "note": "blended vertices 6.1%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x2_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3137,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x2_y1: mean difference from the base model (outside lakes)",
    "value": -0.1088,
@@ -1569,20 +1261,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 10.5%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x2_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4459,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1641,20 +1319,6 @@
    "note": "blended vertices 18.5%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x2_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2614,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x2_y3: mean difference from the base model (outside lakes)",
    "value": -0.9924,
@@ -1709,20 +1373,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 29.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x2_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2554,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1781,20 +1431,6 @@
    "note": "blended vertices 55.0%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x2_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5429,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x2_y5: mean difference from the base model (outside lakes)",
    "value": -0.3538,
@@ -1849,20 +1485,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 33.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x2_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3083,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -1921,20 +1543,6 @@
    "note": "blended vertices 18.1%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x2_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.723,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x2_y7: mean difference from the base model (outside lakes)",
    "value": -0.8344,
@@ -1989,20 +1597,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 15.5%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x2_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.7517,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2061,20 +1655,6 @@
    "note": "blended vertices 10.9%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x2_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2368,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x2_y9: mean difference from the base model (outside lakes)",
    "value": -0.6092,
@@ -2129,20 +1709,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 1.6%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x3_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4832,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2201,20 +1767,6 @@
    "note": "blended vertices 0.1%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x3_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.7177,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x3_y1: mean difference from the base model (outside lakes)",
    "value": 0.0267,
@@ -2269,20 +1821,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 5.9%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x3_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5691,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2341,20 +1879,6 @@
    "note": "blended vertices 4.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x3_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5412,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
    "value": -0.3591,
@@ -2409,20 +1933,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 8.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x3_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6789,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2481,20 +1991,6 @@
    "note": "blended vertices 10.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x3_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3267,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x3_y5: mean difference from the base model (outside lakes)",
    "value": -0.5494,
@@ -2549,20 +2045,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 31.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x3_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.518,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2621,20 +2103,6 @@
    "note": "blended vertices 47.4%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x3_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.787,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x3_y7: mean difference from the base model (outside lakes)",
    "value": -0.6892,
@@ -2689,20 +2157,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 61.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x3_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6904,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2761,20 +2215,6 @@
    "note": "blended vertices 46.0%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x3_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5079,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x3_y9: mean difference from the base model (outside lakes)",
    "value": -0.7635,
@@ -2829,20 +2269,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x4_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.6898,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -2901,20 +2327,6 @@
    "note": "blended vertices 0.6%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x4_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2511,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x4_y1: mean difference from the base model (outside lakes)",
    "value": -0.0466,
@@ -2969,20 +2381,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 3.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x4_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.9173,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3041,20 +2439,6 @@
    "note": "blended vertices 8.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x4_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1808,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x4_y3: mean difference from the base model (outside lakes)",
    "value": -0.3366,
@@ -3109,20 +2493,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 2.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x4_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.159,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3181,20 +2551,6 @@
    "note": "blended vertices 5.9%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x4_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 3.17,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x4_y5: mean difference from the base model (outside lakes)",
    "value": -0.2678,
@@ -3249,20 +2605,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 5.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x4_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.19,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3321,20 +2663,6 @@
    "note": "blended vertices 6.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x4_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3055,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x4_y7: mean difference from the base model (outside lakes)",
    "value": -0.0555,
@@ -3389,20 +2717,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 6.7%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x4_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5316,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3461,20 +2775,6 @@
    "note": "blended vertices 10.4%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x4_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2356,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x4_y9: mean difference from the base model (outside lakes)",
    "value": -0.4194,
@@ -3529,20 +2829,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x5_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.62,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3601,20 +2887,6 @@
    "note": "blended vertices 0.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x5_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1288,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x5_y1: mean difference from the base model (outside lakes)",
    "value": -0.0486,
@@ -3669,20 +2941,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 3.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x5_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.0978,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3741,20 +2999,6 @@
    "note": "blended vertices 8.9%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x5_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.5264,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x5_y3: mean difference from the base model (outside lakes)",
    "value": -0.1273,
@@ -3809,20 +3053,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 4.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x5_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3882,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -3881,20 +3111,6 @@
    "note": "blended vertices 2.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x5_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.0544,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x5_y5: mean difference from the base model (outside lakes)",
    "value": -0.0628,
@@ -3949,20 +3165,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 7.8%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x5_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6421,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4021,20 +3223,6 @@
    "note": "blended vertices 1.5%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x5_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2621,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x5_y7: mean difference from the base model (outside lakes)",
    "value": 0.0547,
@@ -4089,20 +3277,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 7.5%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x5_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6567,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4161,20 +3335,6 @@
    "note": "blended vertices 5.9%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x5_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.8927,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x5_y9: mean difference from the base model (outside lakes)",
    "value": -0.0925,
@@ -4229,20 +3389,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x6_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3622,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4301,20 +3447,6 @@
    "note": "blended vertices 0.1%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x6_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.6303,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x6_y1: mean difference from the base model (outside lakes)",
    "value": -0.0024,
@@ -4369,20 +3501,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 1.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x6_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4664,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4441,20 +3559,6 @@
    "note": "blended vertices 3.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x6_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.0592,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x6_y3: mean difference from the base model (outside lakes)",
    "value": -0.0923,
@@ -4509,20 +3613,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 4.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x6_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.8741,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4581,20 +3671,6 @@
    "note": "blended vertices 3.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x6_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2651,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x6_y5: mean difference from the base model (outside lakes)",
    "value": -0.1107,
@@ -4649,20 +3725,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 1.7%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x6_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.5789,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4721,20 +3783,6 @@
    "note": "blended vertices 2.8%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x6_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2951,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x6_y7: mean difference from the base model (outside lakes)",
    "value": -0.0532,
@@ -4789,20 +3837,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 4.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x6_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.0601,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -4861,20 +3895,6 @@
    "note": "blended vertices 4.4%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x6_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.6308,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x6_y9: mean difference from the base model (outside lakes)",
    "value": 0.0144,
@@ -4929,20 +3949,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x7_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.5002,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5001,20 +4007,6 @@
    "note": "blended vertices 0.5%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x7_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.8212,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x7_y1: mean difference from the base model (outside lakes)",
    "value": -0.0106,
@@ -5069,20 +4061,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x7_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.9389,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5141,20 +4119,6 @@
    "note": "blended vertices 1.5%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x7_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.9853,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x7_y3: mean difference from the base model (outside lakes)",
    "value": -0.0594,
@@ -5209,20 +4173,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 1.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x7_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3472,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5281,20 +4231,6 @@
    "note": "blended vertices 1.0%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x7_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.651,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x7_y5: mean difference from the base model (outside lakes)",
    "value": -0.0184,
@@ -5349,20 +4285,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x7_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.6725,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5421,20 +4343,6 @@
    "note": "blended vertices 0.4%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x7_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2384,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x7_y7: mean difference from the base model (outside lakes)",
    "value": -0.0307,
@@ -5489,20 +4397,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 1.0%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x7_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1707,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5561,20 +4455,6 @@
    "note": "blended vertices 0.8%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x7_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.9657,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x7_y9: mean difference from the base model (outside lakes)",
    "value": -0.0117,
@@ -5629,20 +4509,6 @@
    "source": "ue_layers",
    "passed": false,
    "note": "blended vertices 0.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x8_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.6901,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5701,20 +4567,6 @@
    "note": "blended vertices 0.7%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x8_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1281,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x8_y1: mean difference from the base model (outside lakes)",
    "value": -0.0059,
@@ -5769,20 +4621,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.1%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x8_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.5288,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5841,20 +4679,6 @@
    "note": "blended vertices 0.9%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x8_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.4742,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x8_y3: mean difference from the base model (outside lakes)",
    "value": -0.1076,
@@ -5909,20 +4733,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.9%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x8_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3944,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -5981,20 +4791,6 @@
    "note": "blended vertices 0.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x8_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.0486,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x8_y5: mean difference from the base model (outside lakes)",
    "value": 0.022,
@@ -6049,20 +4845,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.4%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x8_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.9239,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6121,20 +4903,6 @@
    "note": "blended vertices 0.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x8_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.8043,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x8_y7: mean difference from the base model (outside lakes)",
    "value": -0.0134,
@@ -6189,20 +4957,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x8_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.8463,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6261,20 +5015,6 @@
    "note": "blended vertices 1.0%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x8_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1895,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x8_y9: mean difference from the base model (outside lakes)",
    "value": -0.0047,
@@ -6329,20 +5069,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.6%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x9_y0: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.1323,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6401,20 +5127,6 @@
    "note": "blended vertices 0.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x9_y1: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.7486,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x9_y1: mean difference from the base model (outside lakes)",
    "value": -0.0495,
@@ -6469,20 +5181,6 @@
    "source": "ue_layers",
    "passed": false,
    "note": "blended vertices 0.2%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x9_y2: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.3374,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6541,20 +5239,6 @@
    "note": "blended vertices 0.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x9_y3: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.9637,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x9_y3: mean difference from the base model (outside lakes)",
    "value": -0.1099,
@@ -6609,20 +5293,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.9%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x9_y4: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 2.2532,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6681,20 +5351,6 @@
    "note": "blended vertices 0.1%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x9_y5: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.3552,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x9_y5: mean difference from the base model (outside lakes)",
    "value": -0.0411,
@@ -6749,20 +5405,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.8%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x9_y6: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.6986,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6821,20 +5463,6 @@
    "note": "blended vertices 0.3%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x9_y7: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.9322,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x9_y7: mean difference from the base model (outside lakes)",
    "value": -0.0484,
@@ -6889,20 +5517,6 @@
    "source": "ue_layers",
    "passed": true,
    "note": "blended vertices 0.3%"
-  },
-  {
-   "kind": "Earth data",
-   "name": "tile_x9_y8: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.6758,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": true,
-   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "model",
@@ -6961,20 +5575,6 @@
    "note": "blended vertices 0.2%"
   },
   {
-   "kind": "Earth data",
-   "name": "tile_x9_y9: spectral exponent beta of height transects (500 m - 5 km)",
-   "value": 1.4197,
-   "reference": "~2 (1.8-2.1 reported)",
-   "band": [
-    1.6,
-    2.6
-   ],
-   "unit": "",
-   "source": "spectrum",
-   "passed": false,
-   "note": "landscape scale, where topography behaves as a fractal"
-  },
-  {
    "kind": "model",
    "name": "tile_x9_y9: mean difference from the base model (outside lakes)",
    "value": -0.027,
@@ -7001,6 +5601,146 @@
    "source": "ue",
    "passed": true,
    "note": ""
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y0: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.015,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y1: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 1.9441,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y2: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.3353,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y3: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.2311,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y4: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.2163,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y5: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.423,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y6: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.3688,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y7: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.2702,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y8: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.3345,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
+  },
+  {
+   "kind": "Earth data",
+   "name": "plot row y9: spectral exponent beta of 100 km height transects (500 m - 10 km)",
+   "value": 2.1829,
+   "reference": "~2 (1.8-2.1 reported)",
+   "band": [
+    1.6,
+    2.6
+   ],
+   "unit": "",
+   "source": "spectrum",
+   "passed": true,
+   "note": "landscape scale, where topography behaves as a fractal"
   },
   {
    "kind": "seams",

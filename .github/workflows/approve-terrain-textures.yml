@@ -41,3 +41,5 @@ jobs:
           git rm .github/workflows/approve-terrain-textures.yml
           git commit -m 'Import user-approved Poly Haven CC0 terrain originals and provenance'
           git push origin HEAD:feature/spec-014-terrain-textures-approved
+
+# Exact source URL discovery for Poly Haven file API.

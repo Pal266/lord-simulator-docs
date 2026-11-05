@@ -194,7 +194,7 @@ python refine_25m.py --reuse-erosion          # ~1.5 minutes: keep the erosion s
 python validate_landforms.py                  # seconds: cirque and outwash checks
 python detail_plots.py --tiles x2_y1 --preview  # seconds: 1/8-resolution preview of one plot
 python detail_plots.py --tiles x1_y1 x2_y1      # selected plots, full resolution (~1 minute each)
-python detail_plots.py --tiles all              # all 100 plots (~1.5 s per km2: ~85 s per plot, ~2.5 hours, ~2 GB on disk)
+python detail_plots.py --tiles all              # all 100 plots (~25 s per plot, ~45 minutes, ~2 GB on disk)
 python validate_plots.py                        # checks every plot present in export/
 ```
 

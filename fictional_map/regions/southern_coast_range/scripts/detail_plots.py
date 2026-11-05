@@ -19,7 +19,7 @@ Every value depends only on world coordinates, never on the plot, so neighbourin
 vertices: the plots join without steps.
 
 Usage:
-  python detail_plots.py --tiles all                 # all 100 plots (~40 s each), then the mosaic
+  python detail_plots.py --tiles all                 # all 100 plots (~25 s each), then the mosaic
   python detail_plots.py --mosaic                    # only rebuild ../output/plots_mosaic.jpg from the previews
   python detail_plots.py --tiles x2_y1 x3_y1         # selected plots
   python detail_plots.py --tiles x2_y1 --preview     # quick 1/8-resolution preview only (seconds)

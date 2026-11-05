@@ -84,9 +84,10 @@ for t, (c, r) in have.items():
     xs_ = np.arange(rows.shape[1])
     rows2 = z[::256, :] - np.array([np.polyval(np.polyfit(xs_, r, 1), xs_) for r in z[::256, :]])
     ps = np.mean(np.abs(np.fft.rfft(rows2 * win, axis=1)) ** 2, axis=0)
-    band = (k > 1 / 10000.0) & (k < 1 / 500.0)
+    kmax_wl = min(10000.0, dp.TILE_M / 2)                    # at most half the plot: longer waves are not resolved
+    band = (k > 1 / kmax_wl) & (k < 1 / 500.0)
     beta = -np.polyfit(np.log(k[band]), np.log(ps[band]), 1)[0]
-    check("Earth data", f"{t}: spectral exponent beta of height transects (500 m - 10 km)", beta, "~2 (1.8-2.1 reported)",
+    check("Earth data", f"{t}: spectral exponent beta of height transects (500 m - {kmax_wl / 1000:g} km)", beta, "~2 (1.8-2.1 reported)",
           1.6, 2.6, "", "spectrum", "landscape scale, where topography behaves as a fractal")
     hb = (k > 1 / 2000.0) & (k < 1 / 100.0)
     INFO.append((t, round(float(-np.polyfit(np.log(k[hb]), np.log(ps[hb]), 1)[0]), 2)))

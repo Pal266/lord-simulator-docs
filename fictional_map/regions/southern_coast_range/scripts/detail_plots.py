@@ -1,7 +1,7 @@
 """
 Region step 2: detail every 25 x 25 km plot to ~3 m and export it for Unreal Engine.
 
-For every vertex of a plot (8129 x 8129, spacing 25000/8128 m):
+For every vertex of a plot (4033 x 4033 for 10 x 10 km, spacing 10000/4032 = 2.48 m; set in region.json):
   1. Regional surface: cubic-spline interpolation of the 100 m regional model.
   2. Sub-100 m relief: self-affine fractal detail with Hurst exponent H = 0.5 (power spectrum ~ k^-2 along
      transects, as measured for Earth's topography), with an amplitude that depends on the terrain:
@@ -19,10 +19,12 @@ Every value depends only on world coordinates, never on the plot, so neighbourin
 vertices: the plots join without steps.
 
 Usage:
-  python detail_plots.py --tiles all                 # all 16 plots (~5 min each)
+  python detail_plots.py --tiles all                 # all 100 plots (~40 s each), then the mosaic
+  python detail_plots.py --mosaic                    # only rebuild ../output/plots_mosaic.jpg from the previews
   python detail_plots.py --tiles x2_y1 x3_y1         # selected plots
   python detail_plots.py --tiles x2_y1 --preview     # quick 1/8-resolution preview only (seconds)
-Outputs: ../export/tile_x{c}_y{r}/ (heightmap.png, layer_*.png, tile.json) and ../output/preview_tile_*.png
+Outputs: ../export/tile_x{c}_y{r}/ (heightmap.png, layer_*.png, tile.json), ../output/previews/preview_tile_*.png
+(not in Git) and ../output/plots_mosaic.jpg
 """
 import argparse, json, math, os, sys
 import numpy as np
@@ -80,6 +82,9 @@ def to_weights255(wf):
 
 EXPORT = os.path.join(REGION_DIR, "export")
 PREP = os.path.join(REGION_OUT, "detail_prep.npz")
+PREVIEWS = os.path.join(REGION_OUT, "previews")
+MOSAIC = os.path.join(REGION_OUT, "plots_mosaic.jpg")
+MOSAIC_PX = 1600
 
 
 # ---------------- seamless value-noise fBm on world coordinates ----------------
@@ -431,6 +436,20 @@ def preview(z, layer, path, step):
     img.save(path, optimize=True)
 
 
+def mosaic():
+    """All plot previews side by side (MOSAIC_PX wide), north up."""
+    nx, ny = CFG["tiles"]["count_x"], CFG["tiles"]["count_y"]
+    t = MOSAIC_PX // nx
+    img = Image.new("RGB", (t * nx, t * ny), (255, 255, 255))
+    for r in range(ny):
+        for c in range(nx):
+            p = os.path.join(PREVIEWS, f"preview_tile_x{c}_y{r}.png")
+            if os.path.exists(p):
+                img.paste(Image.open(p).convert("RGB").resize((t, t), Image.LANCZOS), (c * t, r * t))
+    img.save(MOSAIC, quality=88)
+    return MOSAIC
+
+
 def parse_tiles(arg):
     if arg == ["all"]:
         return [(c, r) for r in range(CFG["tiles"]["count_y"]) for c in range(CFG["tiles"]["count_x"])]
@@ -447,7 +466,10 @@ if __name__ == "__main__":
     ap.add_argument("--tiles", nargs="+", default=["all"], help="'all' or names like x2_y1 (tile_x2_y1 also works)")
     ap.add_argument("--preview", action="store_true", help="only a 1/8-resolution preview image, no export")
     ap.add_argument("--reprep", action="store_true", help="rebuild the river / lake / treeline preparation file")
+    ap.add_argument("--mosaic", action="store_true", help="only rebuild the mosaic of all plot previews")
     args = ap.parse_args()
+    if args.mosaic:
+        print(mosaic()); sys.exit(0)
     if args.reprep or not os.path.exists(PREP):
         print("preparing rivers, lakes and treeline ...", prepare())
     prep = dict(np.load(PREP))
@@ -457,5 +479,8 @@ if __name__ == "__main__":
             z, layer, st = build_tile(col, row, prep, step=8)
         else:
             z, layer, st = export_tile(col, row, prep, os.path.join(EXPORT, name))
-        preview(z, layer, os.path.join(REGION_OUT, f"preview_{name}.png"), 8)
+        os.makedirs(PREVIEWS, exist_ok=True)
+        preview(z, layer, os.path.join(PREVIEWS, f"preview_{name}.png"), 8)
         print(json.dumps(st))
+    if args.tiles == ["all"]:
+        print(mosaic())

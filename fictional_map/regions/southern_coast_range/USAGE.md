@@ -55,8 +55,8 @@ fictional_map/
   ```
 
   This installs `numpy`, `scipy`, `pillow`, `numba`, `scikit-image` and `matplotlib`.
-- **Disk space:** planet outputs ~50 MB; this region's outputs ~0.6 GB (`regional_model.npz`, `refined_25m.npz`, `detail_prep.npz`, not stored in Git); the 16 exported plots ~0.6 GB more. The final Unreal heightmaps will take about
-  130 MB per plot (about 2 GB for all 16), so they are generated on your machine and are **not** stored in Git.
+- **Disk space:** planet outputs ~50 MB; this region's outputs ~0.6 GB (`regional_model.npz`, `refined_25m.npz`, `eroded_25m.npz`, `detail_prep.npz`, not stored in Git). The exported plots
+  take ~20 MB each (heightmap ~13 MB plus eight layer maps), ~2 GB for all 100, so they are generated on your machine and are **not** stored in Git.
 - **Memory:** 4 GB of free RAM is enough for everything that exists today.
 
 All commands below are run from the folder that contains the script (`cd` into it first).
@@ -99,8 +99,8 @@ Run once, in this order, from `fictional_map/scripts/`:
 |---|---|---|
 | `centre_lat_deg`, `centre_lon_deg` | Centre of the 100 × 100 km square on the planet | Yes — moves the whole map. Re-run all region scripts. |
 | `size_km` | Side of the square | Only together with `tiles` (count × size must equal it). |
-| `tiles.count_x/count_y`, `tiles.size_km` | Plot grid: 4 × 4 plots of 25 km | Yes, but keep plots square. |
-| `tiles.vertices` | Vertices per plot side (8129 = largest size recommended by Epic) | Use a recommended size: 8129, 4033, 2017, 1009. |
+| `tiles.count_x/count_y`, `tiles.size_km` | Plot grid: 10 × 10 plots of 10 km | Yes, but keep plots square and count × size = `size_km`. Re-run `detail_plots.py`, `export_water.py` and the checks. |
+| `tiles.vertices` | Vertices per plot side (4033 here: 2.48 m spacing for 10 km plots) | Use a size recommended by Epic: 8129, 4033, 2017, 1009. |
 | `unreal.scale_xy_cm` | Distance between vertices in Unreal = plot size / (vertices − 1) | Recalculate if you change size or vertices. |
 | `unreal.scale_z` | Unreal Z scale; **1000** here, giving −2560 … +2560 m (the mountains reach ~2 km) | Raise only if the relief leaves that range. |
 | `model_resolution_m` | Grid of the regional process model (100 m) | Yes; smaller is slower. |
@@ -109,7 +109,8 @@ Coordinates inside the region: **x = east, y = north, in metres, (0, 0) = centre
 The square spans x and y from −50 000 to +50 000 m.
 
 Plot names: **`tile_x{col}_y{row}`**, column 0 = west, row 0 = north. Plot `tile_x2_y1` spans
-x = 0 … 25 000 m and y = 0 … 25 000 m.
+x = −30 000 … −20 000 m and y = 30 000 … 40 000 m (plot `tile_x{c}_y{r}` spans x = −50 000 + 10 000·c … +10 000 m,
+y = 50 000 − 10 000·r … −10 000 m).
 
 ## 6. Region step 0 — `extract_region.py`
 
@@ -130,7 +131,7 @@ python extract_region.py --res 250  # finer sampling (only smoother interpolatio
 | `region_context.npz` | Planet fields sampled over the square: `x_m`, `y_m`, `lat`, `lon`, `elevation_m`, `temp_jan_c`, `temp_jul_c`, `precip_annual_mm`, `biome`, `koppen`, `land` |
 | `region_context.json` | Summary: lat/lon range, land share, elevation range, shares of mountains / foothills / plain, climate, Köppen and biome shares, the largest river (discharge in the square and at its mouth, whether it reaches the sea), the x/y range of every plot |
 | `river_coarse.json` | Coarse course of the square's largest river from its source to its mouth (one point per planet cell) with discharge, and `reaches_sea` |
-| `region_overview.png` | Left: the region on the planet (800 × 800 km). Right: the region with the 16 plots and the river (it continues ~18 km east of the square to the sea) |
+| `region_overview.png` | Left: the region on the planet (800 × 800 km). Right: the region with its plot grid and the river (it continues ~18 km east of the square to the sea) |
 
 **How to read the result:** the planet grid is about 28 km × 19 km at this latitude, so the region is covered by only
 a few dozen planet cells. `region_context` is the large-scale frame (where the coast is, how high the land is, what the
@@ -173,7 +174,7 @@ which compares the result with `output/region_context.json`.
 |---|---|
 | `regional_model.npz` (not stored in Git — tens of MB; run the script to create it) | 100 m grids over the domain: `x_m`, `y_m` (axes), `elevation_m` (final), `elevation_fluvial_m` (before the ice ages), masks `sea`, `lake`, `rivers`, `ice_lgm`, `ice_now`, `trough_axis`, `cirque`, `moraine`; fields `discharge_m3s`, `trough_halfwidth_m`, `ela_now_m`, `ela_lgm_m`, `terminus_lgm_m`, `summer_temp_c`, `winter_temp_c`, `precip_mm` |
 | `regional_model.json` | Key numbers: LGM cooling and ELAs, glacier count and extent, square statistics (heights, shares of mountains/foothills/plain, lakes, slopes, largest river) |
-| `regional_relief.png` | Shaded relief of the 100 km square with lakes, rivers and the 16 plots |
+| `regional_relief.png` | Shaded relief of the 100 km square with lakes, rivers and the plot grid (drawn with the grid of the run that made it) |
 | `regional_landforms.png` | Landform map: LGM ice extent (light blue), trough axes, cirques, moraines (brown), lakes and rivers |
 
 `validate_region.py` writes `VALIDATION.md` (in this folder) and `output/validation_region.json`, and exits with code 1
@@ -184,7 +185,7 @@ record the reason in `MODEL_NOTES.md`, then run both scripts again.
 
 ## 8. Region step 2 — `refine_25m.py`, `detail_plots.py`, `validate_plots.py`
 
-**Purpose:** turn the 100 m model into the 16 Unreal plots (8129 × 8129 vertices, ~3.08 m apart) that join without steps.
+**Purpose:** turn the 100 m model into the 100 Unreal plots (4033 × 4033 vertices, ~2.48 m apart) that join without steps.
 
 ```
 cd fictional_map/regions/southern_coast_range/scripts
@@ -193,7 +194,7 @@ python refine_25m.py --reuse-erosion          # ~1.5 minutes: keep the erosion s
 python validate_landforms.py                  # seconds: cirque and outwash checks
 python detail_plots.py --tiles x2_y1 --preview  # seconds: 1/8-resolution preview of one plot
 python detail_plots.py --tiles x1_y1 x2_y1      # selected plots, full resolution (~1 minute each)
-python detail_plots.py --tiles all              # all 16 plots (~40 minutes, ~1 GB on disk)
+python detail_plots.py --tiles all              # all 100 plots (~1.5 s per km2: ~85 s per plot, ~2.5 hours, ~2 GB on disk)
 python validate_plots.py                        # checks every plot present in export/
 ```
 
@@ -240,11 +241,12 @@ exactly the same edge vertices):
 
 | File | Content |
 |---|---|
-| `heightmap.png` | 16-bit grayscale, 8129 × 8129, `value = 32768 + height_m × 12.8` (Z scale 1000) |
+| `heightmap.png` | 16-bit grayscale, 4033 × 4033, `value = 32768 + height_m × 12.8` (Z scale 1000) |
 | `layer_rock.png`, `layer_scree.png`, `layer_alpine_meadow.png`, `layer_forest.png`, `layer_wet_meadow.png`, `layer_gravel.png`, `layer_riverbed.png`, `layer_lakebed.png` | 8-bit weight maps (0–255, all eight add up to 255 at every vertex) for Unreal weight-blended landscape layers |
 | `tile.json` | Height range, mean, layer shares, encoding |
 
-and `output/preview_tile_x{c}_y{r}.png` (1016 × 1016 shaded preview coloured by layer).
+and `output/previews/preview_tile_x{c}_y{r}.png` (505 × 505 shaded preview coloured by layer, not in Git); after
+`--tiles all` (or with `--mosaic`) all previews are combined into `output/plots_mosaic.jpg`.
 
 `validate_plots.py` writes `VALIDATION_PLOTS.md` and `output/validation_plots.json` and exits with code 1 if a check fails:
 shared edges identical (seams, heights and layer weights), roughness spectrum close to Earth's (~k⁻²), plots faithful to
@@ -282,10 +284,10 @@ Each plot is its own landscape (the player switches between plots).
 
 1. Open or create the plot's level.
 2. **Landscape mode → Manage → New → Import from File**, and choose `tile_x{col}_y{row}.png`.
-3. Check that the resolution reads **8129 × 8129**.
-4. Set **Scale X = 307.574, Scale Y = 307.574, Scale Z = 1000**.
+3. Check that the resolution reads **4033 × 4033**.
+4. Set **Scale X = 248.016, Scale Y = 248.016, Scale Z = 1000**.
 5. Location: **0, 0, 0** when every plot is a separate level. If several plots are placed in one world,
-   use X = col × 2 500 000 cm and Y = row × 2 500 000 cm so their shared edges meet.
+   use X = col × 1 000 000 cm and Y = row × 1 000 000 cm so their shared edges meet.
 6. **Import.** Sea level is height 0 m (heightmap value 32768); place the sea or water body at Z = 0.
 7. **Layers:** create eight landscape layers named `rock`, `scree`, `alpine_meadow`, `forest`, `wet_meadow`, `gravel`,
    `riverbed`, `lakebed` in your landscape material (Landscape Layer Blend node, blend type **LB Weight Blend**), create

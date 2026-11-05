@@ -36,8 +36,9 @@ SP = dp.SPACING * 100.0
 rises = steps = 0
 in_channel = []; depth_ratio = []; vel = []
 lake_wet_in = []; dry_cells = [0, 0]
-for c_ in range(4):
-    for r_ in range(4):
+from region_common import CFG
+for c_ in range(CFG["tiles"]["count_x"]):
+    for r_ in range(CFG["tiles"]["count_y"]):
         name = f"tile_x{c_}_y{r_}"
         w = json.load(open(os.path.join(dp.EXPORT, name, "water.json")))
         hm = np.array(Image.open(os.path.join(dp.EXPORT, name, "heightmap.png")))

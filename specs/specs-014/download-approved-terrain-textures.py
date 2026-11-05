@@ -75,7 +75,7 @@ def main():
             if not authors: raise RuntimeError("Author metadata missing: " + asset_id)
             row = {"layer": layer, "id": asset_id, "authors": authors, "files": []}
             for channel, (name, ext, fmt) in MAPS.items():
-                try: url = files["2k"][name][ext]["url"]
+                try: url = files[name]["2k"][ext]["url"]
                 except (KeyError, TypeError):
                     raise RuntimeError(f"Missing exact 2K {name}/{ext} for {asset_id}")
                 if not url.startswith("https://dl.polyhaven.org/"):

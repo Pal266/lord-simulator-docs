@@ -1,5 +1,5 @@
 {
- "passed": 768,
+ "passed": 770,
  "total": 770,
  "checks": [
   {
@@ -19,7 +19,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0519,
+   "value": 0.0105,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -28,12 +28,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 56.5%"
+   "note": "blended vertices 56.7%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y0: mean difference from the base model (outside lakes)",
-   "value": -0.5352,
+   "value": -0.5333,
    "reference": 0,
    "band": [
     -3.0,
@@ -75,7 +75,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0703,
+   "value": 0.0167,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -84,12 +84,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 45.8%"
+   "note": "blended vertices 45.9%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y1: mean difference from the base model (outside lakes)",
-   "value": -0.6659,
+   "value": -0.6642,
    "reference": 0,
    "band": [
     -3.0,
@@ -131,7 +131,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0706,
+   "value": 0.0107,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -140,12 +140,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 28.7%"
+   "note": "blended vertices 28.8%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y2: mean difference from the base model (outside lakes)",
-   "value": 0.0369,
+   "value": 0.039,
    "reference": 0,
    "band": [
     -3.0,
@@ -187,7 +187,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0979,
+   "value": 0.009,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -196,12 +196,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 19.0%"
+   "note": "blended vertices 19.1%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0997,
+   "value": -0.0984,
    "reference": 0,
    "band": [
     -3.0,
@@ -243,7 +243,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1501,
+   "value": 0.0192,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -252,12 +252,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 16.7%"
+   "note": "blended vertices 16.9%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y4: mean difference from the base model (outside lakes)",
-   "value": -0.1053,
+   "value": -0.1032,
    "reference": 0,
    "band": [
     -3.0,
@@ -299,7 +299,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1979,
+   "value": 0.0292,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -308,12 +308,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.0%"
+   "note": "blended vertices 10.2%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y5: mean difference from the base model (outside lakes)",
-   "value": -0.3923,
+   "value": -0.3901,
    "reference": 0,
    "band": [
     -3.0,
@@ -355,7 +355,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2535,
+   "value": 0.0253,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -364,12 +364,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 9.8%"
+   "note": "blended vertices 9.9%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y6: mean difference from the base model (outside lakes)",
-   "value": -0.0558,
+   "value": -0.0533,
    "reference": 0,
    "band": [
     -3.0,
@@ -411,7 +411,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1921,
+   "value": 0.0144,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -420,12 +420,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 9.4%"
+   "note": "blended vertices 9.5%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y7: mean difference from the base model (outside lakes)",
-   "value": -0.0019,
+   "value": 0.0003,
    "reference": 0,
    "band": [
     -3.0,
@@ -467,7 +467,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2312,
+   "value": 0.009,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -476,12 +476,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.5%"
+   "note": "blended vertices 8.7%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y8: mean difference from the base model (outside lakes)",
-   "value": -0.0804,
+   "value": -0.0779,
    "reference": 0,
    "band": [
     -3.0,
@@ -523,7 +523,7 @@
   {
    "kind": "layers",
    "name": "tile_x0_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.4576,
+   "value": 0.0077,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -532,12 +532,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.0%"
+   "note": "blended vertices 6.3%"
   },
   {
    "kind": "model",
    "name": "tile_x0_y9: mean difference from the base model (outside lakes)",
-   "value": -0.1747,
+   "value": -0.1711,
    "reference": 0,
    "band": [
     -3.0,
@@ -579,7 +579,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2387,
+   "value": 0.0134,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -588,12 +588,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 12.9%"
+   "note": "blended vertices 13.1%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y0: mean difference from the base model (outside lakes)",
-   "value": -0.2126,
+   "value": -0.2102,
    "reference": 0,
    "band": [
     -3.0,
@@ -635,7 +635,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1059,
+   "value": 0.0078,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -644,12 +644,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 29.5%"
+   "note": "blended vertices 29.6%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y1: mean difference from the base model (outside lakes)",
-   "value": -0.295,
+   "value": -0.2936,
    "reference": 0,
    "band": [
     -3.0,
@@ -691,7 +691,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0699,
+   "value": 0.0144,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -700,12 +700,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 42.9%"
+   "note": "blended vertices 43.1%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y2: mean difference from the base model (outside lakes)",
-   "value": -0.0354,
+   "value": -0.0324,
    "reference": 0,
    "band": [
     -3.0,
@@ -747,7 +747,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0587,
+   "value": 0.0136,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -756,12 +756,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 49.5%"
+   "note": "blended vertices 49.6%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y3: mean difference from the base model (outside lakes)",
-   "value": -0.605,
+   "value": -0.6026,
    "reference": 0,
    "band": [
     -3.0,
@@ -803,7 +803,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0964,
+   "value": 0.0213,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -812,12 +812,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 28.6%"
+   "note": "blended vertices 28.7%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y4: mean difference from the base model (outside lakes)",
-   "value": -0.4839,
+   "value": -0.4822,
    "reference": 0,
    "band": [
     -3.0,
@@ -859,7 +859,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1115,
+   "value": 0.0228,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -868,12 +868,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 21.4%"
+   "note": "blended vertices 21.5%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y5: mean difference from the base model (outside lakes)",
-   "value": -0.4651,
+   "value": -0.4636,
    "reference": 0,
    "band": [
     -3.0,
@@ -915,7 +915,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1664,
+   "value": 0.0242,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -924,12 +924,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 12.8%"
+   "note": "blended vertices 12.9%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y6: mean difference from the base model (outside lakes)",
-   "value": -0.1036,
+   "value": -0.1024,
    "reference": 0,
    "band": [
     -3.0,
@@ -971,7 +971,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2491,
+   "value": 0.0223,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -980,12 +980,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 11.3%"
+   "note": "blended vertices 11.4%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y7: mean difference from the base model (outside lakes)",
-   "value": 0.0893,
+   "value": 0.0916,
    "reference": 0,
    "band": [
     -3.0,
@@ -1027,7 +1027,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.4836,
+   "value": 0.0211,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1036,12 +1036,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.5%"
+   "note": "blended vertices 5.7%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y8: mean difference from the base model (outside lakes)",
-   "value": -0.1154,
+   "value": -0.1119,
    "reference": 0,
    "band": [
     -3.0,
@@ -1083,7 +1083,7 @@
   {
    "kind": "layers",
    "name": "tile_x1_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1619,
+   "value": 0.0202,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1092,12 +1092,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 11.3%"
+   "note": "blended vertices 11.4%"
   },
   {
    "kind": "model",
    "name": "tile_x1_y9: mean difference from the base model (outside lakes)",
-   "value": -0.0204,
+   "value": -0.0187,
    "reference": 0,
    "band": [
     -3.0,
@@ -1139,7 +1139,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.6033,
+   "value": 0.0068,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1148,12 +1148,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 1.9%"
+   "note": "blended vertices 2.0%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0768,
+   "value": -0.0758,
    "reference": 0,
    "band": [
     -3.0,
@@ -1195,7 +1195,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1775,
+   "value": 0.0189,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1204,12 +1204,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.3%"
+   "note": "blended vertices 6.4%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y1: mean difference from the base model (outside lakes)",
-   "value": -0.1088,
+   "value": -0.1077,
    "reference": 0,
    "band": [
     -3.0,
@@ -1251,7 +1251,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3167,
+   "value": 0.0754,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1260,12 +1260,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 11.1%"
+   "note": "blended vertices 11.3%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y2: mean difference from the base model (outside lakes)",
-   "value": -1.347,
+   "value": -1.3433,
    "reference": 0,
    "band": [
     -3.0,
@@ -1307,7 +1307,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2142,
+   "value": 0.0445,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1316,12 +1316,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 18.9%"
+   "note": "blended vertices 19.0%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y3: mean difference from the base model (outside lakes)",
-   "value": -0.9924,
+   "value": -0.9911,
    "reference": 0,
    "band": [
     -3.0,
@@ -1363,7 +1363,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1589,
+   "value": 0.0486,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1372,12 +1372,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 29.6%"
+   "note": "blended vertices 29.7%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y4: mean difference from the base model (outside lakes)",
-   "value": -1.8847,
+   "value": -1.8821,
    "reference": 0,
    "band": [
     -3.0,
@@ -1419,7 +1419,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0445,
+   "value": 0.0068,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1428,12 +1428,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 55.2%"
+   "note": "blended vertices 55.3%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y5: mean difference from the base model (outside lakes)",
-   "value": -0.3538,
+   "value": -0.3517,
    "reference": 0,
    "band": [
     -3.0,
@@ -1475,7 +1475,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0911,
+   "value": 0.0232,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1484,12 +1484,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 33.6%"
+   "note": "blended vertices 33.7%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y6: mean difference from the base model (outside lakes)",
-   "value": -0.769,
+   "value": -0.7682,
    "reference": 0,
    "band": [
     -3.0,
@@ -1531,7 +1531,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1644,
+   "value": 0.0357,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1540,12 +1540,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 18.6%"
+   "note": "blended vertices 18.7%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y7: mean difference from the base model (outside lakes)",
-   "value": -0.8344,
+   "value": -0.8324,
    "reference": 0,
    "band": [
     -3.0,
@@ -1587,7 +1587,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1363,
+   "value": 0.0062,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1596,12 +1596,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 16.2%"
+   "note": "blended vertices 16.4%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y8: mean difference from the base model (outside lakes)",
-   "value": 0.0154,
+   "value": 0.0182,
    "reference": 0,
    "band": [
     -3.0,
@@ -1643,7 +1643,7 @@
   {
    "kind": "layers",
    "name": "tile_x2_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1578,
+   "value": 0.0242,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1652,12 +1652,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 11.5%"
+   "note": "blended vertices 11.7%"
   },
   {
    "kind": "model",
    "name": "tile_x2_y9: mean difference from the base model (outside lakes)",
-   "value": -0.6092,
+   "value": -0.607,
    "reference": 0,
    "band": [
     -3.0,
@@ -1699,7 +1699,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1097,
+   "value": 0.0191,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1713,7 +1713,7 @@
   {
    "kind": "model",
    "name": "tile_x3_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0015,
+   "value": -0.0013,
    "reference": 0,
    "band": [
     -3.0,
@@ -1811,7 +1811,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3945,
+   "value": 0.0609,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1820,12 +1820,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.4%"
+   "note": "blended vertices 6.5%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y2: mean difference from the base model (outside lakes)",
-   "value": -0.6205,
+   "value": -0.6187,
    "reference": 0,
    "band": [
     -3.0,
@@ -1867,7 +1867,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.6706,
+   "value": 0.0283,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1876,12 +1876,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.1%"
+   "note": "blended vertices 5.3%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y3: mean difference from the base model (outside lakes)",
-   "value": -0.3591,
+   "value": -0.3563,
    "reference": 0,
    "band": [
     -3.0,
@@ -1923,7 +1923,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3101,
+   "value": 0.0298,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1932,12 +1932,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 8.8%"
+   "note": "blended vertices 9.0%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y4: mean difference from the base model (outside lakes)",
-   "value": -0.2622,
+   "value": -0.2596,
    "reference": 0,
    "band": [
     -3.0,
@@ -1979,7 +1979,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2605,
+   "value": 0.0238,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -1988,12 +1988,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.9%"
+   "note": "blended vertices 11.0%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y5: mean difference from the base model (outside lakes)",
-   "value": -0.5494,
+   "value": -0.5468,
    "reference": 0,
    "band": [
     -3.0,
@@ -2035,7 +2035,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.08,
+   "value": 0.0098,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2044,12 +2044,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 31.5%"
+   "note": "blended vertices 31.6%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y6: mean difference from the base model (outside lakes)",
-   "value": -0.3141,
+   "value": -0.3122,
    "reference": 0,
    "band": [
     -3.0,
@@ -2091,7 +2091,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0641,
+   "value": 0.0089,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2100,12 +2100,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 47.8%"
+   "note": "blended vertices 47.9%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y7: mean difference from the base model (outside lakes)",
-   "value": -0.6892,
+   "value": -0.6862,
    "reference": 0,
    "band": [
     -3.0,
@@ -2147,7 +2147,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0336,
+   "value": 0.0025,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2156,12 +2156,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 61.2%"
+   "note": "blended vertices 61.4%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y8: mean difference from the base model (outside lakes)",
-   "value": -0.1253,
+   "value": -0.1235,
    "reference": 0,
    "band": [
     -3.0,
@@ -2203,7 +2203,7 @@
   {
    "kind": "layers",
    "name": "tile_x3_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0405,
+   "value": 0.0101,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2212,12 +2212,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 46.0%"
+   "note": "blended vertices 46.1%"
   },
   {
    "kind": "model",
    "name": "tile_x3_y9: mean difference from the base model (outside lakes)",
-   "value": -0.7635,
+   "value": -0.7624,
    "reference": 0,
    "band": [
     -3.0,
@@ -2315,7 +2315,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.5981,
+   "value": 0.0011,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2324,12 +2324,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.7%"
+   "note": "blended vertices 0.8%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0466,
+   "value": -0.046,
    "reference": 0,
    "band": [
     -3.0,
@@ -2371,7 +2371,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.871,
+   "value": 0.0292,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2380,12 +2380,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 4.3%"
+   "note": "blended vertices 4.6%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y2: mean difference from the base model (outside lakes)",
-   "value": -0.3087,
+   "value": -0.3037,
    "reference": 0,
    "band": [
     -3.0,
@@ -2427,7 +2427,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3295,
+   "value": 0.025,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2436,12 +2436,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 9.0%"
+   "note": "blended vertices 9.2%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y3: mean difference from the base model (outside lakes)",
-   "value": -0.3366,
+   "value": -0.3341,
    "reference": 0,
    "band": [
     -3.0,
@@ -2483,7 +2483,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.0069,
+   "value": 0.0022,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2492,12 +2492,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.2%"
+   "note": "blended vertices 3.5%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y4: mean difference from the base model (outside lakes)",
-   "value": -0.2038,
+   "value": -0.1997,
    "reference": 0,
    "band": [
     -3.0,
@@ -2539,7 +2539,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3704,
+   "value": 0.0523,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2548,12 +2548,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 6.5%"
+   "note": "blended vertices 6.6%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y5: mean difference from the base model (outside lakes)",
-   "value": -0.2678,
+   "value": -0.2656,
    "reference": 0,
    "band": [
     -3.0,
@@ -2595,7 +2595,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.4254,
+   "value": 0.0142,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2604,12 +2604,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 5.9%"
+   "note": "blended vertices 6.0%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y6: mean difference from the base model (outside lakes)",
-   "value": -0.1146,
+   "value": -0.1119,
    "reference": 0,
    "band": [
     -3.0,
@@ -2651,7 +2651,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0509,
+   "value": 0.0008,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2665,7 +2665,7 @@
   {
    "kind": "model",
    "name": "tile_x4_y7: mean difference from the base model (outside lakes)",
-   "value": -0.0555,
+   "value": -0.0552,
    "reference": 0,
    "band": [
     -3.0,
@@ -2707,7 +2707,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1953,
+   "value": 0.0074,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2716,12 +2716,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 7.2%"
+   "note": "blended vertices 7.3%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y8: mean difference from the base model (outside lakes)",
-   "value": -0.1363,
+   "value": -0.1351,
    "reference": 0,
    "band": [
     -3.0,
@@ -2763,7 +2763,7 @@
   {
    "kind": "layers",
    "name": "tile_x4_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1117,
+   "value": 0.0119,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2772,12 +2772,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 10.7%"
+   "note": "blended vertices 10.8%"
   },
   {
    "kind": "model",
    "name": "tile_x4_y9: mean difference from the base model (outside lakes)",
-   "value": -0.4194,
+   "value": -0.4187,
    "reference": 0,
    "band": [
     -3.0,
@@ -2875,7 +2875,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.7687,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2889,7 +2889,7 @@
   {
    "kind": "model",
    "name": "tile_x5_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0486,
+   "value": -0.0483,
    "reference": 0,
    "band": [
     -3.0,
@@ -2931,7 +2931,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.8348,
+   "value": 0.0265,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -2940,12 +2940,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 3.9%"
+   "note": "blended vertices 4.1%"
   },
   {
    "kind": "model",
    "name": "tile_x5_y2: mean difference from the base model (outside lakes)",
-   "value": -0.2013,
+   "value": -0.1977,
    "reference": 0,
    "band": [
     -3.0,
@@ -2987,7 +2987,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1605,
+   "value": 0.0245,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3001,7 +3001,7 @@
   {
    "kind": "model",
    "name": "tile_x5_y3: mean difference from the base model (outside lakes)",
-   "value": -0.1273,
+   "value": -0.1267,
    "reference": 0,
    "band": [
     -3.0,
@@ -3043,7 +3043,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1044,
+   "value": 0.0125,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3052,12 +3052,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 4.3%"
+   "note": "blended vertices 4.4%"
   },
   {
    "kind": "model",
    "name": "tile_x5_y4: mean difference from the base model (outside lakes)",
-   "value": -0.1641,
+   "value": -0.1637,
    "reference": 0,
    "band": [
     -3.0,
@@ -3099,7 +3099,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2256,
+   "value": 0.0173,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3113,7 +3113,7 @@
   {
    "kind": "model",
    "name": "tile_x5_y5: mean difference from the base model (outside lakes)",
-   "value": -0.0628,
+   "value": -0.0623,
    "reference": 0,
    "band": [
     -3.0,
@@ -3155,7 +3155,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0861,
+   "value": 0.0205,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3169,7 +3169,7 @@
   {
    "kind": "model",
    "name": "tile_x5_y6: mean difference from the base model (outside lakes)",
-   "value": -0.1977,
+   "value": -0.1974,
    "reference": 0,
    "band": [
     -3.0,
@@ -3267,7 +3267,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0841,
+   "value": 0.0048,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3276,12 +3276,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 7.6%"
+   "note": "blended vertices 7.7%"
   },
   {
    "kind": "model",
    "name": "tile_x5_y8: mean difference from the base model (outside lakes)",
-   "value": -0.1808,
+   "value": -0.1802,
    "reference": 0,
    "band": [
     -3.0,
@@ -3323,7 +3323,7 @@
   {
    "kind": "layers",
    "name": "tile_x5_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1572,
+   "value": 0.0096,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3337,7 +3337,7 @@
   {
    "kind": "model",
    "name": "tile_x5_y9: mean difference from the base model (outside lakes)",
-   "value": -0.0925,
+   "value": -0.0915,
    "reference": 0,
    "band": [
     -3.0,
@@ -3491,7 +3491,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.4262,
+   "value": 0.0162,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3500,12 +3500,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 1.1%"
+   "note": "blended vertices 1.2%"
   },
   {
    "kind": "model",
    "name": "tile_x6_y2: mean difference from the base model (outside lakes)",
-   "value": -0.0571,
+   "value": -0.0569,
    "reference": 0,
    "band": [
     -3.0,
@@ -3547,7 +3547,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2504,
+   "value": 0.0354,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3561,7 +3561,7 @@
   {
    "kind": "model",
    "name": "tile_x6_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0923,
+   "value": -0.0918,
    "reference": 0,
    "band": [
     -3.0,
@@ -3603,7 +3603,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1906,
+   "value": 0.0243,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3617,7 +3617,7 @@
   {
    "kind": "model",
    "name": "tile_x6_y4: mean difference from the base model (outside lakes)",
-   "value": -0.1371,
+   "value": -0.1368,
    "reference": 0,
    "band": [
     -3.0,
@@ -3659,7 +3659,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1081,
+   "value": 0.0144,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3673,7 +3673,7 @@
   {
    "kind": "model",
    "name": "tile_x6_y5: mean difference from the base model (outside lakes)",
-   "value": -0.1107,
+   "value": -0.1105,
    "reference": 0,
    "band": [
     -3.0,
@@ -3715,7 +3715,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0285,
+   "value": 0.0079,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3771,7 +3771,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0662,
+   "value": 0.0085,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -3785,7 +3785,7 @@
   {
    "kind": "model",
    "name": "tile_x6_y7: mean difference from the base model (outside lakes)",
-   "value": -0.0532,
+   "value": -0.053,
    "reference": 0,
    "band": [
     -3.0,
@@ -3883,7 +3883,7 @@
   {
    "kind": "layers",
    "name": "tile_x6_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0838,
+   "value": 0.0088,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4107,7 +4107,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2972,
+   "value": 0.0172,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4121,7 +4121,7 @@
   {
    "kind": "model",
    "name": "tile_x7_y3: mean difference from the base model (outside lakes)",
-   "value": -0.0594,
+   "value": -0.0591,
    "reference": 0,
    "band": [
     -3.0,
@@ -4163,7 +4163,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.3849,
+   "value": 0.0277,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4177,7 +4177,7 @@
   {
    "kind": "model",
    "name": "tile_x7_y4: mean difference from the base model (outside lakes)",
-   "value": -0.0767,
+   "value": -0.0764,
    "reference": 0,
    "band": [
     -3.0,
@@ -4219,7 +4219,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1015,
+   "value": 0.0097,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4331,7 +4331,7 @@
   {
    "kind": "layers",
    "name": "tile_x7_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.7067,
+   "value": 0.0176,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4340,12 +4340,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.4%"
+   "note": "blended vertices 0.5%"
   },
   {
    "kind": "model",
    "name": "tile_x7_y7: mean difference from the base model (outside lakes)",
-   "value": -0.0307,
+   "value": -0.0306,
    "reference": 0,
    "band": [
     -3.0,
@@ -4499,7 +4499,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 2.3041,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4508,12 +4508,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.7%"
+   "note": "blended vertices 0.8%"
   },
   {
    "kind": "model",
    "name": "tile_x8_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0763,
+   "value": -0.0749,
    "reference": 0,
    "band": [
     -3.0,
@@ -4611,7 +4611,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.8886,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4625,7 +4625,7 @@
   {
    "kind": "model",
    "name": "tile_x8_y2: mean difference from the base model (outside lakes)",
-   "value": -0.0224,
+   "value": -0.0223,
    "reference": 0,
    "band": [
     -3.0,
@@ -4667,7 +4667,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.0211,
+   "value": 0.0018,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4681,7 +4681,7 @@
   {
    "kind": "model",
    "name": "tile_x8_y3: mean difference from the base model (outside lakes)",
-   "value": -0.1076,
+   "value": -0.1066,
    "reference": 0,
    "band": [
     -3.0,
@@ -4723,7 +4723,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.2656,
+   "value": 0.0075,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -4737,7 +4737,7 @@
   {
    "kind": "model",
    "name": "tile_x8_y4: mean difference from the base model (outside lakes)",
-   "value": -0.057,
+   "value": -0.0568,
    "reference": 0,
    "band": [
     -3.0,
@@ -4891,7 +4891,7 @@
   {
    "kind": "layers",
    "name": "tile_x8_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.0892,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5059,7 +5059,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y0: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.9709,
+   "value": 0.0159,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5073,7 +5073,7 @@
   {
    "kind": "model",
    "name": "tile_x9_y0: mean difference from the base model (outside lakes)",
-   "value": -0.0603,
+   "value": -0.0597,
    "reference": 0,
    "band": [
     -3.0,
@@ -5115,7 +5115,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y1: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.8762,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5124,12 +5124,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.5%"
+   "note": "blended vertices 0.6%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y1: mean difference from the base model (outside lakes)",
-   "value": -0.0495,
+   "value": -0.0489,
    "reference": 0,
    "band": [
     -3.0,
@@ -5171,7 +5171,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y2: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 5.173,
+   "value": 0.0468,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5179,13 +5179,13 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 0.4%"
+   "passed": true,
+   "note": "blended vertices 0.5%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y2: mean difference from the base model (outside lakes)",
-   "value": -0.0919,
+   "value": -0.0911,
    "reference": 0,
    "band": [
     -3.0,
@@ -5227,7 +5227,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y3: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 5.0257,
+   "value": 0.0644,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5235,13 +5235,13 @@
    ],
    "unit": "%",
    "source": "ue_layers",
-   "passed": false,
-   "note": "blended vertices 0.5%"
+   "passed": true,
+   "note": "blended vertices 0.6%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y3: mean difference from the base model (outside lakes)",
-   "value": -0.1099,
+   "value": -0.1089,
    "reference": 0,
    "band": [
     -3.0,
@@ -5283,7 +5283,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y4: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.9824,
+   "value": 0.0056,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5292,12 +5292,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 1.1%"
+   "note": "blended vertices 1.2%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y4: mean difference from the base model (outside lakes)",
-   "value": -0.0634,
+   "value": -0.0627,
    "reference": 0,
    "band": [
     -3.0,
@@ -5339,7 +5339,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y5: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 2.8071,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5353,7 +5353,7 @@
   {
    "kind": "model",
    "name": "tile_x9_y5: mean difference from the base model (outside lakes)",
-   "value": -0.0411,
+   "value": -0.0405,
    "reference": 0,
    "band": [
     -3.0,
@@ -5395,7 +5395,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y6: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1119,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5404,12 +5404,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.8%"
+   "note": "blended vertices 0.9%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y6: mean difference from the base model (outside lakes)",
-   "value": -0.0082,
+   "value": -0.0081,
    "reference": 0,
    "band": [
     -3.0,
@@ -5451,7 +5451,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y7: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.3605,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5460,12 +5460,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.6%"
+   "note": "blended vertices 0.7%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y7: mean difference from the base model (outside lakes)",
-   "value": -0.0484,
+   "value": -0.0475,
    "reference": 0,
    "band": [
     -3.0,
@@ -5507,7 +5507,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y8: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 0.1498,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5516,12 +5516,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.3%"
+   "note": "blended vertices 0.4%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y8: mean difference from the base model (outside lakes)",
-   "value": -0.0176,
+   "value": -0.0175,
    "reference": 0,
    "band": [
     -3.0,
@@ -5563,7 +5563,7 @@
   {
    "kind": "layers",
    "name": "tile_x9_y9: hard 0<->255 jumps among layer-weight changes between neighbouring vertices",
-   "value": 1.3718,
+   "value": 0.0,
    "reference": "~0 (soft transitions)",
    "band": [
     0,
@@ -5572,12 +5572,12 @@
    "unit": "%",
    "source": "ue_layers",
    "passed": true,
-   "note": "blended vertices 0.4%"
+   "note": "blended vertices 0.5%"
   },
   {
    "kind": "model",
    "name": "tile_x9_y9: mean difference from the base model (outside lakes)",
-   "value": -0.027,
+   "value": -0.0264,
    "reference": 0,
    "band": [
     -3.0,
@@ -5619,7 +5619,7 @@
   {
    "kind": "Earth data",
    "name": "plot row y1: spectral exponent beta of 100 km height transects (500 m - 10 km)",
-   "value": 1.9441,
+   "value": 1.9442,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -5633,7 +5633,7 @@
   {
    "kind": "Earth data",
    "name": "plot row y2: spectral exponent beta of 100 km height transects (500 m - 10 km)",
-   "value": 2.3353,
+   "value": 2.3354,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -5661,7 +5661,7 @@
   {
    "kind": "Earth data",
    "name": "plot row y4: spectral exponent beta of 100 km height transects (500 m - 10 km)",
-   "value": 2.2163,
+   "value": 2.2164,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -5675,7 +5675,7 @@
   {
    "kind": "Earth data",
    "name": "plot row y5: spectral exponent beta of 100 km height transects (500 m - 10 km)",
-   "value": 2.423,
+   "value": 2.4231,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,
@@ -5731,7 +5731,7 @@
   {
    "kind": "Earth data",
    "name": "plot row y9: spectral exponent beta of 100 km height transects (500 m - 10 km)",
-   "value": 2.1829,
+   "value": 2.183,
    "reference": "~2 (1.8-2.1 reported)",
    "band": [
     1.6,

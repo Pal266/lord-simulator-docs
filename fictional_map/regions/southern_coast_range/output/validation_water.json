@@ -33,7 +33,7 @@
   {
    "kind": "physics",
    "name": "Water depth over the terrain / Manning depth, median",
-   "value": 0.9521,
+   "value": 0.9519,
    "reference": "~1",
    "band": [
     0.5,
@@ -75,7 +75,7 @@
   {
    "kind": "physics",
    "name": "Lakes cover their basins: median share of terrain below the lake level inside the outline",
-   "value": 64.6845,
+   "value": 65.5271,
    "reference": "most of the lake area",
    "band": [
     50.0,
@@ -89,7 +89,7 @@
   {
    "kind": "physics",
    "name": "No dry hollows next to lakes: dry ground > 0.3 m below the lake level, connected to a lake, as share of lake area",
-   "value": 1.3933,
+   "value": 1.3932,
    "reference": "~0",
    "band": [
     0,
